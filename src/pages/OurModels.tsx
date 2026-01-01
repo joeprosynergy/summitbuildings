@@ -13,7 +13,6 @@ import proUtility from '@/assets/pro-utility.webp';
 import economy from '@/assets/economy.webp';
 import garage from '@/assets/garage.webp';
 import carport from '@/assets/carport.jpeg';
-import dormer from '@/assets/dormer.jpeg';
 import miniBarn from '@/assets/mini-barn.jpeg';
 
 const categories = [
@@ -22,12 +21,12 @@ const categories = [
     name: 'Basic Storage',
     description: 'Affordable, practical sheds for everyday storage needs',
     models: [
-      { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/styles/basic-storage#budget-pro-utility' },
-      { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/styles/basic-storage#budget-pro-lofted-barn' },
-      { name: 'Mini Barn', image: miniBarn, link: '/styles/basic-storage#mini-barn' },
-      { name: 'Economy', image: economy, link: '/styles/basic-storage#economy' },
+      { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/types/basic-storage#budget-pro-utility' },
+      { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/types/basic-storage#budget-pro-lofted-barn' },
+      { name: 'Mini Barn', image: miniBarn, link: '/types/basic-storage#mini-barn' },
+      { name: 'Economy', image: economy, link: '/types/basic-storage#economy' },
     ],
-    link: '/styles/basic-storage'
+    link: '/types/basic-storage'
   },
   {
     id: 'deluxe-storage-cabins',
@@ -36,20 +35,19 @@ const categories = [
     models: [
       { name: 'Pro - Utility', image: proUtility, link: '/pro-utility-shed' },
       { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/pro-lofted-barn' },
-      { name: 'Cabins/Tiny Home', image: cabinShed, link: '/styles/deluxe-storage-cabins#cabins-tiny-home' },
-      { name: 'Dormer', image: dormer, link: '/styles/deluxe-storage-cabins#dormer', contain: true },
+      { name: 'Cabins/Tiny Home', image: cabinShed, link: '/types/deluxe-storage-cabins#cabins-tiny-home' },
     ],
-    link: '/styles/deluxe-storage-cabins'
+    link: '/types/deluxe-storage-cabins'
   },
   {
     id: 'garages-carports',
     name: 'Garages & Carports',
     description: 'Secure vehicle and equipment storage',
     models: [
-      { name: 'Garages', image: garage, link: '/styles/garages-carports#garages' },
-      { name: 'Carports', image: carport, link: '/styles/garages-carports#carports' },
+      { name: 'Garages', image: garage, link: '/types/garages-carports#garages' },
+      { name: 'Carports', image: carport, link: '/types/garages-carports#carports' },
     ],
-    link: '/styles/garages-carports'
+    link: '/types/garages-carports'
   },
 ];
 
@@ -109,11 +107,11 @@ const OurModels = () => {
                           to={model.link}
                           className="group text-center"
                         >
-                          <div className={`aspect-square mb-4 overflow-hidden rounded-lg shadow-sm ${model.contain ? 'bg-neutral-100 p-3' : 'bg-muted'}`}>
+                          <div className="aspect-square mb-4 overflow-hidden rounded-lg shadow-sm bg-muted">
                             <img
                               src={model.image}
                               alt={model.name}
-                              className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${model.contain ? 'object-contain' : 'object-cover'}`}
+                              className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover"
                             />
                           </div>
                           <h3 className="font-heading font-bold text-foreground group-hover:text-secondary transition-colors uppercase tracking-wide">
