@@ -9,6 +9,12 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  
+  // Pages with dark hero sections (need light text when not scrolled)
+  const hasDarkHero = isHomePage;
+  
+  // Determine if we should use light text (for dark backgrounds)
+  const useLightText = hasDarkHero && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +36,9 @@ const Header = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-card/95 backdrop-blur-md shadow-md'
-          : 'bg-transparent'
+          : hasDarkHero
+            ? 'bg-transparent'
+            : 'bg-card/95 backdrop-blur-md shadow-md'
       }`}
     >
       <div className="container-custom">
@@ -41,7 +49,7 @@ const Header = () => {
               src={summitLogo}
               alt="Summit Portable Buildings"
               className={`h-14 w-auto transition-all duration-300 ${
-                isScrolled ? '' : 'brightness-0 invert'
+                useLightText ? 'brightness-0 invert' : ''
               }`}
             />
           </Link>
@@ -54,9 +62,9 @@ const Header = () => {
                   key={link.href}
                   to={link.href}
                   className={`font-medium transition-colors duration-200 ${
-                    isScrolled
-                      ? 'text-foreground/80 hover:text-secondary'
-                      : 'text-primary-foreground/90 hover:text-secondary-foreground'
+                    useLightText
+                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
+                      : 'text-foreground/80 hover:text-secondary'
                   }`}
                 >
                   {link.label}
@@ -66,9 +74,9 @@ const Header = () => {
                   key={link.href}
                   href={link.href}
                   className={`font-medium transition-colors duration-200 ${
-                    isScrolled
-                      ? 'text-foreground/80 hover:text-secondary'
-                      : 'text-primary-foreground/90 hover:text-secondary-foreground'
+                    useLightText
+                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
+                      : 'text-foreground/80 hover:text-secondary'
                   }`}
                 >
                   {link.label}
@@ -82,7 +90,7 @@ const Header = () => {
             <a
               href="tel:5737474700"
               className={`flex items-center gap-2 font-semibold ${
-                isScrolled ? 'text-foreground' : 'text-primary-foreground'
+                useLightText ? 'text-primary-foreground' : 'text-foreground'
               }`}
             >
               <Phone className="w-4 h-4" />
@@ -100,9 +108,9 @@ const Header = () => {
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`} />
+              <X className={`w-6 h-6 ${useLightText ? 'text-primary-foreground' : 'text-foreground'}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`} />
+              <Menu className={`w-6 h-6 ${useLightText ? 'text-primary-foreground' : 'text-foreground'}`} />
             )}
           </button>
         </div>

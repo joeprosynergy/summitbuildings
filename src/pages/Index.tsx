@@ -8,7 +8,6 @@ import Products from '@/components/Products';
 import Imagine from '@/components/Imagine';
 import CTABanner from '@/components/CTABanner';
 import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
 import Locations from '@/components/Locations';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -42,34 +41,31 @@ const Index = () => {
           {/* 1. Hero - Clear headline with value proposition */}
           <Hero />
           
-          {/* 2. Stakes - The problem (pain points) */}
+          {/* 2. Stakes - The problem (We Understand - pain points) */}
           <Stakes />
           
-          {/* 3. Guide - Position as the guide with empathy + authority */}
+          {/* 3. Guide - Position as the guide (We've Helped Hundreds) */}
           <Guide />
           
-          {/* 4. Plan - Simple 3-step process */}
+          {/* 4. Plan - Simple 3-step process (The Plan) */}
           <HowItWorks />
           
-          {/* 5. Products - Our solutions */}
+          {/* 5. Products - Choose Your Style */}
           <Products />
           
-          {/* 6. Imagine - Future pacing (what life looks like) */}
+          {/* 6. Imagine - What Life Looks Like With the Right Storage */}
           <Imagine />
           
-          {/* 7. CTA Banner - Urgency call to action */}
+          {/* 7. CTA Banner - Don't Let Clutter Take Over */}
           <CTABanner />
           
-          {/* 8. Social Proof - Testimonials */}
+          {/* 8. Social Proof - Success Stories */}
           <Testimonials />
           
-          {/* 9. FAQ - Handle objections */}
-          <FAQ />
-          
-          {/* 10. Locations */}
+          {/* 9. Locations - Service Areas */}
           <Locations />
           
-          {/* 11. Contact Form */}
+          {/* 10. Contact - Get In Touch */}
           <Contact />
         </main>
         <Footer />
