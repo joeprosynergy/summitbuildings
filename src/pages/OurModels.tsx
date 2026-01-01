@@ -8,6 +8,7 @@ import cabinShed from '@/assets/cabin-shed.jpg';
 import garageShed from '@/assets/garage-shed.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
 import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
+import budgetProUtility from '@/assets/budget-pro-utility.webp';
 
 const categories = [
   {
@@ -15,7 +16,7 @@ const categories = [
     name: 'Basic Storage',
     description: 'Affordable, practical sheds for everyday storage needs',
     models: [
-      { name: 'Budget Pro - Utility', image: utilityShed, link: '/our-models/basic-storage#budget-pro-utility' },
+      { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/our-models/basic-storage#budget-pro-utility' },
       { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#budget-pro-lofted-barn' },
       { name: 'Mini Barn', image: loftedBarn, link: '/our-models/basic-storage#mini-barn' },
       { name: 'Economy', image: sideUtility, link: '/our-models/basic-storage#economy' },

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import utilityShed from '@/assets/utility-shed.jpg';
 import loftedBarn from '@/assets/lofted-barn.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
+import budgetProUtility from '@/assets/budget-pro-utility.webp';
 
 const models = [
   {
@@ -19,8 +20,8 @@ const models = [
       'A-frame roof design',
       '6\' 4" Wall Height',
     ],
-    image: utilityShed,
-    gallery: [utilityShed, utilityShed, utilityShed, utilityShed, utilityShed, utilityShed],
+    image: budgetProUtility,
+    gallery: [budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility],
     detailLink: '/our-models/budget-pro-utility',
   },
   {
@@ -65,7 +66,7 @@ const models = [
 ];
 
 const quickNavModels = [
-  { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: utilityShed },
+  { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
   { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: loftedBarn },
   { id: 'mini-barn', name: 'Mini Barn', image: loftedBarn },
   { id: 'economy', name: 'Economy', image: sideUtility },
