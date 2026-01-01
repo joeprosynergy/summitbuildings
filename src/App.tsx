@@ -8,7 +8,9 @@ import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import OurModels from "./pages/OurModels";
 import BasicStorage from "./pages/BasicStorage";
+import DeluxeStorageCabins from "./pages/DeluxeStorageCabins";
 import UtilityShed from "./pages/UtilityShed";
+import ProLoftedBarn from "./pages/ProLoftedBarn";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,7 +27,9 @@ const App = () => (
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/styles" element={<OurModels />} />
             <Route path="/styles/basic-storage" element={<BasicStorage />} />
+            <Route path="/styles/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
             <Route path="/pro-utility-shed" element={<UtilityShed />} />
+            <Route path="/pro-lofted-barn" element={<ProLoftedBarn />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
