@@ -9,6 +9,7 @@ import utilityShed from '@/assets/utility-shed.jpg';
 import loftedBarn from '@/assets/lofted-barn.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
 import budgetProUtility from '@/assets/budget-pro-utility.webp';
+import economy from '@/assets/economy.webp';
 
 const models = [
   {
@@ -59,8 +60,8 @@ const models = [
       'Practical design',
       'Quality construction',
     ],
-    image: sideUtility,
-    gallery: [sideUtility, sideUtility, sideUtility, sideUtility, sideUtility, sideUtility],
+    image: economy,
+    gallery: [economy, economy, economy, economy, economy, economy],
     detailLink: '/our-models/economy',
   },
 ];
@@ -69,7 +70,7 @@ const quickNavModels = [
   { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
   { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: loftedBarn },
   { id: 'mini-barn', name: 'Mini Barn', image: loftedBarn },
-  { id: 'economy', name: 'Economy', image: sideUtility },
+  { id: 'economy', name: 'Economy', image: economy },
 ];
 
 const BasicStorage = () => {
