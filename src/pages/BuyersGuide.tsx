@@ -127,7 +127,8 @@ const BuyersGuide = () => {
           {isGeneratingPDF && (
             <div
               aria-hidden="true"
-              className="fixed left-[-100000px] top-0 w-[8.5in] bg-white"
+              className="fixed left-[-100000px] top-0 bg-white"
+              style={{ width: '7.5in' }}
             >
               <div id="buyers-guide-pdf" className="buyers-guide-pdf">
                 <CoverPage exportMode />
