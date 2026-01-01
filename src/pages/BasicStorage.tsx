@@ -11,8 +11,8 @@ import sideUtility from '@/assets/side-utility-shed.jpg';
 
 const models = [
   {
-    id: 'utility-shed',
-    name: 'Utility Shed',
+    id: 'budget-pro-utility',
+    name: 'Budget Pro - Utility',
     tagline: 'Simple, versatile storage for any property.',
     features: [
       'Double doors for easy access',
@@ -20,12 +20,12 @@ const models = [
       '6\' 4" Wall Height',
     ],
     image: utilityShed,
-    gallery: [utilityShed],
-    detailLink: '/our-models/utility-shed',
+    gallery: [utilityShed, utilityShed, utilityShed, utilityShed, utilityShed, utilityShed],
+    detailLink: '/our-models/budget-pro-utility',
   },
   {
-    id: 'lofted-barn',
-    name: 'Lofted Barn',
+    id: 'budget-pro-lofted-barn',
+    name: 'Budget Pro - Lofted Barn',
     tagline: 'Extra storage up top with classic barn styling.',
     features: [
       'Overhead loft for extra storage',
@@ -33,8 +33,8 @@ const models = [
       '6\' 4" Wall Height',
     ],
     image: loftedBarn,
-    gallery: [loftedBarn],
-    detailLink: '/our-models/lofted-barn',
+    gallery: [loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn],
+    detailLink: '/our-models/budget-pro-lofted-barn',
   },
   {
     id: 'mini-barn',
@@ -46,7 +46,7 @@ const models = [
       'Perfect for smaller spaces',
     ],
     image: loftedBarn,
-    gallery: [loftedBarn],
+    gallery: [loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn],
     detailLink: '/our-models/mini-barn',
   },
   {
@@ -59,14 +59,14 @@ const models = [
       'Quality construction',
     ],
     image: sideUtility,
-    gallery: [sideUtility],
+    gallery: [sideUtility, sideUtility, sideUtility, sideUtility, sideUtility, sideUtility],
     detailLink: '/our-models/economy',
   },
 ];
 
 const quickNavModels = [
-  { id: 'utility-shed', name: 'Utility Shed', image: utilityShed },
-  { id: 'lofted-barn', name: 'Lofted Barn', image: loftedBarn },
+  { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: utilityShed },
+  { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: loftedBarn },
   { id: 'mini-barn', name: 'Mini Barn', image: loftedBarn },
   { id: 'economy', name: 'Economy', image: sideUtility },
 ];
@@ -102,7 +102,7 @@ const BasicStorage = () => {
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-center text-primary mb-8 uppercase tracking-wide">
                 Basic Storage
               </h2>
-              <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
                 {quickNavModels.map((model) => (
                   <a
                     key={model.id}
@@ -170,25 +170,23 @@ const BasicStorage = () => {
                       </div>
                     </div>
 
-                    {/* Image */}
+                    {/* Image and Gallery */}
                     <div className={index % 2 === 1 ? 'md:order-1' : ''}>
-                      <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+                      <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-lg mb-4">
                         <img
                           src={model.image}
                           alt={model.name}
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      {/* Gallery thumbnails */}
-                      {model.gallery.length > 1 && (
-                        <div className="flex gap-2 mt-4">
-                          {model.gallery.slice(0, 4).map((img, i) => (
-                            <div key={i} className="w-20 h-20 rounded overflow-hidden">
-                              <img src={img} alt="" className="w-full h-full object-cover" />
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                      {/* Gallery thumbnails - 6 small images */}
+                      <div className="grid grid-cols-6 gap-2">
+                        {model.gallery.slice(0, 6).map((img, i) => (
+                          <div key={i} className="aspect-square rounded overflow-hidden bg-muted">
+                            <img src={img} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer" />
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
