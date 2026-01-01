@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { 
   Check,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import {
   Accordion,
@@ -13,13 +15,51 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import utilityShed from '@/assets/utility-shed.jpg';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
-const features = [
-  'Double 36" Doors w/ T-Handle Lock & Key',
-  '3/4″ T & G Flooring',
-  'Ridge Vent',
-  '7\' 9″ (93″) Walls',
+// Import all images
+import utilityShed1 from '@/assets/utility-shed-1.jpg';
+import utilityShed2 from '@/assets/utility-shed-2.jpg';
+import utilityShed3 from '@/assets/utility-shed-3.jpg';
+import utilityShed4 from '@/assets/utility-shed-4.jpg';
+import sideUtility1 from '@/assets/side-utility-1.jpg';
+import sideUtility2 from '@/assets/side-utility-2.jpg';
+import sideUtility3 from '@/assets/side-utility-3.jpg';
+import sideUtility4 from '@/assets/side-utility-4.jpg';
+import treatedGardenShed from '@/assets/treated-garden-shed.jpg';
+
+const galleryImages = [
+  { src: utilityShed1, alt: 'Summit Utility Shed - Gray with white trim' },
+  { src: utilityShed2, alt: 'Summit Utility Shed - Tan with brown trim' },
+  { src: utilityShed3, alt: 'Summit Utility Shed - White exterior' },
+  { src: utilityShed4, alt: 'Summit Utility Shed - Brown rustic style' },
+  { src: sideUtility1, alt: 'Summit Side Utility - Gray with side door' },
+  { src: sideUtility2, alt: 'Summit Side Utility - White with windows' },
+  { src: sideUtility3, alt: 'Summit Side Utility - Tan with shutters' },
+  { src: sideUtility4, alt: 'Summit Side Utility - Dark brown finish' },
+  { src: treatedGardenShed, alt: 'Treated garden shed with black shutters' },
+];
+
+// Combined features from both Utility Shed and Side Utility
+const utilityFeatures = [
+  "Double 36\" Doors w/ T-Handle Lock & Key",
+  "3/4\" T & G Flooring",
+  "Ridge Vent",
+  "7' 9\" (93\") Walls",
+];
+
+const sideUtilityFeatures = [
+  "Double 36\" Doors",
+  "2 – 2'x3' Windows",
+  "7' 9\" Walls",
+  "Additional doors available",
+  "Additional windows available",
 ];
 
 // Color swatches with approximate hex colors
@@ -114,9 +154,15 @@ const upgradeOptions = [
       'Single 36" Wood Door',
       'Double 36" Wood Doors',
       'Single/Double 36" 6 Panel Fiberglass Door',
+      'Single/Double 36" 6 Panel Fiberglass 11 Lite Door',
+      'Single/Double 36" Solid Pre-Hung Door',
       'Single/Double 36" 9 Lite Pre-Hung Door',
-      'Roll up Doors (6\'x6\', 6\'x7\', 9\'x7\')',
-      '9\'x7\' Insulated Garage Door',
+      'Dead Bolt for Steel Door(s)',
+      'Loft Door',
+      '6\'x6\' Roll up Door',
+      '6\'x7\' Roll up Door',
+      '9\'x7\' Roll up Door',
+      '9\'x7\' Insulated Garage Door (W/ T-Handle Lock/Key)',
     ],
   },
   {
@@ -124,8 +170,10 @@ const upgradeOptions = [
     items: [
       '24"x36" Window (Single Pane)',
       '36"x36" Window (Single Pane)',
-      '24"x36" & 36"x36" Vinyl Insulated w/ grid',
-      '9" & 12" Vinyl Shutters',
+      '24"x36" Vinyl Insulated Window w/ grid',
+      '36"x36" Vinyl Insulated Window w/ grid',
+      '9" Vinyl Shutters (set)',
+      '12" Vinyl Shutters (set)',
     ],
   },
   {
@@ -133,25 +181,34 @@ const upgradeOptions = [
     items: [
       'Pressure Treated Floor',
       '12"x48" Adjustable Ramp (Aluminum)',
-      '6\'x5\' or 9\'x5\' Treated Wood Ramp',
+      'Brackets & 2 – 12"x48" Ramps',
+      'Additional 12"x48" Ramp',
+      '6\'x5\' Treated Wood Ramp',
+      '9\'x5\' Treated Wood Ramp',
     ],
   },
   {
     category: 'Storage & Interior',
     items: [
-      '22" Workbench w/ 3/4" Top',
-      '22" Double Shelves w/ 1/2" Top',
-      'Extra Loft Area & Ladder',
-      'Interior 2"x4" Framed Walls',
+      '22" Workbench w/ 3/4" Top (per foot)',
+      '22" Double Shelves w/ 1/2" Top (per foot)',
+      'Extra Loft Area (sq. foot)',
+      'Extra Loft Ladder',
+      'Interior 2"x4" Framed Walls (16" o.c. per foot)',
     ],
   },
   {
     category: 'Extras',
     items: [
-      'Wainscott (metal or wood siding)',
-      'Porch & Loft Railing',
-      'Electrical Package (100 Amp Box, 2 receptacles, 2 lights)',
-      'Ridge Vent & Anchors',
+      'Wainscott (metal siding) (per foot)',
+      'Wainscott (wood siding) (per foot)',
+      '16" Tall 2"x4" Loft Railing W/ 30" Opening',
+      'Porch Railing (per foot)',
+      'Anchors (each)',
+      'Ridge Vent (per foot)',
+      'Moisture Barrier / Single Bubble Insulation',
+      'Electrical Package (100 Amp Box, 2 receptacles, 2 lights/switch)',
+      'Additional Light or Receptacle (each)',
       'Build on Site Available',
     ],
   },
@@ -173,15 +230,15 @@ const UtilityShed = () => {
   return (
     <>
       <Helmet>
-        <title>Utility Shed | Summit Portable Buildings</title>
+        <title>Pro - Utility Shed | Summit Portable Buildings</title>
         <meta
           name="description"
-          content="The Utility Shed is a classy, yet simple addition to your property. Perfect for outdoor power equipment, tack rooms, hay sheds, or workshops. Available in sizes 8×8 to 14×40."
+          content="The Pro Utility Shed is a classy, yet simple addition to your property. Perfect for outdoor power equipment, tack rooms, hay sheds, workshops, or even a lake cabin. Available with standard or side door entry. Sizes 8×8 to 14×40. Free delivery within 50 miles."
         />
-        <meta property="og:title" content="Utility Shed | Summit Portable Buildings" />
+        <meta property="og:title" content="Pro - Utility Shed | Summit Portable Buildings" />
         <meta
           property="og:description"
-          content="A classy, yet simple addition to your property. Superior workmanship makes it the obvious choice for your storage needs."
+          content="A classy, yet simple addition to your property. Superior workmanship makes it the obvious choice for your storage needs. Available as standard utility or side utility with windows."
         />
         <link rel="canonical" href="https://summitbuildings.com/our-models/utility-shed" />
       </Helmet>
@@ -196,28 +253,18 @@ const UtilityShed = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/#products" 
+                    to="/our-models" 
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
                     ← Back to All Buildings
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    UTILITY <span className="text-secondary">SHED</span>
+                    PRO - <span className="text-secondary">UTILITY</span>
                   </h1>
                   <p className="text-lg text-primary-foreground/80 mb-6">
-                    A classy, yet simple addition to your property. Superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs.
+                    A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations.
                   </p>
                   
-                  {/* Key Features */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2 text-primary-foreground/90">
-                        <Check className="w-5 h-5 text-secondary flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
                   <p className="text-secondary font-heading text-xl mb-6">Sizes: 8×8 to 14×40</p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
@@ -237,33 +284,146 @@ const UtilityShed = () => {
                 
                 <div className="relative">
                   <img
-                    src={utilityShed}
-                    alt="Summit Utility Shed"
+                    src={utilityShed1}
+                    alt="Summit Pro Utility Shed"
                     className="rounded-2xl shadow-2xl w-full"
                   />
-                  <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading">
-                    FREE DELIVERY*
+                  <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading text-sm md:text-base">
+                    FREE DELIVERY*<br />
+                    <span className="text-xs font-normal">Within 50 miles</span>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* About This Building */}
+          {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <div className="max-w-3xl mx-auto">
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  About This Building
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+                Photo Gallery
+              </h2>
+              <Carousel className="w-full max-w-5xl mx-auto">
+                <CarouselContent>
+                  {galleryImages.map((image, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                      <div className="p-2">
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="w-full aspect-square object-cover rounded-lg shadow-md"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex" />
+                <CarouselNext className="hidden md:flex" />
+              </Carousel>
+            </div>
+          </section>
+
+          {/* Two Configuration Cards */}
+          <section className="section-padding bg-muted/30">
+            <div className="container-custom">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Choose Your Configuration
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                The Pro Utility is available in two configurations to suit your needs
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {/* Standard Utility Card */}
+                <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={utilityShed2}
+                      alt="Standard Utility Shed"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
+                      Utility Shed
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      A great building for outdoor power equipment, portable tack rooms, small hay sheds, or workshops for your mechanic or woodworking tools.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      {utilityFeatures.map((feature) => (
+                        <div key={feature} className="flex items-center gap-2 text-foreground">
+                          <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground italic">
+                      *8 foot wide model features a single 48" door
+                    </p>
+                  </div>
+                </div>
+
+                {/* Side Utility Card */}
+                <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={sideUtility1}
+                      alt="Side Utility Shed"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
+                      Side Utility
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      Enjoy the same classy look with the added convenience of a side door! Windows brighten the interior making it easier to work and find tools. Create your own lake or hunting cabin with additional doors and windows.
+                    </p>
+                    <div className="space-y-2 mb-4">
+                      {sideUtilityFeatures.map((feature) => (
+                        <div key={feature} className="flex items-center gap-2 text-foreground">
+                          <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground italic">
+                      *8 foot wide model features a single 48" door and 1-2'x3' window
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Ideal Uses Section */}
+          <section className="section-padding bg-background">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                  Perfect For Any Use
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  The <strong className="text-foreground">UTILITY SHED</strong> is a great building for outdoor power equipment. Need a portable tack room or a small hay shed? This is the perfect building for the job.
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  It can also serve as a great shop for all your mechanic or woodworking tools if you add windows and a 36" 9 Lite Door. With so many sizes and styles available, you can find just the right fit for your property!
-                </p>
-                <p className="text-sm text-muted-foreground/80 italic">
-                  *The 8 foot wide model features a single 48" door. Transom windows come at an up-charge. Prices subject to change.
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  {[
+                    'Outdoor Power Equipment Storage',
+                    'Portable Tack Room',
+                    'Small Hay Shed',
+                    'Workshop (Mechanic/Woodworking)',
+                    'Lake or Hunting Cabin',
+                    'Garden Shed',
+                    'Tool Storage',
+                    'Hobby Space',
+                    'Home Office',
+                  ].map((use) => (
+                    <div key={use} className="flex items-center gap-3 bg-card p-4 rounded-lg border border-border/50">
+                      <Check className="w-5 h-5 text-secondary flex-shrink-0" />
+                      <span className="text-foreground font-medium">{use}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-center text-muted-foreground mt-8 text-sm">
+                  Add windows and a 36" 9 Lite Door to create the perfect shop. With so many sizes and styles available, you can find just the right fit for your property!
                 </p>
               </div>
             </div>
@@ -369,6 +529,17 @@ const UtilityShed = () => {
             </div>
           </section>
 
+          {/* Important Notes */}
+          <section className="py-8 bg-muted/30">
+            <div className="container-custom">
+              <div className="max-w-3xl mx-auto text-center">
+                <p className="text-sm text-muted-foreground">
+                  *Free delivery within 50 miles. Transom windows come at an up-charge. Prices subject to change without warning.
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* CTA */}
           <section className="section-padding bg-gradient-to-r from-secondary to-primary">
             <div className="container-custom text-center">
@@ -385,7 +556,7 @@ const UtilityShed = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link to="/#products">
+                <Link to="/our-models">
                   <Button variant="heroOutline" size="xl">
                     See More Models
                   </Button>
