@@ -114,13 +114,13 @@ const BasicStorage = () => {
 
         {/* Models Detail Sections */}
         <section className="bg-background">
-        {models.map((model, index) => (
+          {models.map((model, index) => (
             <div
               key={model.id}
               id={model.id}
-              className={`py-20 md:py-32 lg:py-40 scroll-mt-24 min-h-[85vh] flex items-center ${index % 2 === 1 ? 'bg-muted/50' : ''}`}
+              className={`py-16 md:py-24 scroll-mt-24 ${index % 2 === 1 ? 'bg-muted/50' : ''}`}
             >
-              <div className="container-custom w-full">
+              <div className="container-custom">
                 {/* Section Header */}
                 <div className="bg-primary rounded-t-lg py-4 px-6 mb-0">
                   <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground uppercase tracking-wide">
