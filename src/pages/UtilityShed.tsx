@@ -255,7 +255,7 @@ const UtilityShed = () => {
                     ← Back to All Buildings
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    PRO - <span className="text-secondary">UTILITY</span>
+                    PRO - <span className="text-secondary">UTILITY SHED</span>
                   </h1>
                   <p className="text-lg text-primary-foreground/80 mb-6">
                     A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations.
