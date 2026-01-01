@@ -24,6 +24,7 @@ const Footer = () => {
     ],
     resources: [
       { label: "FAQ's", href: '/#faq' },
+      { label: 'Buyers Guide', href: '/buyers-guide' },
       { label: 'Financing', href: '#' },
       { label: 'Rent-to-Own', href: '#' },
       { label: 'Warranty Info', href: '#' },

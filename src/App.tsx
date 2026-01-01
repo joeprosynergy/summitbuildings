@@ -15,6 +15,7 @@ import ProLoftedBarn from "./pages/ProLoftedBarn";
 import EconomyShed from "./pages/EconomyShed";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
+import BuyersGuide from "./pages/BuyersGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,8 @@ const App = () => (
             <Route path="/types/deluxe-storage-cabins/cabin" element={<Cabin />} />
             {/* Garages & Carports category and detail pages */}
             <Route path="/types/garages-carports/garage" element={<Garage />} />
+            {/* Resources */}
+            <Route path="/buyers-guide" element={<BuyersGuide />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
