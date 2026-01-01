@@ -13,9 +13,9 @@ const Footer = () => {
       { label: 'Deluxe Cabin', href: '#products' },
     ],
     company: [
-      { label: 'About Us', href: '#features' },
-      { label: 'Locations', href: '#locations' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'About Us', href: '/about-us' },
+      { label: 'Locations', href: '/#locations' },
+      { label: 'Contact', href: '/#contact' },
       { label: 'Rent-to-Own', href: '#' },
       { label: 'Financing', href: '#' },
     ],
