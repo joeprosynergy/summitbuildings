@@ -1,14 +1,15 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 import summitLogo from '@/assets/summit-logo.png';
+import html2pdf from 'html2pdf.js';
 
 const BuyersGuide = () => {
   const [activePage, setActivePage] = useState(1);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const navButtons = [
     { page: 1, label: 'Cover' },
@@ -19,9 +20,43 @@ const BuyersGuide = () => {
     { page: 6, label: 'Step 5 & Contact' },
   ];
 
-  const handleDownloadPDF = () => {
-    // Open print dialog which allows saving as PDF
-    window.print();
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPDF(true);
+    
+    // Create a temporary container with all pages for PDF
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.width = '816px'; // Letter width at 96dpi
+    pdfContainer.style.background = 'white';
+    
+    // Get the content element
+    const contentElement = document.getElementById('buyers-guide-content');
+    if (!contentElement) {
+      setIsGeneratingPDF(false);
+      return;
+    }
+    
+    // Clone the current visible content
+    const clone = contentElement.cloneNode(true) as HTMLElement;
+    pdfContainer.appendChild(clone);
+    document.body.appendChild(pdfContainer);
+    
+    const opt = {
+      margin: 0.5,
+      filename: 'Summit-Buyers-Guide.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      pagebreak: { mode: 'avoid-all' }
+    };
+    
+    try {
+      await html2pdf().set(opt).from(pdfContainer).save();
+    } catch (error) {
+      console.error('PDF generation failed:', error);
+    } finally {
+      document.body.removeChild(pdfContainer);
+      setIsGeneratingPDF(false);
+    }
   };
 
   return (
@@ -50,13 +85,18 @@ const BuyersGuide = () => {
               </button>
             ))}
             <div className="h-6 w-px bg-border mx-2" />
-            <Button onClick={handleDownloadPDF} variant="hero" size="sm" className="gap-2">
-              <Download className="w-4 h-4" />
-              Download PDF
+            <Button onClick={handleDownloadPDF} variant="hero" size="sm" className="gap-2" disabled={isGeneratingPDF}>
+              {isGeneratingPDF ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
+              {isGeneratingPDF ? 'Generating...' : 'Download PDF'}
             </Button>
           </nav>
 
           {/* PAGE 1: COVER */}
+          <div id="buyers-guide-content">
           {activePage === 1 && (
             <div className="w-full max-w-4xl bg-background shadow-2xl mb-10 overflow-hidden">
               <div 
@@ -331,6 +371,7 @@ const BuyersGuide = () => {
               </div>
             </div>
           )}
+          </div>
         </div>
       </main>
 
