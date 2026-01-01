@@ -36,10 +36,10 @@ const Footer = () => {
       { label: 'Terms of Service', href: '#' },
     ],
     locations: [
-      { label: 'Georgetown, TX', href: '/#locations' },
-      { label: 'Belton, TX', href: '/#locations' },
-      { label: 'Jarrell, TX', href: '/#locations' },
-      { label: 'Lampasas, TX', href: '/#locations' },
+      { label: 'Missouri', href: '/#locations' },
+      { label: 'Illinois', href: '/#locations' },
+      { label: 'Kentucky', href: '/#locations' },
+      { label: 'Arkansas', href: '/#locations' },
     ],
   };
 
@@ -178,12 +178,12 @@ const Footer = () => {
             Get the building of your dreams
           </p>
           <p className="text-primary-foreground text-2xl md:text-3xl font-heading">
-            (512) 555-SHED
+            (574) 747-4700
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
               variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8"
+              className="bg-primary-foreground border-border text-foreground hover:bg-primary-foreground/90 px-8"
               asChild
             >
               <Link to="/types">Browse Buildings</Link>
@@ -192,7 +192,7 @@ const Footer = () => {
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"
               asChild
             >
-              <Link to="/#contact">Send Message</Link>
+              <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">Design Now</a>
             </Button>
           </div>
         </div>
