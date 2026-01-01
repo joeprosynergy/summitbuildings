@@ -16,6 +16,7 @@ import EconomyShed from "./pages/EconomyShed";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
 import BuyersGuide from "./pages/BuyersGuide";
+import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,8 @@ const App = () => (
             <Route path="/types/garages-carports/garage" element={<Garage />} />
             {/* Resources */}
             <Route path="/buyers-guide" element={<BuyersGuide />} />
+            {/* Admin */}
+            <Route path="/admin/cloudinary-upload" element={<AdminCloudinaryUpload />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
