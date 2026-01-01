@@ -14,7 +14,8 @@ const categories = [
     name: 'Basic Storage',
     description: 'Affordable, practical sheds for everyday storage needs',
     models: [
-      { name: 'Budget Pro', image: utilityShed, link: '/our-models/basic-storage#budget-pro' },
+      { name: 'Budget Pro - Utility', image: utilityShed, link: '/our-models/basic-storage#budget-pro-utility' },
+      { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#budget-pro-lofted-barn' },
       { name: 'Mini Barn', image: loftedBarn, link: '/our-models/basic-storage#mini-barn' },
       { name: 'Economy', image: sideUtility, link: '/our-models/basic-storage#economy' },
     ],
@@ -25,9 +26,9 @@ const categories = [
     name: 'Deluxe Storage & Cabins',
     description: 'Premium buildings with extra features and style',
     models: [
-      { name: 'Pro Series', image: utilityShed, link: '/our-models/deluxe-storage-cabins#pro-series' },
-      { name: 'Cabins', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins' },
-      { name: 'Tiny Homes', image: cabinShed, link: '/our-models/deluxe-storage-cabins#tiny-homes' },
+      { name: 'Pro - Utility', image: utilityShed, link: '/our-models/deluxe-storage-cabins#pro-utility' },
+      { name: 'Pro - Lofted Barn', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
+      { name: 'Cabins/Tiny Home', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins-tiny-home' },
       { name: 'Dormer', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#dormer' },
     ],
     link: '/our-models/deluxe-storage-cabins'
