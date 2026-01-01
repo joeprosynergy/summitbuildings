@@ -14,6 +14,7 @@ import economy from '@/assets/economy.webp';
 import garage from '@/assets/garage.webp';
 import carport from '@/assets/carport.jpeg';
 import dormer from '@/assets/dormer.jpeg';
+import miniBarn from '@/assets/mini-barn.jpeg';
 
 const categories = [
   {
@@ -23,7 +24,7 @@ const categories = [
     models: [
       { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/our-models/basic-storage#budget-pro-utility' },
       { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#budget-pro-lofted-barn' },
-      { name: 'Mini Barn', image: loftedBarn, link: '/our-models/basic-storage#mini-barn' },
+      { name: 'Mini Barn', image: miniBarn, link: '/our-models/basic-storage#mini-barn' },
       { name: 'Economy', image: economy, link: '/our-models/basic-storage#economy' },
     ],
     link: '/our-models/basic-storage'
