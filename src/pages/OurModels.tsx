@@ -13,6 +13,7 @@ import proUtility from '@/assets/pro-utility.webp';
 import economy from '@/assets/economy.webp';
 import garage from '@/assets/garage.webp';
 import carport from '@/assets/carport.jpeg';
+import dormer from '@/assets/dormer.jpeg';
 
 const categories = [
   {
@@ -35,7 +36,7 @@ const categories = [
       { name: 'Pro - Utility', image: proUtility, link: '/our-models/deluxe-storage-cabins#pro-utility' },
       { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
       { name: 'Cabins/Tiny Home', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins-tiny-home' },
-      { name: 'Dormer', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#dormer' },
+      { name: 'Dormer', image: dormer, link: '/our-models/deluxe-storage-cabins#dormer', contain: true },
     ],
     link: '/our-models/deluxe-storage-cabins'
   },
@@ -107,11 +108,11 @@ const OurModels = () => {
                           to={model.link}
                           className="group text-center"
                         >
-                          <div className="aspect-square mb-4 overflow-hidden rounded-lg bg-muted shadow-sm">
+                          <div className={`aspect-square mb-4 overflow-hidden rounded-lg shadow-sm ${model.contain ? 'bg-neutral-100 p-3' : 'bg-muted'}`}>
                             <img
                               src={model.image}
                               alt={model.name}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${model.contain ? 'object-contain' : 'object-cover'}`}
                             />
                           </div>
                           <h3 className="font-heading font-bold text-foreground group-hover:text-secondary transition-colors uppercase tracking-wide">
