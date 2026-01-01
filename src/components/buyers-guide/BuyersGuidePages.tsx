@@ -316,17 +316,13 @@ export const Step5ContactPage = ({ exportMode }: PageProps) => (
         <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="https://summitbuildings.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+            className="pdf-button inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
           >
             Visit Our Website →
           </a>
           <a
             href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
+            className="pdf-button inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
           >
             Design Your Building in 3D →
           </a>
@@ -336,13 +332,13 @@ export const Step5ContactPage = ({ exportMode }: PageProps) => (
       <footer className="mt-auto border-t border-border pt-8 text-center">
         <p className="font-bold text-lg text-primary">7336 State Highway 32, Farmington, MO 63640</p>
         <p className="mt-2 text-lg text-foreground/80">
-          Phone: <a href="tel:5737474700" className="hover:text-secondary transition-colors">573-747-4700</a> • Email:{" "}
-          <a href="mailto:info@summitbuildings.com" className="hover:text-secondary transition-colors">info@summitbuildings.com</a>
+          Phone: <a href="tel:+15737474700" className="text-secondary underline">573-747-4700</a> • Email:{" "}
+          <a href="mailto:info@summitbuildings.com" className="text-secondary underline">info@summitbuildings.com</a>
         </p>
         <p className="mt-3 uppercase tracking-wider text-lg text-secondary font-bold">Hand-Crafted in the USA • Rent-To-Own Available</p>
         <p className="mt-2 text-sm text-muted-foreground">
-          <a href="https://summitbuildings.com" className="hover:text-secondary transition-colors">summitbuildings.com</a> •
-          <a href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings" className="hover:text-secondary transition-colors ml-1">3D Building Designer</a>
+          <a href="https://summitbuildings.com" className="text-secondary underline">summitbuildings.com</a> •{" "}
+          <a href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings" className="text-secondary underline">3D Building Designer</a>
         </p>
       </footer>
     </div>

@@ -42,7 +42,7 @@ const BuyersGuide = () => {
     }
 
     const opt = {
-      margin: 0.35,
+      margin: [0.4, 0.35, 0.4, 0.35],
       filename: "Summit-Buyers-Guide.pdf",
       enableLinks: true,
       image: { type: "jpeg", quality: 0.98 },
@@ -51,6 +51,7 @@ const BuyersGuide = () => {
         useCORS: true,
         backgroundColor: "#ffffff",
         logging: false,
+        letterRendering: true,
       },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       pagebreak: { mode: ["css", "legacy"], after: ".pdf-page" },

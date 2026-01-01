@@ -278,6 +278,21 @@
   gap: 0.5rem !important;
 }
 
+/* Make links clearly identifiable for PDF export */
+.buyers-guide-pdf a {
+  color: hsl(var(--secondary)) !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+}
+
+.buyers-guide-pdf a.pdf-button {
+  text-decoration: none !important;
+  display: inline-block !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+}
+
 /* Print styles for Buyers Guide PDF */
 @media print {
   .print\:hidden {
