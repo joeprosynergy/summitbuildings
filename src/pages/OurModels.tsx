@@ -14,29 +14,32 @@ const categories = [
     name: 'Basic Storage',
     description: 'Affordable, practical sheds for everyday storage needs',
     models: [
-      { name: 'Utility Shed', image: utilityShed, link: '/our-models/basic-storage#utility-shed' },
-      { name: 'Side Utility', image: sideUtility, link: '/our-models/basic-storage#side-utility' },
-      { name: 'Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#lofted-barn' },
+      { name: 'Budget Pro', image: utilityShed, link: '/our-models/basic-storage#budget-pro' },
+      { name: 'Mini Barn', image: loftedBarn, link: '/our-models/basic-storage#mini-barn' },
+      { name: 'Economy', image: sideUtility, link: '/our-models/basic-storage#economy' },
     ],
     link: '/our-models/basic-storage'
   },
   {
-    id: 'deluxe-storage',
-    name: 'Deluxe Storage',
+    id: 'deluxe-storage-cabins',
+    name: 'Deluxe Storage & Cabins',
     description: 'Premium buildings with extra features and style',
     models: [
-      { name: 'Cottage Cabin', image: cabinShed, link: '/our-models/deluxe-storage#cottage-cabin' },
+      { name: 'Pro Series', image: utilityShed, link: '/our-models/deluxe-storage-cabins#pro-series' },
+      { name: 'Cabins', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins' },
+      { name: 'Tiny Homes', image: cabinShed, link: '/our-models/deluxe-storage-cabins#tiny-homes' },
+      { name: 'Dormer', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#dormer' },
     ],
-    link: '/our-models/deluxe-storage'
+    link: '/our-models/deluxe-storage-cabins'
   },
   {
-    id: 'garages',
-    name: 'Garages',
+    id: 'garages-carports',
+    name: 'Garages & Carports',
     description: 'Secure vehicle and equipment storage',
     models: [
-      { name: 'Portable Garage', image: garageShed, link: '/our-models/garages#portable-garage' },
+      { name: 'Garages & Carports', image: garageShed, link: '/our-models/garages-carports#garages-carports' },
     ],
-    link: '/our-models/garages'
+    link: '/our-models/garages-carports'
   },
 ];
 
