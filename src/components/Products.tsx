@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import utilityShed from '@/assets/utility-shed.jpg';
 import sideUtilityShed from '@/assets/side-utility-shed.jpg';
 import loftedBarn from '@/assets/lofted-barn.jpg';
@@ -13,6 +14,7 @@ const products = [
     description: 'A classy, yet simple addition to any property. Perfect for storing lawn equipment, tools, and outdoor gear.',
     image: utilityShed,
     sizes: '8×8 to 14×40',
+    link: '/our-models/utility-shed',
   },
   {
     id: 2,

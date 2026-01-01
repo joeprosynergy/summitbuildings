@@ -1,9 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Products from '@/components/Products';
+import Stakes from '@/components/Stakes';
+import ValueProps from '@/components/ValueProps';
+import Guide from '@/components/Guide';
 import HowItWorks from '@/components/HowItWorks';
-import Features from '@/components/Features';
+import Products from '@/components/Products';
+import CTABanner from '@/components/CTABanner';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import Locations from '@/components/Locations';
@@ -36,13 +39,37 @@ const Index = () => {
       <div className="min-h-screen">
         <Header />
         <main>
+          {/* 1. Hero - Clear headline with value proposition */}
           <Hero />
-          <Products />
+          
+          {/* 2. Stakes - The problem (what's at risk) */}
+          <Stakes />
+          
+          {/* 3. Value Props - Key benefits */}
+          <ValueProps />
+          
+          {/* 4. Guide - Position as the guide with empathy + authority */}
+          <Guide />
+          
+          {/* 5. Plan - Simple 3-step process */}
           <HowItWorks />
-          <Features />
+          
+          {/* 6. Products - Our solutions */}
+          <Products />
+          
+          {/* 7. CTA Banner - Call to action */}
+          <CTABanner />
+          
+          {/* 8. Social Proof - Testimonials */}
           <Testimonials />
+          
+          {/* 9. FAQ - Handle objections */}
           <FAQ />
+          
+          {/* 10. Locations */}
           <Locations />
+          
+          {/* 11. Contact Form */}
           <Contact />
         </main>
         <Footer />
