@@ -2,51 +2,60 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import utilityShed from '@/assets/utility-shed.jpg';
-import sideUtilityShed from '@/assets/side-utility-shed.jpg';
 import loftedBarn from '@/assets/lofted-barn.jpg';
 import garageShed from '@/assets/garage-shed.jpg';
 import cabinShed from '@/assets/cabin-shed.jpg';
+import carport from '@/assets/carport.jpeg';
+import economyShed from '@/assets/economy-shed-1.jpg';
 
 const products = [
   {
     id: 1,
-    name: 'Lofted Barn',
-    description: 'Extra storage up top. Maximize your space with a spacious loft area.',
-    image: loftedBarn,
-    price: 'From $4,500',
-    link: '#',
-  },
-  {
-    id: 2,
-    name: 'Utility Shed',
+    name: 'Utility',
     description: 'Perfect for tools & equipment. A classy, simple addition to any property.',
     image: utilityShed,
     price: 'From $2,800',
     link: '/types/deluxe-storage-cabins/pro-utility-shed',
   },
   {
-    id: 3,
-    name: 'Side Utility',
-    description: 'Same great quality with a side entry design for unique layouts.',
-    image: sideUtilityShed,
-    price: 'From $3,200',
-    link: '#',
+    id: 2,
+    name: 'Lofted',
+    description: 'Extra storage up top. Maximize your space with a spacious loft area.',
+    image: loftedBarn,
+    price: 'From $4,500',
+    link: '/types/deluxe-storage-cabins/pro-lofted-barn',
   },
   {
-    id: 4,
-    name: 'Cottage Cabin',
+    id: 3,
+    name: 'Cabin',
     description: 'With covered porch. Perfect for home offices or guest quarters.',
     image: cabinShed,
     price: 'From $6,500',
-    link: '#',
+    link: '/types/deluxe-storage-cabins/cabin',
   },
   {
-    id: 5,
-    name: 'Portable Garage',
+    id: 4,
+    name: 'Garage',
     description: 'Secure vehicle storage. Protect your vehicles and equipment.',
     image: garageShed,
     price: 'From $5,800',
+    link: '/types/garages-carports/garage',
+  },
+  {
+    id: 5,
+    name: 'Carports',
+    description: 'Open-air vehicle protection. Affordable coverage for cars, trucks, and more.',
+    image: carport,
+    price: 'From $1,500',
     link: '#',
+  },
+  {
+    id: 6,
+    name: 'Economy',
+    description: 'Budget-friendly storage. Quality construction at an affordable price.',
+    image: economyShed,
+    price: 'From $1,800',
+    link: '/types/basic-storage/economy-shed',
   },
 ];
 
@@ -60,7 +69,7 @@ const Products = () => {
             Choose Your Style
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading text-foreground mb-6">
-            10+ Building Styles to Choose From
+            Building Styles to Choose From
           </h2>
           <p className="text-muted-foreground text-lg">
             Every style is fully customizable. Pick your size, colors, doors, windows, and extras.
