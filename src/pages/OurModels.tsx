@@ -12,6 +12,7 @@ import budgetProUtility from '@/assets/budget-pro-utility.webp';
 import proUtility from '@/assets/pro-utility.webp';
 import economy from '@/assets/economy.webp';
 import garage from '@/assets/garage.webp';
+import carport from '@/assets/carport.jpeg';
 
 const categories = [
   {
@@ -44,7 +45,7 @@ const categories = [
     description: 'Secure vehicle and equipment storage',
     models: [
       { name: 'Garages', image: garage, link: '/our-models/garages-carports#garages' },
-      { name: 'Carports', image: garageShed, link: '/our-models/garages-carports#carports' },
+      { name: 'Carports', image: carport, link: '/our-models/garages-carports#carports' },
     ],
     link: '/our-models/garages-carports'
   },
