@@ -46,20 +46,16 @@ const galleryImages = [
   { src: treatedGardenShed, alt: 'Treated garden shed with black shutters' },
 ];
 
-// Combined features from both Utility Shed and Side Utility
-const utilityFeatures = [
+// Combined features for Pro - Utility Shed
+const proUtilityFeatures = [
   "Double 36\" Doors w/ T-Handle Lock & Key",
   "3/4\" T & G Flooring",
   "Ridge Vent",
   "7' 9\" (93\") Walls",
-];
-
-const sideUtilityFeatures = [
-  "Double 36\" Doors",
-  "2 – 2'x3' Windows",
-  "7' 9\" Walls",
-  "Additional doors available",
-  "Additional windows available",
+  "2'x3' Windows Available",
+  "Side or Front Door Entry Options",
+  "Additional Doors & Windows Available",
+  "Customizable Layout for Any Use",
 ];
 
 // Color swatches with approximate hex colors
@@ -323,74 +319,52 @@ const UtilityShed = () => {
             </div>
           </section>
 
-          {/* Two Configuration Cards */}
+          {/* Pro - Utility Shed Features */}
           <section className="section-padding bg-muted/30">
             <div className="container-custom">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                Choose Your Configuration
-              </h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                The Pro Utility is available in two configurations to suit your needs
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {/* Standard Utility Card */}
-                <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={utilityShed2}
-                      alt="Standard Utility Shed"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
-                      Utility Shed
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      A great building for outdoor power equipment, portable tack rooms, small hay sheds, or workshops for your mechanic or woodworking tools.
-                    </p>
-                    <div className="space-y-2 mb-4">
-                      {utilityFeatures.map((feature) => (
-                        <div key={feature} className="flex items-center gap-2 text-foreground">
-                          <Check className="w-4 h-4 text-secondary flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-xs text-muted-foreground italic">
-                      *8 foot wide model features a single 48" door
-                    </p>
-                  </div>
-                </div>
-
-                {/* Side Utility Card */}
-                <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
-                  <div className="aspect-video overflow-hidden">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                  Built for <span className="text-secondary">Any Configuration</span>
+                </h2>
+                <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                  The Pro - Utility Shed adapts to your needs. Whether you need front entry, side entry, windows for natural light, or a completely custom layout — design it exactly how you want with our 3D configurator.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div className="relative">
                     <img
                       src={sideUtility1}
-                      alt="Side Utility Shed"
-                      className="w-full h-full object-cover"
+                      alt="Pro Utility Shed - Customizable Configuration"
+                      className="rounded-xl shadow-lg w-full"
                     />
+                    <div className="absolute -bottom-3 -right-3 bg-secondary text-primary-foreground px-4 py-2 rounded-lg font-heading text-sm">
+                      Infinitely Customizable
+                    </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
-                      Side Utility
+                  
+                  <div className="bg-card rounded-xl p-8 border border-border shadow-lg">
+                    <h3 className="font-heading text-2xl font-bold text-foreground mb-6">
+                      Pro - Utility Shed Features
                     </h3>
-                    <p className="text-muted-foreground mb-4">
-                      Enjoy the same classy look with the added convenience of a side door! Windows brighten the interior making it easier to work and find tools. Create your own lake or hunting cabin with additional doors and windows.
-                    </p>
-                    <div className="space-y-2 mb-4">
-                      {sideUtilityFeatures.map((feature) => (
-                        <div key={feature} className="flex items-center gap-2 text-foreground">
-                          <Check className="w-4 h-4 text-secondary flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
+                    <div className="space-y-3">
+                      {proUtilityFeatures.map((feature) => (
+                        <div key={feature} className="flex items-center gap-3 text-foreground">
+                          <Check className="w-5 h-5 text-secondary flex-shrink-0" />
+                          <span>{feature}</span>
                         </div>
                       ))}
                     </div>
-                    <p className="text-xs text-muted-foreground italic">
-                      *8 foot wide model features a single 48" door and 1-2'x3' window
+                    <p className="text-xs text-muted-foreground italic mt-6">
+                      *8 foot wide models feature adjusted door sizing
                     </p>
+                    <div className="mt-6">
+                      <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                        <Button variant="hero" className="w-full">
+                          Design Yours Now
+                          <ArrowRight className="w-4 h-4" />
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
