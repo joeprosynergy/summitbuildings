@@ -236,10 +236,10 @@ const Garage = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/types" 
+                    to="/types/garages-carports#garages" 
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
-                    ← Back to All Buildings
+                    ← Back to Garages & Carports
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
                     <span className="text-secondary">GARAGE</span>

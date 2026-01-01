@@ -22,7 +22,7 @@ const models = [
     ],
     image: proUtility,
     gallery: [proUtility, proUtility, proUtility, proUtility, proUtility, proUtility],
-    detailLink: '/pro-utility-shed',
+    detailLink: '/types/deluxe-storage-cabins/pro-utility-shed',
   },
   {
     id: 'pro-lofted-barn',
@@ -36,7 +36,7 @@ const models = [
     ],
     image: proLoftedBarn,
     gallery: [proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn],
-    detailLink: '/pro-lofted-barn',
+    detailLink: '/types/deluxe-storage-cabins/pro-lofted-barn',
   },
   {
     id: 'cabins-tiny-home',
@@ -50,7 +50,7 @@ const models = [
     ],
     image: cabinShed,
     gallery: [cabinShed, cabinShed, cabinShed, cabinShed, cabinShed, cabinShed],
-    detailLink: '/types/deluxe-storage-cabins#cabins-tiny-home',
+    detailLink: '/types/deluxe-storage-cabins/cabin',
   },
 ];
 

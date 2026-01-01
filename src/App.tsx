@@ -29,13 +29,16 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/types" element={<OurModels />} />
+            {/* Basic Storage category and detail pages */}
             <Route path="/types/basic-storage" element={<BasicStorage />} />
+            <Route path="/types/basic-storage/economy-shed" element={<EconomyShed />} />
+            {/* Deluxe Storage & Cabins category and detail pages */}
             <Route path="/types/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
-            <Route path="/pro-utility-shed" element={<UtilityShed />} />
-            <Route path="/pro-lofted-barn" element={<ProLoftedBarn />} />
-            <Route path="/economy-shed" element={<EconomyShed />} />
-            <Route path="/garage" element={<Garage />} />
-            <Route path="/cabin" element={<Cabin />} />
+            <Route path="/types/deluxe-storage-cabins/pro-utility-shed" element={<UtilityShed />} />
+            <Route path="/types/deluxe-storage-cabins/pro-lofted-barn" element={<ProLoftedBarn />} />
+            <Route path="/types/deluxe-storage-cabins/cabin" element={<Cabin />} />
+            {/* Garages & Carports category and detail pages */}
+            <Route path="/types/garages-carports/garage" element={<Garage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
