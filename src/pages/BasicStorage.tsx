@@ -24,19 +24,6 @@ const models = [
     detailLink: '/our-models/utility-shed',
   },
   {
-    id: 'side-utility',
-    name: 'Side Utility',
-    tagline: 'Door on the side for unique placement options.',
-    features: [
-      'Side door entry',
-      'A-frame roof design',
-      '6\' 4" Wall Height',
-    ],
-    image: sideUtility,
-    gallery: [sideUtility],
-    detailLink: '/our-models/side-utility',
-  },
-  {
     id: 'lofted-barn',
     name: 'Lofted Barn',
     tagline: 'Extra storage up top with classic barn styling.',
@@ -49,12 +36,39 @@ const models = [
     gallery: [loftedBarn],
     detailLink: '/our-models/lofted-barn',
   },
+  {
+    id: 'mini-barn',
+    name: 'Mini Barn',
+    tagline: 'Compact barn style with maximum functionality.',
+    features: [
+      'Classic barn aesthetic',
+      'Gambrel roof design',
+      'Perfect for smaller spaces',
+    ],
+    image: loftedBarn,
+    gallery: [loftedBarn],
+    detailLink: '/our-models/mini-barn',
+  },
+  {
+    id: 'economy',
+    name: 'Economy',
+    tagline: 'Affordable storage without compromise.',
+    features: [
+      'Budget-friendly option',
+      'Practical design',
+      'Quality construction',
+    ],
+    image: sideUtility,
+    gallery: [sideUtility],
+    detailLink: '/our-models/economy',
+  },
 ];
 
 const quickNavModels = [
   { id: 'utility-shed', name: 'Utility Shed', image: utilityShed },
-  { id: 'side-utility', name: 'Side Utility', image: sideUtility },
   { id: 'lofted-barn', name: 'Lofted Barn', image: loftedBarn },
+  { id: 'mini-barn', name: 'Mini Barn', image: loftedBarn },
+  { id: 'economy', name: 'Economy', image: sideUtility },
 ];
 
 const BasicStorage = () => {
