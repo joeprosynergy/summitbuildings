@@ -25,7 +25,7 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { href: '/styles', label: 'Our Buildings', isRoute: true },
+    { href: '/types', label: 'Our Buildings', isRoute: true },
     { href: '/about-us', label: 'About Us', isRoute: true },
     { href: isHomePage ? '#locations' : '/#locations', label: 'Locations' },
     { href: isHomePage ? '#contact' : '/#contact', label: 'Contact' },

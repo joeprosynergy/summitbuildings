@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import proUtility from '@/assets/pro-utility.webp';
 import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
 import cabinShed from '@/assets/cabin-shed.jpg';
-import dormer from '@/assets/dormer.jpeg';
 
 const models = [
   {
@@ -51,22 +50,7 @@ const models = [
     ],
     image: cabinShed,
     gallery: [cabinShed, cabinShed, cabinShed, cabinShed, cabinShed, cabinShed],
-    detailLink: '/styles/deluxe-storage-cabins#cabins-tiny-home',
-  },
-  {
-    id: 'dormer',
-    name: 'Dormer',
-    tagline: 'Extra headroom and natural light.',
-    features: [
-      'Dormer Window for Light',
-      'Increased Headroom',
-      'Loft Storage Space',
-      'Elegant Design',
-    ],
-    image: dormer,
-    gallery: [dormer, dormer, dormer, dormer, dormer, dormer],
-    detailLink: '/styles/deluxe-storage-cabins#dormer',
-    contain: true,
+    detailLink: '/types/deluxe-storage-cabins#cabins-tiny-home',
   },
 ];
 
@@ -74,7 +58,6 @@ const quickNavModels = [
   { id: 'pro-utility', name: 'Pro - Utility', image: proUtility },
   { id: 'pro-lofted-barn', name: 'Pro - Lofted Barn', image: proLoftedBarn },
   { id: 'cabins-tiny-home', name: 'Cabins / Tiny Home', image: cabinShed },
-  { id: 'dormer', name: 'Dormer', image: dormer, contain: true },
 ];
 
 const DeluxeStorageCabins = () => {
@@ -115,11 +98,11 @@ const DeluxeStorageCabins = () => {
                     href={`#${model.id}`}
                     className="group text-center"
                   >
-                    <div className={`aspect-square mb-3 overflow-hidden rounded-lg ${model.contain ? 'bg-neutral-100 p-2' : 'bg-muted'}`}>
+                    <div className="aspect-square mb-3 overflow-hidden rounded-lg bg-muted">
                       <img
                         src={model.image}
                         alt={model.name}
-                        className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${model.contain ? 'object-contain' : 'object-cover'}`}
+                        className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover"
                       />
                     </div>
                     <h3 className="font-heading font-bold text-foreground group-hover:text-secondary transition-colors uppercase text-sm md:text-base tracking-wide">
@@ -180,18 +163,18 @@ const DeluxeStorageCabins = () => {
 
                     {/* Image and Gallery */}
                     <div className={index % 2 === 1 ? 'md:order-1' : ''}>
-                      <div className={`aspect-[4/3] rounded-lg overflow-hidden shadow-lg mb-4 ${model.contain ? 'bg-neutral-100 p-4' : ''}`}>
+                      <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-lg mb-4">
                         <img
                           src={model.image}
                           alt={model.name}
-                          className={`w-full h-full ${model.contain ? 'object-contain' : 'object-cover'}`}
+                          className="w-full h-full object-cover"
                         />
                       </div>
                       {/* Gallery thumbnails - 6 small images */}
                       <div className="grid grid-cols-6 gap-2">
                         {model.gallery.slice(0, 6).map((img, i) => (
-                          <div key={i} className={`aspect-square rounded overflow-hidden ${model.contain ? 'bg-neutral-100 p-1' : 'bg-muted'}`}>
-                            <img src={img} alt="" className={`w-full h-full hover:scale-105 transition-transform cursor-pointer ${model.contain ? 'object-contain' : 'object-cover'}`} />
+                          <div key={i} className="aspect-square rounded overflow-hidden bg-muted">
+                            <img src={img} alt="" className="w-full h-full hover:scale-105 transition-transform cursor-pointer object-cover" />
                           </div>
                         ))}
                       </div>
@@ -220,7 +203,7 @@ const DeluxeStorageCabins = () => {
                 Call 573-747-4700
               </a>
               <Link
-                to="/styles"
+                to="/types"
                 className="inline-block border-2 border-primary-foreground/30 text-primary-foreground font-bold px-8 py-4 rounded-md hover:bg-primary-foreground hover:text-primary transition-all"
               >
                 View All Models

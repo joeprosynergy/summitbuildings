@@ -28,9 +28,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/styles" element={<OurModels />} />
-            <Route path="/styles/basic-storage" element={<BasicStorage />} />
-            <Route path="/styles/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
+            <Route path="/types" element={<OurModels />} />
+            <Route path="/types/basic-storage" element={<BasicStorage />} />
+            <Route path="/types/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
             <Route path="/pro-utility-shed" element={<UtilityShed />} />
             <Route path="/pro-lofted-barn" element={<ProLoftedBarn />} />
             <Route path="/economy-shed" element={<EconomyShed />} />

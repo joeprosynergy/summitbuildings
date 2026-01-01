@@ -215,7 +215,7 @@ const BasicStorage = () => {
                 Call 573-747-4700
               </a>
               <Link
-                to="/styles"
+                to="/types"
                 className="inline-block border-2 border-primary-foreground/30 text-primary-foreground font-bold px-8 py-4 rounded-md hover:bg-primary-foreground hover:text-primary transition-all"
               >
                 View All Models

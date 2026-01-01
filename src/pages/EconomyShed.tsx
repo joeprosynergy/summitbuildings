@@ -116,7 +116,7 @@ const EconomyShed = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/styles" 
+                    to="/types" 
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
                     ← Back to All Buildings
@@ -354,7 +354,7 @@ const EconomyShed = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link to="/styles">
+                <Link to="/types">
                   <Button variant="heroOutline" size="xl">
                     See More Models
                   </Button>
