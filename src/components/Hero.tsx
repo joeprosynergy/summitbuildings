@@ -1,6 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Award, Building, Shield } from 'lucide-react';
 import heroShed from '@/assets/hero-shed.jpg';
+
+const stats = [
+  { icon: Award, label: '30+ Years Experience' },
+  { icon: Building, label: '1000+ Buildings Built' },
+  { icon: Shield, label: 'Lifetime Warranty' },
+];
 
 const Hero = () => {
   return (
@@ -27,7 +33,7 @@ const Hero = () => {
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             Attractive, affordable, high quality, hand crafted, and durable portable buildings built right here in the USA. We're a multi-state portable building supplier serving Missouri, Illinois, Kentucky, and Arkansas!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <Button variant="hero" size="xl">
               Customize Your Own
               <ArrowRight className="w-5 h-5" />
@@ -35,6 +41,21 @@ const Hero = () => {
             <Button variant="heroOutline" size="xl">
               Our Locations
             </Button>
+          </div>
+
+          {/* Stats Badges */}
+          <div className="flex flex-wrap gap-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex items-center gap-2 text-primary-foreground/90"
+              >
+                <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center">
+                  <stat.icon className="w-3 h-3 text-secondary" />
+                </div>
+                <span className="text-sm font-medium">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
