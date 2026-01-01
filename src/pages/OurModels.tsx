@@ -7,6 +7,7 @@ import loftedBarn from '@/assets/lofted-barn.jpg';
 import cabinShed from '@/assets/cabin-shed.jpg';
 import garageShed from '@/assets/garage-shed.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
+import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
 
 const categories = [
   {
@@ -27,7 +28,7 @@ const categories = [
     description: 'Premium buildings with extra features and style',
     models: [
       { name: 'Pro - Utility', image: utilityShed, link: '/our-models/deluxe-storage-cabins#pro-utility' },
-      { name: 'Pro - Lofted Barn', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
+      { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
       { name: 'Cabins/Tiny Home', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins-tiny-home' },
       { name: 'Dormer', image: loftedBarn, link: '/our-models/deluxe-storage-cabins#dormer' },
     ],
