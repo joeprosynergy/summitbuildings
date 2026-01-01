@@ -11,6 +11,7 @@ import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
 import budgetProUtility from '@/assets/budget-pro-utility.webp';
 import proUtility from '@/assets/pro-utility.webp';
 import economy from '@/assets/economy.webp';
+import garage from '@/assets/garage.webp';
 
 const categories = [
   {
@@ -42,7 +43,7 @@ const categories = [
     name: 'Garages & Carports',
     description: 'Secure vehicle and equipment storage',
     models: [
-      { name: 'Garages', image: garageShed, link: '/our-models/garages-carports#garages' },
+      { name: 'Garages', image: garage, link: '/our-models/garages-carports#garages' },
       { name: 'Carports', image: garageShed, link: '/our-models/garages-carports#carports' },
     ],
     link: '/our-models/garages-carports'
