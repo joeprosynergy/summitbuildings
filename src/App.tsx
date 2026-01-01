@@ -16,6 +16,7 @@ import EconomyShed from "./pages/EconomyShed";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
 import Carports from "./pages/Carports";
+import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
 import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import NotFound from "./pages/NotFound";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/types/deluxe-storage-cabins/pro-lofted-barn" element={<ProLoftedBarn />} />
             <Route path="/types/deluxe-storage-cabins/cabin" element={<Cabin />} />
             {/* Garages & Carports category and detail pages */}
+            <Route path="/types/garages-carports" element={<GaragesCarports />} />
             <Route path="/types/garages-carports/garage" element={<Garage />} />
             <Route path="/types/garages-carports/carports" element={<Carports />} />
             {/* Resources */}
