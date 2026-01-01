@@ -310,35 +310,28 @@ export const Step5ContactPage = ({ exportMode }: PageProps) => (
         </div>
       </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-2xl font-bold text-primary">Ready to Build Your Perfect Summit Structure?</p>
-        <p className="mt-4 text-lg text-foreground/80">Contact us today for a free quote or visit our lot!</p>
-        <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="https://summitbuildings.com"
-            className="pdf-button inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Visit Our Website →
-          </a>
-          <a
-            href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings"
-            className="pdf-button inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
-          >
-            Design Your Building in 3D →
-          </a>
+      <div className="mt-8 text-center">
+        <p className="text-xl font-bold text-primary">Ready to Build Your Perfect Summit Structure?</p>
+        <p className="mt-3 text-foreground/80">Contact us today for a free quote or visit our lot!</p>
+        
+        <div className="mt-5 p-4 bg-muted rounded-lg">
+          <p className="font-bold text-primary mb-2">Visit Us Online:</p>
+          <p className="text-sm text-foreground/80">
+            <strong>Website:</strong> summitbuildings.com
+          </p>
+          <p className="text-sm text-foreground/80 mt-1">
+            <strong>3D Builder:</strong> design.idssoftware.com/v3/app?dealerId=summitbuildings
+          </p>
         </div>
       </div>
 
-      <footer className="mt-auto border-t border-border pt-8 text-center">
-        <p className="font-bold text-lg text-primary">7336 State Highway 32, Farmington, MO 63640</p>
-        <p className="mt-2 text-lg text-foreground/80">
-          Phone: <a href="tel:+15737474700" className="text-secondary underline">573-747-4700</a> • Email:{" "}
-          <a href="mailto:info@summitbuildings.com" className="text-secondary underline">info@summitbuildings.com</a>
+      <footer className="mt-auto border-t border-border pt-4 text-center">
+        <p className="font-bold text-primary">7336 State Highway 32, Farmington, MO 63640</p>
+        <p className="mt-1 text-foreground/80">
+          <strong>Phone:</strong> 573-747-4700 • <strong>Email:</strong> info@summitbuildings.com
         </p>
-        <p className="mt-3 uppercase tracking-wider text-lg text-secondary font-bold">Hand-Crafted in the USA • Rent-To-Own Available</p>
-        <p className="mt-2 text-sm text-muted-foreground">
-          <a href="https://summitbuildings.com" className="text-secondary underline">summitbuildings.com</a> •{" "}
-          <a href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings" className="text-secondary underline">3D Building Designer</a>
+        <p className="mt-2 uppercase tracking-wider text-secondary font-bold text-sm">
+          Hand-Crafted in the USA • Rent-To-Own Available
         </p>
       </footer>
     </div>
