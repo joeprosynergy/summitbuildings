@@ -11,6 +11,7 @@ import BasicStorage from "./pages/BasicStorage";
 import DeluxeStorageCabins from "./pages/DeluxeStorageCabins";
 import UtilityShed from "./pages/UtilityShed";
 import ProLoftedBarn from "./pages/ProLoftedBarn";
+import EconomyShed from "./pages/EconomyShed";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/styles/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
             <Route path="/pro-utility-shed" element={<UtilityShed />} />
             <Route path="/pro-lofted-barn" element={<ProLoftedBarn />} />
+            <Route path="/economy-shed" element={<EconomyShed />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
