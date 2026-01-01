@@ -19,7 +19,7 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { href: isHomePage ? '#products' : '/#products', label: 'Our Buildings' },
+    { href: '/our-models', label: 'Our Buildings', isRoute: true },
     { href: '/about-us', label: 'About Us', isRoute: true },
     { href: isHomePage ? '#locations' : '/#locations', label: 'Locations' },
     { href: isHomePage ? '#contact' : '/#contact', label: 'Contact' },
