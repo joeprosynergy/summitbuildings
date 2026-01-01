@@ -10,6 +10,7 @@ import loftedBarn from '@/assets/lofted-barn.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
 import budgetProUtility from '@/assets/budget-pro-utility.webp';
 import economy from '@/assets/economy.webp';
+import miniBarn from '@/assets/mini-barn.jpeg';
 
 const models = [
   {
@@ -47,8 +48,8 @@ const models = [
       'Gambrel roof design',
       'Perfect for smaller spaces',
     ],
-    image: loftedBarn,
-    gallery: [loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn],
+    image: miniBarn,
+    gallery: [miniBarn, miniBarn, miniBarn, miniBarn, miniBarn, miniBarn],
     detailLink: '/our-models/mini-barn',
   },
   {
@@ -69,7 +70,7 @@ const models = [
 const quickNavModels = [
   { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
   { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: loftedBarn },
-  { id: 'mini-barn', name: 'Mini Barn', image: loftedBarn },
+  { id: 'mini-barn', name: 'Mini Barn', image: miniBarn },
   { id: 'economy', name: 'Economy', image: economy },
 ];
 
