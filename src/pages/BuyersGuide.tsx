@@ -20,12 +20,12 @@ const BuyersGuide = () => {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const navButtons = [
-    { page: 1, label: "Cover" },
-    { page: 2, label: "Step 1" },
-    { page: 3, label: "Step 2" },
-    { page: 4, label: "Step 3" },
-    { page: 5, label: "Step 4" },
-    { page: 6, label: "Step 5 & Contact" },
+    { page: 1, label: "Cover", mobileLabel: "Cover" },
+    { page: 2, label: "Step 1", mobileLabel: "1" },
+    { page: 3, label: "Step 2", mobileLabel: "2" },
+    { page: 4, label: "Step 3", mobileLabel: "3" },
+    { page: 5, label: "Step 4", mobileLabel: "4" },
+    { page: 6, label: "Step 5 & Contact", mobileLabel: "5" },
   ];
 
   const handleDownloadPDF = async () => {
@@ -81,28 +81,31 @@ const BuyersGuide = () => {
       <main className="bg-muted min-h-screen pt-20">
         <div className="flex flex-col items-center py-10 px-4">
           {/* Page Navigation */}
-          <nav className="sticky top-24 z-40 bg-background/90 backdrop-blur-md px-5 py-3 rounded-full shadow-lg mb-8 flex flex-wrap gap-2 justify-center items-center print:hidden">
-            {navButtons.map((btn) => (
-              <button
-                key={btn.page}
-                onClick={() => setActivePage(btn.page)}
-                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all ${
-                  activePage === btn.page
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-transparent text-primary hover:bg-primary/10"
-                }`}
-              >
-                {btn.label}
-              </button>
-            ))}
+          <nav className="sticky top-24 z-40 bg-background/90 backdrop-blur-md px-4 md:px-5 py-3 rounded-2xl md:rounded-full shadow-lg mb-8 flex flex-col md:flex-row gap-2 md:gap-2 justify-center items-center print:hidden">
+            <div className="flex gap-1 md:gap-2 justify-center">
+              {navButtons.map((btn) => (
+                <button
+                  key={btn.page}
+                  onClick={() => setActivePage(btn.page)}
+                  className={`px-3 md:px-5 py-2 rounded-full font-semibold text-xs md:text-sm transition-all ${
+                    activePage === btn.page
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-transparent text-primary hover:bg-primary/10"
+                  }`}
+                >
+                  <span className="md:hidden">{btn.mobileLabel}</span>
+                  <span className="hidden md:inline">{btn.label}</span>
+                </button>
+              ))}
+            </div>
 
-            <div className="h-6 w-px bg-border mx-2" />
+            <div className="hidden md:block h-6 w-px bg-border mx-2" />
 
             <Button
               onClick={handleDownloadPDF}
               variant="hero"
               size="sm"
-              className="gap-2"
+              className="gap-2 w-full md:w-auto"
               disabled={isGeneratingPDF}
             >
               {isGeneratingPDF ? (
