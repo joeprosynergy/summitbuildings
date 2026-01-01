@@ -24,7 +24,7 @@ const models = [
     ],
     image: budgetProUtility,
     gallery: [budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility],
-    detailLink: '/our-models/budget-pro-utility',
+    detailLink: '/types/basic-storage/budget-pro-utility',
   },
   {
     id: 'budget-pro-lofted-barn',
@@ -37,7 +37,7 @@ const models = [
     ],
     image: loftedBarn,
     gallery: [loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn],
-    detailLink: '/our-models/budget-pro-lofted-barn',
+    detailLink: '/types/basic-storage/budget-pro-lofted-barn',
   },
   {
     id: 'mini-barn',
@@ -50,7 +50,7 @@ const models = [
     ],
     image: miniBarn,
     gallery: [miniBarn, miniBarn, miniBarn, miniBarn, miniBarn, miniBarn],
-    detailLink: '/our-models/mini-barn',
+    detailLink: '/types/basic-storage/mini-barn',
   },
   {
     id: 'economy',
@@ -63,7 +63,7 @@ const models = [
     ],
     image: economy,
     gallery: [economy, economy, economy, economy, economy, economy],
-    detailLink: '/our-models/economy',
+    detailLink: '/types/basic-storage/economy-shed',
   },
 ];
 

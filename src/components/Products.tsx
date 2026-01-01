@@ -22,7 +22,7 @@ const products = [
     description: 'Perfect for tools & equipment. A classy, simple addition to any property.',
     image: utilityShed,
     price: 'From $2,800',
-    link: '/pro-utility-shed',
+    link: '/types/deluxe-storage-cabins/pro-utility-shed',
   },
   {
     id: 3,
