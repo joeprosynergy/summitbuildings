@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
 import summitLogo from '@/assets/summit-logo.png';
 
 const BuyersGuide = () => {
   const [activePage, setActivePage] = useState(1);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const navButtons = [
     { page: 1, label: 'Cover' },
@@ -16,6 +19,11 @@ const BuyersGuide = () => {
     { page: 6, label: 'Step 5 & Contact' },
   ];
 
+  const handleDownloadPDF = () => {
+    // Open print dialog which allows saving as PDF
+    window.print();
+  };
+
   return (
     <>
       <Helmet>
@@ -24,10 +32,10 @@ const BuyersGuide = () => {
       </Helmet>
       <Header />
       
-      <main className="bg-muted min-h-screen">
+      <main className="bg-muted min-h-screen pt-20">
         <div className="flex flex-col items-center py-10 px-4">
           {/* Page Navigation */}
-          <nav className="sticky top-5 z-50 bg-background/90 backdrop-blur-md px-5 py-3 rounded-full shadow-lg mb-8 flex flex-wrap gap-2 justify-center">
+          <nav className="sticky top-24 z-40 bg-background/90 backdrop-blur-md px-5 py-3 rounded-full shadow-lg mb-8 flex flex-wrap gap-2 justify-center items-center print:hidden">
             {navButtons.map((btn) => (
               <button
                 key={btn.page}
@@ -41,6 +49,11 @@ const BuyersGuide = () => {
                 {btn.label}
               </button>
             ))}
+            <div className="h-6 w-px bg-border mx-2" />
+            <Button onClick={handleDownloadPDF} variant="hero" size="sm" className="gap-2">
+              <Download className="w-4 h-4" />
+              Download PDF
+            </Button>
           </nav>
 
           {/* PAGE 1: COVER */}
@@ -283,12 +296,37 @@ const BuyersGuide = () => {
                 <div className="mt-12 text-center">
                   <p className="text-2xl font-bold text-primary">Ready to Build Your Perfect Summit Structure?</p>
                   <p className="mt-4 text-lg text-foreground/80">Contact us today for a free quote or visit our lot!</p>
+                  <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a 
+                      href="https://summitbuildings.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                    >
+                      Visit Our Website →
+                    </a>
+                    <a 
+                      href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
+                    >
+                      Design Your Building in 3D →
+                    </a>
+                  </div>
                 </div>
 
                 <footer className="mt-auto border-t border-border pt-8 text-center">
                   <p className="font-bold text-lg text-primary">7336 State Highway 32, Farmington, MO 63640</p>
-                  <p className="mt-2 text-lg text-foreground/80">Phone: <a href="tel:5737474700" className="hover:text-secondary transition-colors">573-747-4700</a> • Email: <a href="mailto:info@summitbuildings.com" className="hover:text-secondary transition-colors">info@summitbuildings.com</a></p>
-                  <p className="mt-3 uppercase tracking-wider text-lg text-secondary font-bold">Hand-Crafted in the USA • Rent-To-Own Available • summitbuildings.com</p>
+                  <p className="mt-2 text-lg text-foreground/80">
+                    Phone: <a href="tel:5737474700" className="hover:text-secondary transition-colors">573-747-4700</a> • 
+                    Email: <a href="mailto:info@summitbuildings.com" className="hover:text-secondary transition-colors">info@summitbuildings.com</a>
+                  </p>
+                  <p className="mt-3 uppercase tracking-wider text-lg text-secondary font-bold">Hand-Crafted in the USA • Rent-To-Own Available</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    <a href="https://summitbuildings.com" className="hover:text-secondary transition-colors">summitbuildings.com</a> • 
+                    <a href="https://design.idssoftware.com/v3/app?dealerId=summitbuildings" className="hover:text-secondary transition-colors ml-1">3D Building Designer</a>
+                  </p>
                 </footer>
               </div>
             </div>
