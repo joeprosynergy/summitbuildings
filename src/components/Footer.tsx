@@ -54,7 +54,7 @@ const Footer = () => {
 
       {/* Main Footer Links */}
       <div className="container-custom pb-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
+        <div className="flex flex-wrap justify-center gap-12 lg:gap-16">
           {/* Basic Storage */}
           <div>
             <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
@@ -150,10 +150,10 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Locations */}
+          {/* Where We Deliver */}
           <div>
             <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
-              Locations
+              Where We Deliver
             </h3>
             <ul className="space-y-2">
               {links.locations.map((link) => (
