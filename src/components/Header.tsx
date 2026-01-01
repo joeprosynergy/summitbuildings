@@ -40,7 +40,9 @@ const Header = () => {
             <img
               src={summitLogo}
               alt="Summit Portable Buildings"
-              className="h-14 w-auto"
+              className={`h-14 w-auto transition-all duration-300 ${
+                isScrolled ? '' : 'brightness-0 invert'
+              }`}
             />
           </Link>
 
