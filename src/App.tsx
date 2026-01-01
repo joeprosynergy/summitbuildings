@@ -13,6 +13,7 @@ import UtilityShed from "./pages/UtilityShed";
 import ProLoftedBarn from "./pages/ProLoftedBarn";
 import EconomyShed from "./pages/EconomyShed";
 import Garage from "./pages/Garage";
+import Cabin from "./pages/Cabin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/pro-lofted-barn" element={<ProLoftedBarn />} />
             <Route path="/economy-shed" element={<EconomyShed />} />
             <Route path="/garage" element={<Garage />} />
+            <Route path="/cabin" element={<Cabin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
