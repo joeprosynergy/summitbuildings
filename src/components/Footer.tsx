@@ -31,6 +31,7 @@ const Footer = () => {
     about: [
       { label: 'Home', href: '/' },
       { label: 'About Us', href: '/about-us' },
+      { label: 'Blog', href: 'https://summitbuildings.superblog.click', external: true },
       { label: 'Contact', href: '/#contact' },
       { label: 'Privacy Policy', href: '#' },
       { label: 'Terms of Service', href: '#' },
@@ -139,12 +140,23 @@ const Footer = () => {
             <ul className="space-y-2">
               {links.about.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
