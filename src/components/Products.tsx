@@ -47,7 +47,7 @@ const products = [
     description: 'Open-air vehicle protection. Affordable coverage for cars, trucks, and more.',
     image: carport,
     price: 'From $1,500',
-    link: '#',
+    link: '/types/garages-carports/carports',
   },
   {
     id: 6,
