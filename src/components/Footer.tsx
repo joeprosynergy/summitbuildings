@@ -1,123 +1,169 @@
-import { Facebook, Instagram, Youtube } from 'lucide-react';
-import summitLogo from '@/assets/summit-logo.png';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   const links = {
-    products: [
-      { label: 'Utility', href: '#products' },
-      { label: 'Side Utility', href: '#products' },
-      { label: 'Lofted Barn', href: '#products' },
-      { label: 'Garage', href: '#products' },
-      { label: 'Deluxe Cabin', href: '#products' },
+    basicStorage: [
+      { label: 'Economy Shed', href: '/types/basic-storage#economy' },
+      { label: 'Utility Shed', href: '/types/basic-storage#utility' },
+      { label: 'Side Utility', href: '/types/basic-storage#side-utility' },
+      { label: 'Lofted Barn', href: '/types/basic-storage#lofted-barn' },
+      { label: 'Side Lofted Barn', href: '/types/basic-storage#side-lofted-barn' },
+      { label: 'Mini Barn', href: '/types/basic-storage#mini-barn' },
+      { label: 'Garden Shed', href: '/types/basic-storage#garden-shed' },
     ],
-    company: [
-      { label: 'About Us', href: '/about-us' },
-      { label: 'Locations', href: '/#locations' },
-      { label: 'Contact', href: '/#contact' },
-      { label: 'Rent-to-Own', href: '#' },
+    deluxeStorage: [
+      { label: 'Budget Pro - Utility', href: '/types/basic-storage#budget-pro-utility' },
+      { label: 'Pro - Utility', href: '/types/deluxe-storage-cabins#pro-utility' },
+      { label: 'Pro - Lofted Barn', href: '/types/deluxe-storage-cabins#pro-lofted-barn' },
+      { label: 'Cabin', href: '/types/deluxe-storage-cabins#cabin' },
+    ],
+    garagesCarports: [
+      { label: 'Garage', href: '/types/garages-carports#garage' },
+      { label: 'Carport', href: '/types/garages-carports#carport' },
+    ],
+    resources: [
+      { label: "FAQ's", href: '/#faq' },
       { label: 'Financing', href: '#' },
+      { label: 'Rent-to-Own', href: '#' },
+      { label: 'Warranty Info', href: '#' },
     ],
-    legal: [
+    about: [
+      { label: 'Home', href: '/' },
+      { label: 'About Us', href: '/about-us' },
+      { label: 'Contact', href: '/#contact' },
       { label: 'Privacy Policy', href: '#' },
       { label: 'Terms of Service', href: '#' },
-      { label: 'Warranty Info', href: '#' },
+    ],
+    locations: [
+      { label: 'Georgetown, TX', href: '/#locations' },
+      { label: 'Belton, TX', href: '/#locations' },
+      { label: 'Jarrell, TX', href: '/#locations' },
+      { label: 'Lampasas, TX', href: '/#locations' },
     ],
   };
 
   return (
     <footer className="bg-navy-dark">
-      {/* Main Footer */}
-      <div className="container-custom section-padding pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <img
-              src={summitLogo}
-              alt="Summit Portable Buildings"
-              className="h-16 w-auto mb-6 brightness-0 invert"
-            />
-            <p className="text-primary-foreground/60 mb-6">
-              Attractive, affordable, high quality, hand crafted, and durable portable buildings built right here in the USA.
-            </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5 text-primary-foreground" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5 text-primary-foreground" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-5 h-5 text-primary-foreground" />
-              </a>
-            </div>
-          </div>
+      {/* Header Banner */}
+      <div className="container-custom pt-16 pb-12">
+        <h2 className="font-heading text-2xl md:text-3xl text-primary-foreground text-center uppercase tracking-wide">
+          Find Your Perfect Portable Building Today
+        </h2>
+      </div>
 
-          {/* Products Links */}
+      {/* Main Footer Links */}
+      <div className="container-custom pb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-6">
+          {/* Basic Storage */}
           <div>
-            <h3 className="font-heading text-primary-foreground uppercase mb-6">
-              Our Buildings
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              Basic Storage
             </h3>
-            <ul className="space-y-3">
-              {links.products.map((link) => (
+            <ul className="space-y-2">
+              {links.basicStorage.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/60 hover:text-secondary transition-colors"
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Deluxe Storage & Cabins */}
           <div>
-            <h3 className="font-heading text-primary-foreground uppercase mb-6">
-              Company
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              Deluxe & Cabins
             </h3>
-            <ul className="space-y-3">
-              {links.company.map((link) => (
+            <ul className="space-y-2">
+              {links.deluxeStorage.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/60 hover:text-secondary transition-colors"
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Legal Links */}
+          {/* Garages & Carports */}
           <div>
-            <h3 className="font-heading text-primary-foreground uppercase mb-6">
-              Legal
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              Garages & Carports
             </h3>
-            <ul className="space-y-3">
-              {links.legal.map((link) => (
+            <ul className="space-y-2">
+              {links.garagesCarports.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-primary-foreground/60 hover:text-secondary transition-colors"
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              Resources
+            </h3>
+            <ul className="space-y-2">
+              {links.resources.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              About
+            </h3>
+            <ul className="space-y-2">
+              {links.about.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Locations */}
+          <div>
+            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
+              Locations
+            </h3>
+            <ul className="space-y-2">
+              {links.locations.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -125,17 +171,39 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom CTA Section */}
+      <div className="container-custom pb-16">
+        <div className="text-center space-y-6">
+          <p className="text-primary-foreground text-lg">
+            Get the building of your dreams
+          </p>
+          <p className="text-primary-foreground text-2xl md:text-3xl font-heading">
+            (512) 555-SHED
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Button
+              variant="outline"
+              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8"
+              asChild
+            >
+              <Link to="/types">Browse Buildings</Link>
+            </Button>
+            <Button
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"
+              asChild
+            >
+              <Link to="/#contact">Send Message</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Copyright Bar */}
       <div className="border-t border-primary-foreground/10">
         <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-primary-foreground/50 text-sm text-center md:text-left">
-              © {currentYear} Summit Portable Buildings. All rights reserved.
-            </p>
-            <p className="text-primary-foreground/50 text-sm">
-              Built in the USA with pride.
-            </p>
-          </div>
+          <p className="text-primary-foreground/50 text-sm text-center">
+            © {new Date().getFullYear()} Summit Portable Buildings. All rights reserved. Built in the USA with pride.
+          </p>
         </div>
       </div>
     </footer>
