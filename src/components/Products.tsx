@@ -22,7 +22,7 @@ const products = [
     description: 'Perfect for tools & equipment. A classy, simple addition to any property.',
     image: utilityShed,
     price: 'From $2,800',
-    link: '/our-models/utility-shed',
+    link: '/pro-utility-shed',
   },
   {
     id: 3,

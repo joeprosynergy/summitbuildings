@@ -22,34 +22,34 @@ const categories = [
     name: 'Basic Storage',
     description: 'Affordable, practical sheds for everyday storage needs',
     models: [
-      { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/our-models/basic-storage#budget-pro-utility' },
-      { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#budget-pro-lofted-barn' },
-      { name: 'Mini Barn', image: miniBarn, link: '/our-models/basic-storage#mini-barn' },
-      { name: 'Economy', image: economy, link: '/our-models/basic-storage#economy' },
+      { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/styles/basic-storage#budget-pro-utility' },
+      { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/styles/basic-storage#budget-pro-lofted-barn' },
+      { name: 'Mini Barn', image: miniBarn, link: '/styles/basic-storage#mini-barn' },
+      { name: 'Economy', image: economy, link: '/styles/basic-storage#economy' },
     ],
-    link: '/our-models/basic-storage'
+    link: '/styles/basic-storage'
   },
   {
     id: 'deluxe-storage-cabins',
     name: 'Deluxe Storage & Cabins',
     description: 'Premium buildings with extra features and style',
     models: [
-      { name: 'Pro - Utility', image: proUtility, link: '/our-models/utility-shed' },
-      { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
-      { name: 'Cabins/Tiny Home', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins-tiny-home' },
-      { name: 'Dormer', image: dormer, link: '/our-models/deluxe-storage-cabins#dormer', contain: true },
+      { name: 'Pro - Utility', image: proUtility, link: '/pro-utility-shed' },
+      { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/styles/deluxe-storage-cabins#pro-lofted-barn' },
+      { name: 'Cabins/Tiny Home', image: cabinShed, link: '/styles/deluxe-storage-cabins#cabins-tiny-home' },
+      { name: 'Dormer', image: dormer, link: '/styles/deluxe-storage-cabins#dormer', contain: true },
     ],
-    link: '/our-models/deluxe-storage-cabins'
+    link: '/styles/deluxe-storage-cabins'
   },
   {
     id: 'garages-carports',
     name: 'Garages & Carports',
     description: 'Secure vehicle and equipment storage',
     models: [
-      { name: 'Garages', image: garage, link: '/our-models/garages-carports#garages' },
-      { name: 'Carports', image: carport, link: '/our-models/garages-carports#carports' },
+      { name: 'Garages', image: garage, link: '/styles/garages-carports#garages' },
+      { name: 'Carports', image: carport, link: '/styles/garages-carports#carports' },
     ],
-    link: '/our-models/garages-carports'
+    link: '/styles/garages-carports'
   },
 ];
 

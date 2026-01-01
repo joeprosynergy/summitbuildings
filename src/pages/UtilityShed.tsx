@@ -236,7 +236,7 @@ const UtilityShed = () => {
           property="og:description"
           content="A classy, yet simple addition to your property. Superior workmanship makes it the obvious choice for your storage needs. Available as standard utility or side utility with windows."
         />
-        <link rel="canonical" href="https://summitbuildings.com/our-models/utility-shed" />
+        <link rel="canonical" href="https://summitbuildings.com/pro-utility-shed" />
       </Helmet>
 
       <div className="min-h-screen">
@@ -249,7 +249,7 @@ const UtilityShed = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/our-models" 
+                    to="/styles" 
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
                     ← Back to All Buildings
@@ -530,7 +530,7 @@ const UtilityShed = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link to="/our-models">
+                <Link to="/styles">
                   <Button variant="heroOutline" size="xl">
                     See More Models
                   </Button>
