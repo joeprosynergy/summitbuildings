@@ -1,29 +1,24 @@
-import { ClipboardList, Calculator, Truck, CheckCircle } from 'lucide-react';
+import { Monitor, Hammer, Truck } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const steps = [
   {
     number: 1,
-    title: 'Choose Your Design',
-    description: 'Browse our catalog or work with us to create a custom design that fits your needs.',
-    icon: ClipboardList,
+    title: 'Design It Online',
+    description: 'Use our 3D builder to pick your style, size, colors, and options. Get instant pricing. Takes about 5 minutes.',
+    icon: Monitor,
   },
   {
     number: 2,
-    title: 'Get Your Quote',
-    description: 'Receive a free, no-obligation quote with transparent pricing and no hidden fees.',
-    icon: Calculator,
+    title: 'We Build It',
+    description: 'Our craftsmen hand-build your shed using premium materials. Every building is inspected for quality.',
+    icon: Hammer,
   },
   {
     number: 3,
-    title: 'Schedule Delivery',
-    description: 'Pick a delivery date that works for you. We handle all the logistics.',
+    title: 'We Deliver & Setup',
+    description: 'We deliver to your property and set it up, leveled and ready to use. Free within 50 miles.',
     icon: Truck,
-  },
-  {
-    number: 4,
-    title: 'Enjoy Your Building',
-    description: 'Our team professionally installs your building. You just enjoy it!',
-    icon: CheckCircle,
   },
 ];
 
@@ -32,37 +27,40 @@ const HowItWorks = () => {
     <section id="how-it-works" className="section-padding bg-muted/30">
       <div className="container-custom">
         <div className="text-center mb-16">
+          <p className="text-secondary font-heading uppercase tracking-widest mb-4">
+            The Plan
+          </p>
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            How It Works
+            Getting Your Shed is Easy
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Getting your dream building is easy
+            We've simplified the entire process into 3 simple steps.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-12">
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className="relative group"
+              className="relative"
             >
               {/* Connector line */}
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-primary/50 to-primary/20" />
+                <div className="hidden md:block absolute top-16 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-secondary/50 to-secondary/10" />
               )}
               
-              <div className="relative bg-card rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-border/50 hover:border-primary/30 text-center h-full">
+              <div className="relative bg-card rounded-2xl p-8 shadow-lg border border-border/50 text-center h-full">
                 {/* Step number badge */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-heading font-bold text-sm shadow-md">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center font-heading font-bold text-lg shadow-lg">
                   {step.number}
                 </div>
                 
                 {/* Icon */}
-                <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <step.icon className="w-8 h-8 text-primary" />
+                <div className="w-20 h-20 mx-auto mb-6 mt-4 bg-primary/10 rounded-2xl flex items-center justify-center">
+                  <step.icon className="w-10 h-10 text-primary" />
                 </div>
                 
-                <h3 className="font-heading text-xl font-bold text-foreground mb-3">
+                <h3 className="font-heading text-xl font-bold text-foreground mb-4">
                   {step.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -71,6 +69,12 @@ const HowItWorks = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <Button variant="hero" size="lg" className="text-lg px-10">
+            Start Designing Your Shed
+          </Button>
         </div>
       </div>
     </section>
