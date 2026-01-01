@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 const Footer = () => {
   const links = {
     basicStorage: [
-      { label: 'Economy Shed', href: '/types/basic-storage#economy' },
+      { label: 'Economy Shed', href: '/types/basic-storage/economy-shed' },
       { label: 'Utility Shed', href: '/types/basic-storage#utility' },
       { label: 'Side Utility', href: '/types/basic-storage#side-utility' },
       { label: 'Lofted Barn', href: '/types/basic-storage#lofted-barn' },
@@ -14,12 +14,12 @@ const Footer = () => {
     ],
     deluxeStorage: [
       { label: 'Budget Pro - Utility', href: '/types/basic-storage#budget-pro-utility' },
-      { label: 'Pro - Utility', href: '/types/deluxe-storage-cabins#pro-utility' },
-      { label: 'Pro - Lofted Barn', href: '/types/deluxe-storage-cabins#pro-lofted-barn' },
-      { label: 'Cabin', href: '/types/deluxe-storage-cabins#cabin' },
+      { label: 'Pro - Utility', href: '/types/deluxe-storage-cabins/pro-utility-shed' },
+      { label: 'Pro - Lofted Barn', href: '/types/deluxe-storage-cabins/pro-lofted-barn' },
+      { label: 'Cabin', href: '/types/deluxe-storage-cabins/cabin' },
     ],
     garagesCarports: [
-      { label: 'Garage', href: '/types/garages-carports#garage' },
+      { label: 'Garage', href: '/types/garages-carports/garage' },
       { label: 'Carport', href: '/types/garages-carports#carport' },
     ],
     resources: [
