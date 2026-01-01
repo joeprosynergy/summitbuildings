@@ -37,7 +37,8 @@ const categories = [
     name: 'Garages & Carports',
     description: 'Secure vehicle and equipment storage',
     models: [
-      { name: 'Garages & Carports', image: garageShed, link: '/our-models/garages-carports#garages-carports' },
+      { name: 'Garages', image: garageShed, link: '/our-models/garages-carports#garages' },
+      { name: 'Carports', image: garageShed, link: '/our-models/garages-carports#carports' },
     ],
     link: '/our-models/garages-carports'
   },
@@ -86,7 +87,13 @@ const OurModels = () => {
 
                   {/* Models Grid - no gap from header */}
                   <div className="p-6 md:p-10">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className={`grid gap-6 md:gap-8 ${
+                      category.models.length <= 2 
+                        ? 'grid-cols-2 max-w-md mx-auto' 
+                        : category.models.length === 3 
+                          ? 'grid-cols-3 max-w-2xl mx-auto' 
+                          : 'grid-cols-2 md:grid-cols-4 max-w-4xl mx-auto'
+                    }`}>
                       {category.models.map((model) => (
                         <Link
                           key={model.name}
@@ -105,16 +112,6 @@ const OurModels = () => {
                           </h3>
                         </Link>
                       ))}
-                      {/* View All Link */}
-                      <Link
-                        to={category.link}
-                        className="group flex flex-col items-center justify-center aspect-square rounded-lg border-2 border-dashed border-border hover:border-secondary hover:bg-muted/50 transition-all"
-                      >
-                        <span className="text-4xl text-muted-foreground group-hover:text-secondary transition-colors mb-2">→</span>
-                        <span className="font-heading font-bold text-muted-foreground group-hover:text-secondary transition-colors uppercase text-sm">
-                          View All
-                        </span>
-                      </Link>
                     </div>
                   </div>
                 </div>
