@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroShed from '@/assets/hero-shed.jpg';
 
 const badges = [
@@ -42,11 +43,11 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>
-            <a href="#contact">
+            <Link to="/buyers-guide">
               <Button variant="heroOutline" size="xl">
                 Get Free Buying Guide
               </Button>
-            </a>
+            </Link>
           </div>
 
           <p className="text-primary-foreground/60 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
