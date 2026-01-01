@@ -10,6 +10,7 @@ import sideUtility from '@/assets/side-utility-shed.jpg';
 import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
 import budgetProUtility from '@/assets/budget-pro-utility.webp';
 import proUtility from '@/assets/pro-utility.webp';
+import economy from '@/assets/economy.webp';
 
 const categories = [
   {
@@ -20,7 +21,7 @@ const categories = [
       { name: 'Budget Pro - Utility', image: budgetProUtility, link: '/our-models/basic-storage#budget-pro-utility' },
       { name: 'Budget Pro - Lofted Barn', image: loftedBarn, link: '/our-models/basic-storage#budget-pro-lofted-barn' },
       { name: 'Mini Barn', image: loftedBarn, link: '/our-models/basic-storage#mini-barn' },
-      { name: 'Economy', image: sideUtility, link: '/our-models/basic-storage#economy' },
+      { name: 'Economy', image: economy, link: '/our-models/basic-storage#economy' },
     ],
     link: '/our-models/basic-storage'
   },
