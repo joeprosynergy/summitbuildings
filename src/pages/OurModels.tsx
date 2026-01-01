@@ -34,7 +34,7 @@ const categories = [
     name: 'Deluxe Storage & Cabins',
     description: 'Premium buildings with extra features and style',
     models: [
-      { name: 'Pro - Utility', image: proUtility, link: '/our-models/deluxe-storage-cabins#pro-utility' },
+      { name: 'Pro - Utility', image: proUtility, link: '/our-models/utility-shed' },
       { name: 'Pro - Lofted Barn', image: proLoftedBarn, link: '/our-models/deluxe-storage-cabins#pro-lofted-barn' },
       { name: 'Cabins/Tiny Home', image: cabinShed, link: '/our-models/deluxe-storage-cabins#cabins-tiny-home' },
       { name: 'Dormer', image: dormer, link: '/our-models/deluxe-storage-cabins#dormer', contain: true },
