@@ -221,6 +221,20 @@
   }
 }
 
+/* Layout helpers for Buyers Guide PDF export */
+.buyers-guide-pdf .pdf-page {
+  width: 8.5in;
+  min-height: 11in;
+  box-sizing: border-box;
+  page-break-after: always;
+  break-after: page;
+}
+
+.buyers-guide-pdf .pdf-page:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
 /* Print styles for Buyers Guide PDF */
 @media print {
   .print\:hidden {
