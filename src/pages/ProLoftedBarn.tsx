@@ -240,7 +240,7 @@ const ProLoftedBarn = () => {
         
         <main>
           {/* Hero Section */}
-          <section className="pt-32 pb-16 bg-gradient-to-br from-navy via-navy-dark to-navy">
+          <section className="pt-32 pb-16 min-h-[600px] lg:min-h-[700px] bg-gradient-to-br from-navy via-navy-dark to-navy">
             <div className="container-custom">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
