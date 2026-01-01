@@ -45,8 +45,8 @@ const App = () => (
             <Route path="/types/garages-carports/garage" element={<Garage />} />
             {/* Resources */}
             <Route path="/buyers-guide" element={<BuyersGuide />} />
-            {/* Admin */}
-            <Route path="/admin/cloudinary-upload" element={<AdminCloudinaryUpload />} />
+            {/* Utilities */}
+            <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
