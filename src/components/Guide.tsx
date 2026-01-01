@@ -1,10 +1,17 @@
-import { Award, Building, Shield, Users } from 'lucide-react';
+import { Home, Hammer, Shield, Heart } from 'lucide-react';
+
+const stats = [
+  { value: '16+', label: 'Years Experience' },
+  { value: '4', label: 'States Served' },
+  { value: '1000+', label: 'Buildings Delivered' },
+  { value: '50', label: 'Year Warranty' },
+];
 
 const credentials = [
-  { icon: Award, label: '30+ Years Experience' },
-  { icon: Building, label: '1000+ Buildings Delivered' },
-  { icon: Shield, label: 'Lifetime Warranty' },
-  { icon: Users, label: 'Family Owned & Operated' },
+  { icon: Home, label: 'Family Owned', sublabel: 'Since 2008' },
+  { icon: Hammer, label: 'Hand-Crafted', sublabel: 'USA Built' },
+  { icon: Shield, label: '50-Year Warranty', sublabel: 'LP SmartSide' },
+  { icon: Heart, label: 'Faith Based', sublabel: 'Values Driven' },
 ];
 
 const Guide = () => {
@@ -14,40 +21,49 @@ const Guide = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-secondary font-heading uppercase tracking-widest mb-4">
-              We're Here to Help
+              Your Guide
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading text-foreground mb-6">
-              Your Guide to the Perfect Building
+              We've Helped Hundreds of Families Get Organized
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              We understand the frustration of needing more space. That's why we've spent over 30 years 
-              perfecting our craft—building attractive, affordable, and durable portable buildings that 
-              solve real storage problems.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+              <strong className="text-foreground">We get it.</strong>
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Finding quality storage that fits your property and budget feels impossible. Big box stores sell junk that falls apart. Custom builds cost a fortune.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              We're <strong className="text-foreground">Summit Portable Buildings</strong>, a family-owned company that's been building storage solutions the right way since 2008. We've helped over 1,000 families across four states get the space they need without the headaches.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              As a family-owned business, we treat every customer like a neighbor. We listen to your needs, 
-              help you choose the right building, and deliver a product we're proud to put our name on. 
-              Built the old fashioned way means quality you can trust.
+              Every building is hand-crafted by skilled craftsmen right here in the USA using premium materials that last for generations, not years.
             </p>
             
-            <div className="grid grid-cols-2 gap-4">
-              {credentials.map((cred) => (
-                <div key={cred.label} className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <cred.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-sm font-medium text-foreground">{cred.label}</span>
+            {/* Stats */}
+            <div className="grid grid-cols-4 gap-4 mb-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl md:text-4xl font-heading text-primary font-bold">{stat.value}</p>
+                  <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl p-8 lg:p-12">
-            <blockquote className="text-lg md:text-xl text-foreground italic leading-relaxed mb-6">
-              "A family owned business that continues to strive for excellence & customer satisfaction. 
-              With experience in Construction & Sales we incorporate that experience into each of our products."
-            </blockquote>
-            <p className="font-heading text-foreground font-bold">— The Summit Team</p>
+          {/* Credentials */}
+          <div className="grid grid-cols-2 gap-4">
+            {credentials.map((cred) => (
+              <div 
+                key={cred.label} 
+                className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-6 text-center"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-xl flex items-center justify-center">
+                  <cred.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-heading text-foreground font-bold mb-1">{cred.label}</h3>
+                <p className="text-sm text-muted-foreground">{cred.sublabel}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
