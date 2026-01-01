@@ -225,18 +225,14 @@
 .buyers-guide-pdf {
   width: 7.5in;
   margin: 0 auto;
-  font-size: 10px;
 }
 
 .buyers-guide-pdf .pdf-page {
   width: 100%;
-  min-height: auto;
-  max-height: 9.5in;
-  overflow: hidden;
   box-sizing: border-box;
-  padding: 0.25in;
   page-break-after: always;
   break-after: page;
+  background: white;
 }
 
 .buyers-guide-pdf .pdf-page:last-child {
@@ -246,51 +242,56 @@
 
 .buyers-guide-pdf .pdf-page > div {
   min-height: auto !important;
-  padding: 0.5rem !important;
+  padding: 1.25rem !important;
 }
 
 .buyers-guide-pdf h1 {
-  font-size: 2.5rem !important;
-  line-height: 1 !important;
+  font-size: 2.25rem !important;
+  line-height: 1.1 !important;
 }
 
 .buyers-guide-pdf h3 {
-  font-size: 0.875rem !important;
+  font-size: 0.85rem !important;
 }
 
-.buyers-guide-pdf p,
+.buyers-guide-pdf p {
+  font-size: 0.7rem !important;
+  line-height: 1.45 !important;
+}
+
 .buyers-guide-pdf li {
-  font-size: 0.75rem !important;
-  line-height: 1.4 !important;
+  font-size: 0.65rem !important;
+  line-height: 1.35 !important;
 }
 
 .buyers-guide-pdf img {
-  max-height: 120px !important;
+  max-height: 95px !important;
   object-fit: cover;
 }
 
 .buyers-guide-pdf footer {
   padding-top: 0.5rem !important;
   padding-bottom: 0.25rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.buyers-guide-pdf header {
+  margin-bottom: 0.75rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .buyers-guide-pdf .grid {
+  gap: 0.35rem !important;
+}
+
+.buyers-guide-pdf .flex.gap-5 {
   gap: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
-/* Make links clearly identifiable for PDF export */
-.buyers-guide-pdf a {
-  color: hsl(var(--secondary)) !important;
-  text-decoration: underline !important;
-  cursor: pointer !important;
-}
-
-.buyers-guide-pdf a.pdf-button {
-  text-decoration: none !important;
-  display: inline-block !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 0.5rem !important;
-  font-weight: 600 !important;
+.buyers-guide-pdf .mt-12,
+.buyers-guide-pdf .mt-8 {
+  margin-top: 0.75rem !important;
 }
 
 /* Print styles for Buyers Guide PDF */
