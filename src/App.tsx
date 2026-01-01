@@ -23,9 +23,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/our-models" element={<OurModels />} />
-            <Route path="/our-models/basic-storage" element={<BasicStorage />} />
-            <Route path="/our-models/utility-shed" element={<UtilityShed />} />
+            <Route path="/styles" element={<OurModels />} />
+            <Route path="/styles/basic-storage" element={<BasicStorage />} />
+            <Route path="/pro-utility-shed" element={<UtilityShed />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
