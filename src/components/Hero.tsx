@@ -31,7 +31,7 @@ const Hero = () => {
             Get the Storage Space You Need <span className="text-secondary">Without the Hassle</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-4 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Custom portable buildings designed for your property, built by craftsmen, delivered to your door.
+            Custom storage buildings designed for your property, built by craftsmen, delivered to your door.
           </p>
           <p className="text-primary-foreground/70 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
             Stop living with clutter. Design your perfect shed online in minutes and we'll handle the rest.
