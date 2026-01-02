@@ -34,8 +34,7 @@ const Footer = () => {
       { label: 'About Us', href: '/about-us' },
       { label: 'Blog', href: 'https://summitbuildings.superblog.click', external: true },
       { label: 'Contact', href: '/#contact' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
     locations: [
       { label: 'Missouri', href: '/#locations' },
