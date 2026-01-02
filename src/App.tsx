@@ -19,6 +19,7 @@ import Carports from "./pages/Carports";
 import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
 import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/types/garages-carports/carports" element={<Carports />} />
             {/* Resources */}
             <Route path="/buyers-guide" element={<BuyersGuide />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* Utilities */}
             <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
