@@ -72,7 +72,7 @@ const BuyersGuide = () => {
         <title>Summit Buyers Guide | Summit Portable Buildings</title>
         <meta
           name="description"
-          content="Your 5-step roadmap to the perfect portable building. Learn how to choose the right size, materials, prepare your site, and more."
+          content="Your 5-step roadmap to the perfect storage building. Learn how to choose the right size, materials, prepare your site, and more."
         />
       </Helmet>
 
