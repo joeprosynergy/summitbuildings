@@ -19,11 +19,11 @@ const Index = () => {
         <title>Summit Portable Buildings | Get the Storage Space You Need Without the Hassle</title>
         <meta
           name="description"
-          content="Custom portable buildings designed for your property, built by craftsmen, delivered to your door. Serving Missouri, Illinois, Kentucky & Arkansas since 2008."
+          content="Custom storage buildings designed for your property, built by craftsmen, delivered to your door. Serving Missouri, Illinois, Kentucky & Arkansas since 2008."
         />
         <meta
           name="keywords"
-          content="portable buildings, storage sheds, barns, garages, utility sheds, outdoor storage, Missouri, Illinois, Kentucky, Arkansas"
+          content="storage buildings, storage sheds, barns, garages, utility sheds, outdoor storage, Missouri, Illinois, Kentucky, Arkansas"
         />
         <meta property="og:title" content="Summit Portable Buildings | Custom Storage Solutions" />
         <meta

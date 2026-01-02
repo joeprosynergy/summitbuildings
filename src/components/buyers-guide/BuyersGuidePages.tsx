@@ -34,7 +34,7 @@ export const CoverPage = ({ exportMode }: PageProps) => (
       <div className="text-center">
         <div className="bg-secondary h-2 w-28 mx-auto mb-8" />
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black uppercase leading-[0.9]">
-          PORTABLE<br />BUILDING<br />
+          STORAGE<br />BUILDING<br />
           <span className="text-secondary">BUYER'S</span>
           <br />GUIDE
         </h1>
@@ -97,7 +97,7 @@ export const Step1Page = ({ exportMode }: PageProps) => (
         <img
           crossOrigin="anonymous"
           src="https://www.lappstructures.com/wp-content/uploads/2024/12/20210527_132818_01183-scaled-aspect-ratio-570-400-1024x718.jpg"
-          alt="Organized home office or hobby space inside portable building"
+          alt="Organized home office or hobby space inside storage building"
           className="w-full h-auto rounded-lg shadow-md"
         />
       </div>
@@ -137,7 +137,7 @@ export const Step2Page = ({ exportMode }: PageProps) => (
         <img
           crossOrigin="anonymous"
           src="https://countrysidebarns.com/site/wp-content/uploads/2018/11/12x20-Portable-Side-Porch-Cabin-Shed-Outdoor-Storage-Countryside-Barns-Building-e1633447571173.jpg"
-          alt="Elegant side porch cabin style portable building"
+          alt="Elegant side porch cabin style storage building"
           className="w-full h-auto rounded-lg shadow-md"
         />
         <img
@@ -216,7 +216,7 @@ export const Step3Page = ({ exportMode }: PageProps) => (
         <img
           crossOrigin="anonymous"
           src="https://goldstarbuildings.b-cdn.net/wp-content/uploads/concrete-blocks-for-portable-cabin-foundations-for-cabins-with-metal-roofs-in-erie-pa-768x512.jpg"
-          alt="Concrete blocks under portable building"
+          alt="Concrete blocks under storage building"
           className="w-full h-auto rounded-lg shadow-md"
         />
         <img
@@ -274,7 +274,7 @@ export const Step4Page = ({ exportMode }: PageProps) => (
         <img
           crossOrigin="anonymous"
           src="https://www.durastorstructures.com/wp-content/uploads/2025/03/delivery-2.png"
-          alt="Professional portable building placement"
+          alt="Professional storage building placement"
           className="w-full h-auto rounded-lg shadow-md"
         />
       </div>

@@ -56,7 +56,7 @@ const OurModels = () => {
     <>
       <Helmet>
         <title>Our Models | Summit Portable Buildings</title>
-        <meta name="description" content="Browse our complete selection of portable buildings. From basic storage sheds to deluxe cabins and garages, find the perfect structure for your needs." />
+        <meta name="description" content="Browse our complete selection of storage buildings. From basic storage sheds to deluxe cabins and garages, find the perfect structure for your needs." />
       </Helmet>
 
       <Header />

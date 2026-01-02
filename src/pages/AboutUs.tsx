@@ -67,12 +67,12 @@ const AboutUs = () => {
         <title>About Us | Summit Portable Buildings</title>
         <meta
           name="description"
-          content="Learn about Summit Portable Buildings - a faith-based, family-owned business committed to excellence in building quality portable structures the old fashioned way."
+          content="Learn about Summit Portable Buildings - a faith-based, family-owned business committed to excellence in building quality storage structures the old fashioned way."
         />
         <meta property="og:title" content="About Us | Summit Portable Buildings" />
         <meta
           property="og:description"
-          content="A family-owned business building quality portable structures with skilled craftsmen and old-fashioned values."
+          content="A family-owned business building quality storage structures with skilled craftsmen and old-fashioned values."
         />
         <link rel="canonical" href="https://summitbuildings.com/about-us" />
       </Helmet>
@@ -106,7 +106,7 @@ const AboutUs = () => {
                   Our Mission
                 </p>
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  To Build Portable Structures That Serve Our Neighbors
+                  To Build Storage Structures That Serve Our Neighbors
                 </h2>
                 <p className="text-xl text-muted-foreground leading-relaxed">
                   We do this by building quality structures in our own shop, with customizable, high quality craftsmanship. 
@@ -133,7 +133,7 @@ const AboutUs = () => {
                     Storage Sheds, Portable Garages, Utility Buildings, Lofted Barns and Cabins, Tiny House Shells, and other styles.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    We construct various attractive, affordable, quality, hand-crafted, and durable Portable Buildings 
+                    We construct various attractive, affordable, quality, hand-crafted, and durable Storage Buildings 
                     the old fashioned way—built from the ground up with care and attention to detail.
                   </p>
                 </div>
