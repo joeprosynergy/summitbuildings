@@ -3,27 +3,21 @@ import { Star, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    name: 'Mike T.',
-    location: 'Farmington, MO',
-    subtitle: 'From packed garage to organized workshop',
+    name: 'Samantha Tevlin',
     rating: 5,
-    text: "I was skeptical about ordering a shed, but Summit made it so easy. Designed it online, they built it in two weeks, and delivery was seamless. The quality is incredible - way better than anything at the big box stores.",
+    text: "I requested a metal 14x32 shed. Let me just say, it turned out everything I pictured and more. They did an amazing job on the build. You can tell they truly put their best effort into it and took their time to make sure it was done right. I'm 10/10 extremely happy & thankful for it! Not only is the shed great but the customer service was on point. Always replied when needed to & answered every question. Even worked with me on last minutes changes the best they could! Highly recommend & will use them again for any future needs.",
   },
   {
     id: 2,
-    name: 'Sarah W.',
-    location: 'Cape Girardeau, MO',
-    subtitle: 'From cluttered basement to family-ready home',
+    name: 'Dona Clapperton',
     rating: 5,
-    text: "We needed extra storage after our third kid. Summit helped us design the perfect lofted barn that matches our house. The guys were professional, delivery was on time, and it looks amazing. Wish we'd done this years ago!",
+    text: "Gino was such a helpful salesman. He was patient and kind as we did this sale long distance. Delivery was a breeze. The team was friendly and knowledgeable. It was a joy to watch them set up the unit. I've recommended them to family and currently my daughter is in the process of buying her unit from Gino. Five stars isn't enough for the experience with Summit.",
   },
   {
     id: 3,
-    name: 'Robert D.',
-    location: 'Paducah, KY',
-    subtitle: 'From cramped to having his own space',
+    name: 'Gary Shrum',
     rating: 5,
-    text: "Best investment we've made for our property. I finally have a real workshop where I can work on projects without my wife complaining about the mess in the garage. The craftsmanship is top notch.",
+    text: "I am quite pleased with the 12X32 building I purchased. The worker who delivered and set up the building was amazing and was very knowledgeable. I would recommend Summit Portable Buildings to anyone want a solid built and attractive building.",
   },
 ];
 
@@ -73,11 +67,8 @@ const Testimonials = () => {
                 <p className="font-heading text-foreground font-semibold">
                   {testimonial.name}
                 </p>
-                <p className="text-muted-foreground text-sm">
-                  {testimonial.location}
-                </p>
                 <p className="text-secondary text-sm font-medium mt-1">
-                  {testimonial.subtitle}
+                  Google Review
                 </p>
               </div>
             </div>
