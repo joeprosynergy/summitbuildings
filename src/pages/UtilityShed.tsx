@@ -49,10 +49,13 @@ const galleryImages = [
 // Combined features for Pro - Utility Shed
 const proUtilityFeatures = [
   "Double 36\" Doors w/ T-Handle Lock & Key",
-  "3/4\" T & G Flooring",
-  "Ridge Vent",
-  "7' 9\" (93\") Walls",
-  "2'x3' Windows Available",
+  "3/4\" T & G Advantech Flooring",
+  "Mesh Vented Ridge",
+  "Moisture Barrier & Drip Edge on Roof",
+  "7'9\" (93\") Wall Height",
+  "16\" O.C. Wall Studs",
+  "16\" O.C. Rafters",
+  "Set of 2 Door Holders (Keep the Doors Open)",
   "Side or Front Door Entry Options",
   "Additional Doors & Windows Available",
   "Customizable Layout for Any Use",
