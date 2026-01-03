@@ -47,10 +47,15 @@ const proLoftedBarnFeatures = [
   "Double 36\" Doors w/ T-Handle Lock & Key",
   "2 Lofts for Maximum Storage",
   "Loft Ladder Included",
-  "6' 6\" (78\") Walls",
-  "2'x3' Windows Available",
+  "3/4\" T & G Advantech Flooring",
+  "Mesh Vented Ridge",
+  "Moisture Barrier & Drip Edge on Roof",
+  "6'6\" (78\") Wall Height",
+  "16\" O.C. Wall Studs",
+  "16\" O.C. Rafters",
+  "Set of 2 Door Holders (Keep the Doors Open)",
   "Side or Front Door Entry Options",
-  "Classic Barn Aesthetic",
+  "Additional Doors & Windows Available",
   "Customizable Layout for Any Use",
 ];
 
