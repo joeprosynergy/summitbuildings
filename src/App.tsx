@@ -18,6 +18,8 @@ import Cabin from "./pages/Cabin";
 import Carports from "./pages/Carports";
 import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
+import Gallery from "./pages/Gallery";
+import Financing from "./pages/Financing";
 import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
@@ -50,6 +52,8 @@ const App = () => (
             <Route path="/types/garages-carports/carports" element={<Carports />} />
             {/* Resources */}
             <Route path="/buyers-guide" element={<BuyersGuide />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/financing" element={<Financing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* Utilities */}
             <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
