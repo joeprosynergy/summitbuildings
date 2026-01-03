@@ -23,7 +23,7 @@ const Footer = () => {
       { label: 'Carport', href: '/types/garages-carports#carport' },
     ],
     resources: [
-      { label: "FAQ's", href: '/#faq' },
+      { label: "FAQ's", href: '/contact-us#faq' },
       { label: 'Buyers Guide', href: '/buyers-guide' },
       { label: 'Gallery', href: '/gallery' },
       { label: 'Financing', href: '/financing' },
@@ -34,7 +34,7 @@ const Footer = () => {
       { label: 'Home', href: '/' },
       { label: 'About Us', href: '/about-us' },
       { label: 'Blog', href: 'https://summitbuildings.superblog.click', external: true },
-      { label: 'Contact', href: '/#contact' },
+      { label: 'Contact', href: '/contact-us' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
     locations: [
@@ -199,7 +199,7 @@ const Footer = () => {
               className="bg-primary-foreground border-border text-foreground hover:bg-primary-foreground/90 px-8"
               asChild
             >
-              <Link to="/types">Browse Buildings</Link>
+              <a href="https://summitportablebuildings.shedsuite.com/" target="_blank" rel="noopener noreferrer">Browse Inventory</a>
             </Button>
             <Button
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"
