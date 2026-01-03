@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const stateData = [
   {
@@ -85,11 +86,11 @@ const Locations = () => {
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>
-            <a href="#contact">
+            <Link to="/buyers-guide">
               <Button variant="heroOutline" size="lg">
                 Get Free Buying Guide
               </Button>
-            </a>
+            </Link>
           </div>
           <p className="text-primary-foreground/60 text-sm mt-6">
             Questions? Call us at (573) 747-4700
