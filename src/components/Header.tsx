@@ -26,9 +26,10 @@ const Header = () => {
 
   const navLinks = [
     { href: '/types', label: 'Our Buildings', isRoute: true },
+    { href: 'https://summitportablebuildings.shedsuite.com/', label: 'See Inventory', isExternal: true },
     { href: '/about-us', label: 'About Us', isRoute: true },
     { href: isHomePage ? '#locations' : '/#locations', label: 'Locations' },
-    { href: isHomePage ? '#contact' : '/#contact', label: 'Contact' },
+    { href: '/contact-us', label: 'Contact', isRoute: true },
   ];
 
   return (
@@ -69,6 +70,20 @@ const Header = () => {
                 >
                   {link.label}
                 </Link>
+              ) : link.isExternal ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`font-medium transition-colors duration-200 ${
+                    useLightText
+                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
+                      : 'text-foreground/80 hover:text-secondary'
+                  }`}
+                >
+                  {link.label}
+                </a>
               ) : (
                 <a
                   key={link.href}
@@ -129,6 +144,17 @@ const Header = () => {
                   >
                     {link.label}
                   </Link>
+                ) : link.isExternal ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
                 ) : (
                   <a
                     key={link.href}

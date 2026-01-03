@@ -22,6 +22,7 @@ import Gallery from "./pages/Gallery";
 import Financing from "./pages/Financing";
 import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/financing" element={<Financing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             {/* Utilities */}
             <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
