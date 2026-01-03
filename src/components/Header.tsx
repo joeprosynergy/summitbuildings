@@ -111,9 +111,11 @@ const Header = () => {
               <Phone className="w-4 h-4" />
               <span>573-747-4700</span>
             </a>
-            <Button variant="hero" size="lg">
-              Get a Quote
-            </Button>
+            <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+              <Button variant="hero" size="lg">
+                Design Your Shed
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -167,9 +169,11 @@ const Header = () => {
                 )
               ))}
               <div className="px-4 pt-4 border-t border-border mt-4">
-                <Button variant="hero" size="lg" className="w-full">
-                  Get a Quote
-                </Button>
+                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                  <Button variant="hero" size="lg" className="w-full">
+                    Design Your Shed
+                  </Button>
+                </a>
               </div>
             </nav>
           </div>
