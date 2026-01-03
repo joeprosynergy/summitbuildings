@@ -137,7 +137,9 @@ const OurModels = () => {
               Design your perfect building online in minutes
             </p>
             <a
-              href="#"
+              href="https://summitbuildings.shedpro.co/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-md hover:brightness-110 transition-all"
             >
               Design Your Building
