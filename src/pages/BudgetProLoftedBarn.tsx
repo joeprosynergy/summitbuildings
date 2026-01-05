@@ -21,19 +21,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import images
+// Import images - only real Budget Pro Lofted Barn photos
 import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
-import loftedBarn1 from '@/assets/lofted-barn-1.jpg';
-import loftedBarn2 from '@/assets/lofted-barn-2.jpg';
-import loftedBarn3 from '@/assets/lofted-barn-3.jpg';
-import loftedBarn4 from '@/assets/lofted-barn-4.jpg';
+import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
+import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
 
 const galleryImages = [
   { src: budgetProLoftedBarn, alt: 'Budget Pro Lofted Barn - Main image' },
-  { src: loftedBarn1, alt: 'Summit Lofted Barn - Red with white trim' },
-  { src: loftedBarn2, alt: 'Summit Lofted Barn - Blue exterior' },
-  { src: loftedBarn3, alt: 'Summit Lofted Barn - Gray with shutters' },
-  { src: loftedBarn4, alt: 'Summit Lofted Barn - Classic style' },
+  { src: budgetProLoftedBarn2, alt: 'Budget Pro Lofted Barn - Tan with black trim' },
+  { src: budgetProLoftedBarn3, alt: 'Budget Pro Lofted Barn - Green exterior' },
 ];
 
 // Features for Budget Pro - Lofted Barn

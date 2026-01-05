@@ -12,6 +12,9 @@ import budgetProUtility from '@/assets/budget-pro-utility.jpeg';
 import budgetProUtility2 from '@/assets/budget-pro-utility-2.jpeg';
 import budgetProUtility3 from '@/assets/budget-pro-utility-3.jpeg';
 import budgetProUtilityAlt from '@/assets/budget-pro-utility.webp';
+import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
+import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
+import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
 import economy from '@/assets/economy.webp';
 import miniBarn from '@/assets/mini-barn.jpeg';
 
@@ -36,10 +39,10 @@ const models = [
     features: [
       'Overhead loft for extra storage',
       'Gambrel roof design',
-      '6\' 4" Wall Height',
+      '6\' 6" Wall Height',
     ],
-    image: loftedBarn,
-    gallery: [loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn, loftedBarn],
+    image: budgetProLoftedBarn,
+    gallery: [budgetProLoftedBarn, budgetProLoftedBarn2, budgetProLoftedBarn3],
     detailLink: '/types/basic-storage/budget-pro-lofted-barn',
   },
   {
@@ -72,7 +75,7 @@ const models = [
 
 const quickNavModels = [
   { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
-  { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: loftedBarn },
+  { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: budgetProLoftedBarn },
   { id: 'mini-barn', name: 'Mini Barn', image: miniBarn },
   { id: 'economy', name: 'Economy', image: economy },
 ];
