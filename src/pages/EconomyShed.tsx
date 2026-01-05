@@ -26,7 +26,6 @@ import economyShed1 from '@/assets/economy-shed-1.jpg';
 import economyShed2 from '@/assets/economy-shed-2.jpg';
 import economyShed3 from '@/assets/economy-shed-3.jpg';
 import economyShed4 from '@/assets/economy-shed-4.jpg';
-import economyShed5 from '@/assets/economy-shed-5.jpg';
 import economyShed6 from '@/assets/economy-shed-6.jpg';
 import economyShed7 from '@/assets/economy-shed-7.jpg';
 import economyShed8 from '@/assets/economy-shed-8.jpg';
@@ -37,7 +36,6 @@ const galleryImages = [
   { src: economyShed2, alt: 'Economy Shed - Dark brown metal siding' },
   { src: economyShed3, alt: 'Lofted Economy Shed - Gray metal siding' },
   { src: economyShed4, alt: 'Lofted Economy Shed - Light gray with white trim' },
-  { src: economyShed5, alt: 'Economy Shed - Cropped view' },
   { src: economyShed6, alt: 'Economy Shed - Gray with dark trim' },
   { src: economyShed7, alt: 'Economy Shed - Tan with white trim' },
   { src: economyShed8, alt: 'Economy Shed - Tan side view' },

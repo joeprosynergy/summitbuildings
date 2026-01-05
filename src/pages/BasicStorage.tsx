@@ -16,7 +16,6 @@ import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
 import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
 import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
 import economy from '@/assets/economy.webp';
-import economyShed5 from '@/assets/economy-shed-5.jpg';
 import economyShed6 from '@/assets/economy-shed-6.jpg';
 import economyShed7 from '@/assets/economy-shed-7.jpg';
 import economyShed8 from '@/assets/economy-shed-8.jpg';
@@ -59,7 +58,7 @@ const models = [
       'Quality construction',
     ],
     image: economy,
-    gallery: [economy, economyShed5, economyShed6, economyShed7, economyShed8, economyShed9],
+    gallery: [economy, economyShed6, economyShed7, economyShed8, economyShed9],
     detailLink: '/types/basic-storage/economy-shed',
   },
 ];
