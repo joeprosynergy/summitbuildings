@@ -26,12 +26,14 @@ import economyShed1 from '@/assets/economy-shed-1.jpg';
 import economyShed2 from '@/assets/economy-shed-2.jpg';
 import economyShed3 from '@/assets/economy-shed-3.jpg';
 import economyShed4 from '@/assets/economy-shed-4.jpg';
+import economyShed5 from '@/assets/economy-shed-5.jpg';
 
 const galleryImages = [
   { src: economyShed1, alt: 'Economy Shed - Red with white trim' },
   { src: economyShed2, alt: 'Economy Shed - Dark brown metal siding' },
   { src: economyShed3, alt: 'Lofted Economy Shed - Gray metal siding' },
   { src: economyShed4, alt: 'Lofted Economy Shed - Light gray with white trim' },
+  { src: economyShed5, alt: 'Economy Shed - Additional view' },
 ];
 
 // Economy Shed features (standard)
