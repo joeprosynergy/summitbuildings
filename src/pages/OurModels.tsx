@@ -37,6 +37,16 @@ const categories = [
     ],
     link: '/types/garages-carports'
   },
+  {
+    id: 'outdoor-structures',
+    name: 'Outdoor Structures',
+    description: 'Greenhouses and animal housing solutions',
+    models: [
+      { name: 'Greenhouses', image: cloudinaryImages.greenhouse1, link: '/types/greenhouse' },
+      { name: 'Animal Shelters', image: cloudinaryImages.animalShelter1, link: '/types/animal-shelters' },
+    ],
+    link: '/types/outdoor-structures'
+  },
 ];
 
 const OurModels = () => {
