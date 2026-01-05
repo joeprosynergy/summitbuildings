@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
+import modernShed from '@/assets/modern-shed.jpg';
 
 const styles = [
   {
     id: 'utility',
     name: 'Utility',
     subtitle: 'Traditional A-Frame Roof',
-    description: 'Classic design with a traditional peaked roof. Perfect for storage, workshops, and more.',
     image: cloudinaryImages.utilityShed,
     link: '/styles/utility'
   },
@@ -17,7 +17,6 @@ const styles = [
     id: 'barn',
     name: 'Barn',
     subtitle: 'Gambrel Roof',
-    description: 'Iconic barn-style roof provides maximum overhead storage space and a timeless look.',
     image: cloudinaryImages.loftedBarn,
     link: '/styles/barn'
   },
@@ -25,8 +24,7 @@ const styles = [
     id: 'modern',
     name: 'Modern',
     subtitle: 'Single Slope Roof',
-    description: 'Contemporary design with a sleek single-slope roof for a modern aesthetic.',
-    image: cloudinaryImages.sideUtility1,
+    image: modernShed,
     link: '/styles/modern'
   },
 ];
