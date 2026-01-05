@@ -254,7 +254,7 @@ const Financing = () => {
                   className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-lg px-8 py-6"
                   asChild
                 >
-                  <a href="/#contact">
+                  <a href="/contact-us">
                     Contact Us About Rent to Own
                   </a>
                 </Button>
@@ -370,7 +370,7 @@ const Financing = () => {
                 </a>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="/#contact">Contact Us</a>
+                <a href="/contact-us">Contact Us</a>
               </Button>
             </div>
           </div>

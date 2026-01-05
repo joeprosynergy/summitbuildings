@@ -25,8 +25,8 @@ const Footer = () => {
       { label: "FAQ's", href: '/contact-us#faq' },
       { label: 'Buyers Guide', href: '/buyers-guide' },
       { label: 'Gallery', href: '/gallery' },
-      { label: 'Financing', href: '/financing' },
-      { label: 'Rent-to-Own', href: '#' },
+      { label: 'Financing', href: '/financing#financing' },
+      { label: 'Rent-to-Own', href: '/financing#rent-to-own' },
       { label: 'Warranty Info', href: '#' },
     ],
     about: [

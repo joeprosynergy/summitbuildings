@@ -278,7 +278,7 @@ const AboutUs = () => {
               <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
                 Contact us today for a free, no-obligation quote on your dream building.
               </p>
-              <Link to="/#contact">
+              <Link to="/contact-us">
                 <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
                   Get Your Free Quote
                   <ArrowRight className="w-5 h-5" />
