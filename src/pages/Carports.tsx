@@ -155,12 +155,12 @@ const Carports = () => {
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Link to="/#contact">
+                    <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
                       <Button variant="hero" size="xl">
-                        Request a Quote
+                        Browse Our Inventory
                         <ArrowRight className="w-5 h-5" />
                       </Button>
-                    </Link>
+                    </a>
                     <Link to="/types">
                       <Button variant="heroOutline" size="xl">
                         View All Models
@@ -370,12 +370,12 @@ const Carports = () => {
                 Contact us today for a free quote on your carport or RV cover.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/#contact">
+                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
                   <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
-                    Request a Quote
+                    Browse Our Inventory
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </Link>
+                </a>
                 <Link to="/types">
                   <Button variant="heroOutline" size="xl">
                     See More Models
