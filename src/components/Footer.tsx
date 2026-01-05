@@ -3,23 +3,21 @@ import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const links = {
-    basicStorage: [
-      { label: 'Economy Shed', href: '/types/basic-storage/economy-shed' },
-      { label: 'Utility Shed', href: '/types/basic-storage#utility' },
-      { label: 'Side Utility', href: '/types/basic-storage#side-utility' },
-      { label: 'Lofted Barn', href: '/types/basic-storage#lofted-barn' },
-      { label: 'Side Lofted Barn', href: '/types/basic-storage#side-lofted-barn' },
-      { label: 'Garden Shed', href: '/types/basic-storage#garden-shed' },
+    exploreByUse: [
+      { label: 'Basic Storage', href: '/types/basic-storage' },
+      { label: 'Deluxe & Cabins', href: '/types/deluxe-storage-cabins' },
+      { label: 'Garages & Carports', href: '/types/garages-carports' },
+      { label: 'Greenhouse', href: '/types/greenhouse' },
+      { label: 'Animal Shelters', href: '/types/animal-shelters' },
     ],
-    deluxeStorage: [
-      { label: 'Budget Pro - Utility', href: '/types/basic-storage#budget-pro-utility' },
-      { label: 'Pro - Utility', href: '/types/deluxe-storage-cabins/pro-utility-shed' },
-      { label: 'Pro - Lofted Barn', href: '/types/deluxe-storage-cabins/pro-lofted-barn' },
-      { label: 'Cabin', href: '/types/deluxe-storage-cabins/cabin' },
-    ],
-    garagesCarports: [
-      { label: 'Garage', href: '/types/garages-carports/garage' },
-      { label: 'Carport', href: '/types/garages-carports#carport' },
+    exploreByStyle: [
+      { label: 'Utility (Traditional A-Frame)', href: '/styles/utility' },
+      { label: 'Barn (Gambrel Roof)', href: '/styles/barn' },
+      { label: 'Modern (Single Slope)', href: '/styles/modern' },
+      { label: 'Custom Sheds', href: '#', disabled: true },
+      { label: 'Wooden Sheds', href: '#', disabled: true },
+      { label: 'Metal Sheds', href: '#', disabled: true },
+      { label: 'Backyard Sheds', href: '#', disabled: true },
     ],
     resources: [
       { label: "FAQ's", href: '/contact-us#faq' },
@@ -56,13 +54,13 @@ const Footer = () => {
       {/* Main Footer Links */}
       <div className="container-custom pb-16">
         <div className="flex flex-wrap justify-center gap-12 lg:gap-16">
-          {/* Basic Storage */}
+          {/* Explore by Use */}
           <div>
             <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
-              Basic Storage
+              Explore by Use
             </h3>
             <ul className="space-y-2">
-              {links.basicStorage.map((link) => (
+              {links.exploreByUse.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.href}
@@ -75,39 +73,26 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Deluxe Storage & Cabins */}
+          {/* Explore by Style */}
           <div>
             <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
-              Deluxe & Cabins
+              Explore by Style
             </h3>
             <ul className="space-y-2">
-              {links.deluxeStorage.map((link) => (
+              {links.exploreByStyle.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Garages & Carports */}
-          <div>
-            <h3 className="font-heading text-secondary text-sm uppercase mb-4 tracking-wide">
-              Garages & Carports
-            </h3>
-            <ul className="space-y-2">
-              {links.garagesCarports.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.disabled ? (
+                    <span className="text-primary-foreground/40 text-sm cursor-not-allowed">
+                      {link.label}
+                    </span>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/70 hover:text-primary-foreground text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
