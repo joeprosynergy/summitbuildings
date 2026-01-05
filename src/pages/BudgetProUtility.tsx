@@ -21,21 +21,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import images
+// Import images - only real Budget Pro Utility photos
 import budgetProUtility from '@/assets/budget-pro-utility.jpeg';
+import budgetProUtility2 from '@/assets/budget-pro-utility-2.jpeg';
+import budgetProUtility3 from '@/assets/budget-pro-utility-3.jpeg';
 import budgetProUtilityAlt from '@/assets/budget-pro-utility.webp';
-import utilityShed1 from '@/assets/utility-shed-1.jpg';
-import utilityShed2 from '@/assets/utility-shed-2.jpg';
-import utilityShed3 from '@/assets/utility-shed-3.jpg';
-import utilityShed4 from '@/assets/utility-shed-4.jpg';
 
 const galleryImages = [
   { src: budgetProUtility, alt: 'Budget Pro Utility - Gray with red trim' },
+  { src: budgetProUtility2, alt: 'Budget Pro Utility - White with black trim' },
+  { src: budgetProUtility3, alt: 'Budget Pro Utility - Gray with red trim rear view' },
   { src: budgetProUtilityAlt, alt: 'Budget Pro Utility - Classic style' },
-  { src: utilityShed1, alt: 'Summit Utility Shed - Red exterior' },
-  { src: utilityShed2, alt: 'Summit Utility Shed - With shutters' },
-  { src: utilityShed3, alt: 'Summit Utility Shed - Brown finish' },
-  { src: utilityShed4, alt: 'Summit Utility Shed - Side view' },
 ];
 
 // Features for Budget Pro - Utility
