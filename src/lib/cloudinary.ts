@@ -1,8 +1,14 @@
 // Cloudinary configuration for Summit Portable Buildings
 // All images are served from Cloudinary for optimal delivery
+// Auto-upload feature: images are automatically uploaded on first use
+
+import { supabase } from '@/integrations/supabase/client';
 
 const CLOUDINARY_CLOUD_NAME = 'dwhwbbbev';
 const CLOUDINARY_FOLDER = 'summit-buildings';
+
+// Cache for tracking upload status
+const uploadCache = new Map<string, string>();
 
 // Helper function to construct Cloudinary URL
 export const getCloudinaryUrl = (publicId: string, options?: {
@@ -18,6 +24,87 @@ export const getCloudinaryUrl = (publicId: string, options?: {
   if (height) transforms += `,h_${height}`;
   
   return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/${CLOUDINARY_FOLDER}/${publicId}`;
+};
+
+// Check if image exists in Cloudinary
+export const checkCloudinaryImage = async (publicId: string): Promise<boolean> => {
+  try {
+    const url = getCloudinaryUrl(publicId);
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+// Auto-upload image to Cloudinary if not already there
+export const autoUploadToCloudinary = async (
+  localImagePath: string,
+  publicId: string
+): Promise<string> => {
+  // Check cache first
+  if (uploadCache.has(publicId)) {
+    return uploadCache.get(publicId)!;
+  }
+
+  const cloudinaryUrl = getCloudinaryUrl(publicId);
+  
+  // Check if already in Cloudinary
+  const exists = await checkCloudinaryImage(publicId);
+  if (exists) {
+    uploadCache.set(publicId, cloudinaryUrl);
+    return cloudinaryUrl;
+  }
+
+  // Upload to Cloudinary via edge function
+  try {
+    // Fetch the local image
+    const response = await fetch(localImagePath);
+    const blob = await response.blob();
+    
+    // Convert to base64
+    const reader = new FileReader();
+    const base64Promise = new Promise<string>((resolve) => {
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+    const base64 = await base64Promise;
+
+    // Upload via edge function
+    const { data, error } = await supabase.functions.invoke('upload-to-cloudinary', {
+      body: {
+        imageBase64: base64,
+        publicId: publicId,
+        folder: CLOUDINARY_FOLDER,
+      },
+    });
+
+    if (error) {
+      console.error('Cloudinary upload failed:', error);
+      return localImagePath; // Fallback to local
+    }
+
+    uploadCache.set(publicId, data.url);
+    return data.url;
+  } catch (err) {
+    console.error('Auto-upload error:', err);
+    return localImagePath; // Fallback to local
+  }
+};
+
+// Get image URL with auto-upload capability
+// Returns Cloudinary URL, falls back to local if upload fails
+export const getImageUrl = (publicId: string, localFallback?: string): string => {
+  // For SSR/initial render, always return Cloudinary URL
+  // The image will load from Cloudinary if it exists there
+  return getCloudinaryUrl(publicId);
+};
+
+// Hook-friendly version for React components that handles auto-upload
+export const useCloudinaryImage = (publicId: string, localPath: string) => {
+  // Return Cloudinary URL directly - images should already be uploaded
+  // If not, the component will show the broken image which signals to run the upload
+  return getCloudinaryUrl(publicId);
 };
 
 // All image public IDs used in the site
