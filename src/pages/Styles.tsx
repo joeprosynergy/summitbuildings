@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
-import modernShed from '@/assets/modern-shed.jpg';
 
 const styles = [
   {
@@ -17,14 +16,14 @@ const styles = [
     id: 'barn',
     name: 'Barn',
     subtitle: 'Gambrel Roof',
-    image: cloudinaryImages.loftedBarn,
+    image: cloudinaryImages.barnStyle,
     link: '/styles/barn'
   },
   {
     id: 'modern',
     name: 'Modern',
     subtitle: 'Single Slope Roof',
-    image: modernShed,
+    image: cloudinaryImages.modernStyle,
     link: '/styles/modern'
   },
 ];

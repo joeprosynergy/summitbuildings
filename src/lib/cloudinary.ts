@@ -200,6 +200,10 @@ export const IMAGES = {
   dormer: 'dormer',
   treatedGardenShed: 'treated-garden-shed',
   miniBarn: 'mini-barn',
+  
+  // Style Images
+  barnStyle: 'barn-style',
+  modernStyle: 'modern-style',
 } as const;
 
 // Pre-built URLs for convenience
@@ -294,4 +298,8 @@ export const cloudinaryImages = {
   dormer: getCloudinaryUrl(IMAGES.dormer),
   treatedGardenShed: getCloudinaryUrl(IMAGES.treatedGardenShed),
   miniBarn: getCloudinaryUrl(IMAGES.miniBarn),
+  
+  // Style Images
+  barnStyle: getCloudinaryUrl(IMAGES.barnStyle),
+  modernStyle: getCloudinaryUrl(IMAGES.modernStyle),
 };
