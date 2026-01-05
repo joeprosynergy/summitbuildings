@@ -23,13 +23,13 @@ const Stakes = () => {
     <section className="section-padding bg-navy text-primary-foreground">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <p className="text-secondary font-heading uppercase tracking-widest mb-4">
+          <p className="text-secondary font-heading uppercase tracking-widest mb-4 font-semibold">
             We Understand
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading mb-6">
             Running Out of Space is Frustrating
           </h2>
-          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
+          <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
             You've got equipment, tools, and belongings piling up with nowhere to put them.
           </p>
         </div>
@@ -46,7 +46,7 @@ const Stakes = () => {
               <h3 className="font-heading text-xl font-bold mb-3">
                 {point.title}
               </h3>
-              <p className="text-primary-foreground/70 leading-relaxed">
+              <p className="text-primary-foreground/80 leading-relaxed">
                 {point.description}
               </p>
             </div>

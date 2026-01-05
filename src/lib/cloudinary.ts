@@ -165,109 +165,110 @@ export const IMAGES = {
 } as const;
 
 // Pre-built URLs for convenience - use these in components
+// OPTIMIZED: Using sized presets for better Core Web Vitals (LCP, CLS)
 export const cloudinaryImages = {
-  // Logo
-  summitLogo: getCloudinaryUrl(IMAGES.summitLogo),
+  // Logo - small size for header
+  summitLogo: getCloudinaryUrl(IMAGES.summitLogo, { width: 200 }),
   
-  // Hero
-  heroShed: getCloudinaryUrl(IMAGES.heroShed),
+  // Hero - full width, high priority
+  heroShed: getHeroImage(IMAGES.heroShed),
   
   // Social/OG Images
   socialShare: getSocialImage(IMAGES.socialShare),
   favicon: getCloudinaryUrl(IMAGES.favicon),
   
-  // Budget Pro - Utility
-  budgetProUtility: getCloudinaryUrl(IMAGES.budgetProUtility),
-  budgetProUtility2: getCloudinaryUrl(IMAGES.budgetProUtility2),
-  budgetProUtility3: getCloudinaryUrl(IMAGES.budgetProUtility3),
+  // Budget Pro - Utility (card size for grids)
+  budgetProUtility: getCardImage(IMAGES.budgetProUtility),
+  budgetProUtility2: getCardImage(IMAGES.budgetProUtility2),
+  budgetProUtility3: getCardImage(IMAGES.budgetProUtility3),
   
   // Budget Pro - Lofted Barn
-  budgetProLoftedBarn: getCloudinaryUrl(IMAGES.budgetProLoftedBarn),
-  budgetProLoftedBarn2: getCloudinaryUrl(IMAGES.budgetProLoftedBarn2),
-  budgetProLoftedBarn3: getCloudinaryUrl(IMAGES.budgetProLoftedBarn3),
+  budgetProLoftedBarn: getCardImage(IMAGES.budgetProLoftedBarn),
+  budgetProLoftedBarn2: getCardImage(IMAGES.budgetProLoftedBarn2),
+  budgetProLoftedBarn3: getCardImage(IMAGES.budgetProLoftedBarn3),
   
   // Economy
-  economy: getCloudinaryUrl(IMAGES.economy),
-  economyShed1: getCloudinaryUrl(IMAGES.economyShed1),
-  economyShed2: getCloudinaryUrl(IMAGES.economyShed2),
-  economyShed3: getCloudinaryUrl(IMAGES.economyShed3),
-  economyShed4: getCloudinaryUrl(IMAGES.economyShed4),
-  economyShed6: getCloudinaryUrl(IMAGES.economyShed6),
-  economyShed7: getCloudinaryUrl(IMAGES.economyShed7),
-  economyShed8: getCloudinaryUrl(IMAGES.economyShed8),
-  economyShed9: getCloudinaryUrl(IMAGES.economyShed9),
+  economy: getCardImage(IMAGES.economy),
+  economyShed1: getCardImage(IMAGES.economyShed1),
+  economyShed2: getCardImage(IMAGES.economyShed2),
+  economyShed3: getCardImage(IMAGES.economyShed3),
+  economyShed4: getCardImage(IMAGES.economyShed4),
+  economyShed6: getCardImage(IMAGES.economyShed6),
+  economyShed7: getCardImage(IMAGES.economyShed7),
+  economyShed8: getCardImage(IMAGES.economyShed8),
+  economyShed9: getCardImage(IMAGES.economyShed9),
   
   // Utility Shed
-  utilityShed: getCloudinaryUrl(IMAGES.utilityShed),
-  utilityShed1: getCloudinaryUrl(IMAGES.utilityShed1),
-  utilityShed2: getCloudinaryUrl(IMAGES.utilityShed2),
-  utilityShed3: getCloudinaryUrl(IMAGES.utilityShed3),
-  utilityShed4: getCloudinaryUrl(IMAGES.utilityShed4),
+  utilityShed: getCardImage(IMAGES.utilityShed),
+  utilityShed1: getCardImage(IMAGES.utilityShed1),
+  utilityShed2: getCardImage(IMAGES.utilityShed2),
+  utilityShed3: getCardImage(IMAGES.utilityShed3),
+  utilityShed4: getCardImage(IMAGES.utilityShed4),
   
   // Side Utility
-  sideUtilityShed: getCloudinaryUrl(IMAGES.sideUtilityShed),
-  sideUtility1: getCloudinaryUrl(IMAGES.sideUtility1),
-  sideUtility2: getCloudinaryUrl(IMAGES.sideUtility2),
-  sideUtility3: getCloudinaryUrl(IMAGES.sideUtility3),
-  sideUtility4: getCloudinaryUrl(IMAGES.sideUtility4),
+  sideUtilityShed: getCardImage(IMAGES.sideUtilityShed),
+  sideUtility1: getCardImage(IMAGES.sideUtility1),
+  sideUtility2: getCardImage(IMAGES.sideUtility2),
+  sideUtility3: getCardImage(IMAGES.sideUtility3),
+  sideUtility4: getCardImage(IMAGES.sideUtility4),
   
   // Lofted Barn
-  loftedBarn: getCloudinaryUrl(IMAGES.loftedBarn),
-  loftedBarn1: getCloudinaryUrl(IMAGES.loftedBarn1),
-  loftedBarn2: getCloudinaryUrl(IMAGES.loftedBarn2),
-  loftedBarn3: getCloudinaryUrl(IMAGES.loftedBarn3),
-  loftedBarn4: getCloudinaryUrl(IMAGES.loftedBarn4),
+  loftedBarn: getCardImage(IMAGES.loftedBarn),
+  loftedBarn1: getCardImage(IMAGES.loftedBarn1),
+  loftedBarn2: getCardImage(IMAGES.loftedBarn2),
+  loftedBarn3: getCardImage(IMAGES.loftedBarn3),
+  loftedBarn4: getCardImage(IMAGES.loftedBarn4),
   
   // Side Lofted Barn
-  sideLoftedBarn1: getCloudinaryUrl(IMAGES.sideLoftedBarn1),
-  sideLoftedBarn2: getCloudinaryUrl(IMAGES.sideLoftedBarn2),
-  sideLoftedBarn3: getCloudinaryUrl(IMAGES.sideLoftedBarn3),
-  sideLoftedBarn4: getCloudinaryUrl(IMAGES.sideLoftedBarn4),
+  sideLoftedBarn1: getCardImage(IMAGES.sideLoftedBarn1),
+  sideLoftedBarn2: getCardImage(IMAGES.sideLoftedBarn2),
+  sideLoftedBarn3: getCardImage(IMAGES.sideLoftedBarn3),
+  sideLoftedBarn4: getCardImage(IMAGES.sideLoftedBarn4),
   
   // Pro Utility
-  proUtility: getCloudinaryUrl(IMAGES.proUtility),
+  proUtility: getCardImage(IMAGES.proUtility),
   
   // Pro Lofted Barn
-  proLoftedBarn: getCloudinaryUrl(IMAGES.proLoftedBarn),
+  proLoftedBarn: getCardImage(IMAGES.proLoftedBarn),
   
   // Cabin
-  cabinShed: getCloudinaryUrl(IMAGES.cabinShed),
-  cabin1: getCloudinaryUrl(IMAGES.cabin1),
-  cabin2: getCloudinaryUrl(IMAGES.cabin2),
-  cabin3: getCloudinaryUrl(IMAGES.cabin3),
-  cabin4: getCloudinaryUrl(IMAGES.cabin4),
+  cabinShed: getCardImage(IMAGES.cabinShed),
+  cabin1: getCardImage(IMAGES.cabin1),
+  cabin2: getCardImage(IMAGES.cabin2),
+  cabin3: getCardImage(IMAGES.cabin3),
+  cabin4: getCardImage(IMAGES.cabin4),
   
   // Garage
-  garage: getCloudinaryUrl(IMAGES.garage),
-  garageShed: getCloudinaryUrl(IMAGES.garageShed),
-  garage1: getCloudinaryUrl(IMAGES.garage1),
-  garage2: getCloudinaryUrl(IMAGES.garage2),
-  garage3: getCloudinaryUrl(IMAGES.garage3),
-  garage4: getCloudinaryUrl(IMAGES.garage4),
+  garage: getCardImage(IMAGES.garage),
+  garageShed: getCardImage(IMAGES.garageShed),
+  garage1: getCardImage(IMAGES.garage1),
+  garage2: getCardImage(IMAGES.garage2),
+  garage3: getCardImage(IMAGES.garage3),
+  garage4: getCardImage(IMAGES.garage4),
   
   // Carport
-  carport: getCloudinaryUrl(IMAGES.carport),
-  carport1: getCloudinaryUrl(IMAGES.carport1),
-  carport2: getCloudinaryUrl(IMAGES.carport2),
-  carport3: getCloudinaryUrl(IMAGES.carport3),
+  carport: getCardImage(IMAGES.carport),
+  carport1: getCardImage(IMAGES.carport1),
+  carport2: getCardImage(IMAGES.carport2),
+  carport3: getCardImage(IMAGES.carport3),
   
   // RV Cover
-  rvCover1: getCloudinaryUrl(IMAGES.rvCover1),
-  rvCover2: getCloudinaryUrl(IMAGES.rvCover2),
-  rvCover3: getCloudinaryUrl(IMAGES.rvCover3),
+  rvCover1: getCardImage(IMAGES.rvCover1),
+  rvCover2: getCardImage(IMAGES.rvCover2),
+  rvCover3: getCardImage(IMAGES.rvCover3),
   
   // Other
-  dormer: getCloudinaryUrl(IMAGES.dormer),
-  treatedGardenShed: getCloudinaryUrl(IMAGES.treatedGardenShed),
-  miniBarn: getCloudinaryUrl(IMAGES.miniBarn),
-  modernShed: getCloudinaryUrl(IMAGES.modernShed),
+  dormer: getCardImage(IMAGES.dormer),
+  treatedGardenShed: getCardImage(IMAGES.treatedGardenShed),
+  miniBarn: getCardImage(IMAGES.miniBarn),
+  modernShed: getCardImage(IMAGES.modernShed),
   
-  // Style Images
-  utilityStyle: getCloudinaryUrl(IMAGES.utilityStyle),
-  barnStyle: getCloudinaryUrl(IMAGES.barnStyle),
-  modernStyle: getCloudinaryUrl(IMAGES.modernStyle),
+  // Style Images (used in style pages - slightly larger)
+  utilityStyle: getCloudinaryUrl(IMAGES.utilityStyle, { width: 800 }),
+  barnStyle: getCloudinaryUrl(IMAGES.barnStyle, { width: 800 }),
+  modernStyle: getCloudinaryUrl(IMAGES.modernStyle, { width: 800 }),
   
   // Modern Style Options
-  proModern: getCloudinaryUrl(IMAGES.proModern),
-  garageModern: getCloudinaryUrl(IMAGES.garageModern),
+  proModern: getCardImage(IMAGES.proModern),
+  garageModern: getCardImage(IMAGES.garageModern),
 };

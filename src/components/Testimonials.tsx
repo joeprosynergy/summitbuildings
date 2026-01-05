@@ -33,7 +33,7 @@ const Testimonials = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading text-foreground mb-6">
             Real Families. Real Results.
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-foreground/70">
             See how Summit Buildings helped these homeowners solve their storage problems.
           </p>
         </div>
@@ -58,7 +58,7 @@ const Testimonials = () => {
               </div>
               
               {/* Text */}
-              <p className="text-foreground/80 mb-6 leading-relaxed">
+              <p className="text-foreground/90 mb-6 leading-relaxed">
                 "{testimonial.text}"
               </p>
               
