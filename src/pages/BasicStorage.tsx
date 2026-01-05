@@ -16,6 +16,7 @@ import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
 import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
 import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
 import economy from '@/assets/economy.webp';
+import economyShed5 from '@/assets/economy-shed-5.jpg';
 
 const models = [
   {
@@ -54,7 +55,7 @@ const models = [
       'Quality construction',
     ],
     image: economy,
-    gallery: [economy, economy, economy, economy, economy, economy],
+    gallery: [economy, economyShed5],
     detailLink: '/types/basic-storage/economy-shed',
   },
 ];
@@ -96,7 +97,7 @@ const BasicStorage = () => {
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-center text-primary mb-8 uppercase tracking-wide">
                 Basic Storage
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+              <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-2xl mx-auto">
                 {quickNavModels.map((model) => (
                   <a
                     key={model.id}
