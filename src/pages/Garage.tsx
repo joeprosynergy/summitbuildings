@@ -21,17 +21,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import all images
-import garage1 from '@/assets/garage-1.jpg';
-import garage2 from '@/assets/garage-2.jpg';
-import garage3 from '@/assets/garage-3.jpg';
-import garage4 from '@/assets/garage-4.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: garage1, alt: 'Summit Garage - Red with white trim' },
-  { src: garage2, alt: 'Summit Garage - Gray metal exterior' },
-  { src: garage3, alt: 'Summit Garage - Tan with brown trim' },
-  { src: garage4, alt: 'Summit Garage - White with garage door' },
+  { src: cloudinaryImages.garage1, alt: 'Summit Garage - Red with white trim' },
+  { src: cloudinaryImages.garage2, alt: 'Summit Garage - Gray metal exterior' },
+  { src: cloudinaryImages.garage3, alt: 'Summit Garage - Tan with brown trim' },
+  { src: cloudinaryImages.garage4, alt: 'Summit Garage - White with garage door' },
 ];
 
 // Garage features from Summit website
@@ -268,7 +265,7 @@ const Garage = () => {
                 
                 <div className="relative">
                   <img
-                    src={garage1}
+                    src={cloudinaryImages.garage1}
                     alt="Summit Garage"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -321,7 +318,7 @@ const Garage = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={garage2}
+                      src={cloudinaryImages.garage2}
                       alt="Summit Garage - Built for Vehicles"
                       className="rounded-xl shadow-lg w-full"
                     />

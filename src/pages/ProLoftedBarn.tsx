@@ -21,25 +21,18 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import images
-import loftedBarn1 from '@/assets/lofted-barn-1.jpg';
-import loftedBarn2 from '@/assets/lofted-barn-2.jpg';
-import loftedBarn3 from '@/assets/lofted-barn-3.jpg';
-import loftedBarn4 from '@/assets/lofted-barn-4.jpg';
-import sideLoftedBarn1 from '@/assets/side-lofted-barn-1.jpg';
-import sideLoftedBarn2 from '@/assets/side-lofted-barn-2.jpg';
-import sideLoftedBarn3 from '@/assets/side-lofted-barn-3.jpg';
-import sideLoftedBarn4 from '@/assets/side-lofted-barn-4.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: loftedBarn1, alt: 'Summit Lofted Barn - Red with white trim' },
-  { src: loftedBarn2, alt: 'Summit Lofted Barn - Blue exterior' },
-  { src: loftedBarn3, alt: 'Summit Lofted Barn - Gray with shutters' },
-  { src: loftedBarn4, alt: 'Summit Lofted Barn - Classic style' },
-  { src: sideLoftedBarn1, alt: 'Summit Side Lofted Barn - Tan with side entry' },
-  { src: sideLoftedBarn2, alt: 'Summit Side Lofted Barn - With windows' },
-  { src: sideLoftedBarn3, alt: 'Summit Side Lofted Barn - Red exterior' },
-  { src: sideLoftedBarn4, alt: 'Summit Side Lofted Barn - Brown finish' },
+  { src: cloudinaryImages.loftedBarn1, alt: 'Summit Lofted Barn - Red with white trim' },
+  { src: cloudinaryImages.loftedBarn2, alt: 'Summit Lofted Barn - Blue exterior' },
+  { src: cloudinaryImages.loftedBarn3, alt: 'Summit Lofted Barn - Gray with shutters' },
+  { src: cloudinaryImages.loftedBarn4, alt: 'Summit Lofted Barn - Classic style' },
+  { src: cloudinaryImages.sideLoftedBarn1, alt: 'Summit Side Lofted Barn - Tan with side entry' },
+  { src: cloudinaryImages.sideLoftedBarn2, alt: 'Summit Side Lofted Barn - With windows' },
+  { src: cloudinaryImages.sideLoftedBarn3, alt: 'Summit Side Lofted Barn - Red exterior' },
+  { src: cloudinaryImages.sideLoftedBarn4, alt: 'Summit Side Lofted Barn - Brown finish' },
 ];
 
 // Combined features for Pro - Lofted Barn
@@ -281,7 +274,7 @@ const ProLoftedBarn = () => {
                 
                 <div className="relative">
                   <img
-                    src={sideLoftedBarn1}
+                    src={cloudinaryImages.sideLoftedBarn1}
                     alt="Summit Pro Lofted Barn"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -334,7 +327,7 @@ const ProLoftedBarn = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={loftedBarn1}
+                      src={cloudinaryImages.loftedBarn1}
                       alt="Pro Lofted Barn - Classic Barn Style"
                       className="rounded-xl shadow-lg w-full"
                     />

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroShed from '@/assets/hero-shed.jpg';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const badges = [
   { icon: Truck, label: 'Free Delivery (50mi)' },
@@ -15,7 +15,7 @@ const Hero = () => {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroShed})` }}
+        style={{ backgroundImage: `url(${cloudinaryImages.heroShed})` }}
       >
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />

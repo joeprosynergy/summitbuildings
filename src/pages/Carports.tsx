@@ -25,21 +25,16 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import all images
-import carport1 from '@/assets/carport-1.png';
-import carport2 from '@/assets/carport-2.png';
-import carport3 from '@/assets/carport-3.png';
-import rvCover1 from '@/assets/rv-cover-1.jpg';
-import rvCover2 from '@/assets/rv-cover-2.jpg';
-import rvCover3 from '@/assets/rv-cover-3.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: carport1, alt: 'Steel carport with red and white roof' },
-  { src: carport2, alt: 'Steel carport structure - side view' },
-  { src: carport3, alt: 'Steel carport with gray finish' },
-  { src: rvCover1, alt: 'RV Cover protecting recreational vehicle' },
-  { src: rvCover2, alt: 'Metal RV carport with enclosed sides' },
-  { src: rvCover3, alt: 'Large RV cover structure' },
+  { src: cloudinaryImages.carport1, alt: 'Steel carport with red and white roof' },
+  { src: cloudinaryImages.carport2, alt: 'Steel carport structure - side view' },
+  { src: cloudinaryImages.carport3, alt: 'Steel carport with gray finish' },
+  { src: cloudinaryImages.rvCover1, alt: 'RV Cover protecting recreational vehicle' },
+  { src: cloudinaryImages.rvCover2, alt: 'Metal RV carport with enclosed sides' },
+  { src: cloudinaryImages.rvCover3, alt: 'Large RV cover structure' },
 ];
 
 // Carport features
@@ -176,7 +171,7 @@ const Carports = () => {
                 
                 <div className="relative">
                   <img
-                    src={carport1}
+                    src={cloudinaryImages.carport1}
                     alt="Steel Carport"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -229,7 +224,7 @@ const Carports = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={carport2}
+                      src={cloudinaryImages.carport2}
                       alt="Steel Carport Structure"
                       className="rounded-xl shadow-lg w-full"
                     />
@@ -284,7 +279,7 @@ const Carports = () => {
                   
                   <div className="relative order-1 md:order-2">
                     <img
-                      src={rvCover1}
+                      src={cloudinaryImages.rvCover1}
                       alt="RV Cover protecting recreational vehicle"
                       className="rounded-xl shadow-lg w-full"
                     />
