@@ -169,7 +169,7 @@ const Gallery = () => {
                 </a>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="/#contact">Contact Us</a>
+                <a href="/contact-us">Contact Us</a>
               </Button>
             </div>
           </div>
