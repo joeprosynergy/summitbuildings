@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 import utilityShed from '@/assets/utility-shed.jpg';
 import loftedBarn from '@/assets/lofted-barn.jpg';
 import sideUtility from '@/assets/side-utility-shed.jpg';
-import budgetProUtility from '@/assets/budget-pro-utility.webp';
+import budgetProUtility from '@/assets/budget-pro-utility.jpeg';
+import budgetProUtility2 from '@/assets/budget-pro-utility-2.jpeg';
+import budgetProUtility3 from '@/assets/budget-pro-utility-3.jpeg';
+import budgetProUtilityAlt from '@/assets/budget-pro-utility.webp';
 import economy from '@/assets/economy.webp';
 import miniBarn from '@/assets/mini-barn.jpeg';
 
@@ -20,10 +23,10 @@ const models = [
     features: [
       'Double doors for easy access',
       'A-frame roof design',
-      '6\' 4" Wall Height',
+      '7\' 9" Wall Height',
     ],
     image: budgetProUtility,
-    gallery: [budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility, budgetProUtility],
+    gallery: [budgetProUtility, budgetProUtility2, budgetProUtility3, budgetProUtilityAlt],
     detailLink: '/types/basic-storage/budget-pro-utility',
   },
   {
@@ -182,9 +185,9 @@ const BasicStorage = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      {/* Gallery thumbnails - 6 small images */}
-                      <div className="grid grid-cols-6 gap-2">
-                        {model.gallery.slice(0, 6).map((img, i) => (
+      {/* Gallery thumbnails - show actual count of images */}
+                      <div className={`grid gap-2 ${model.gallery.length <= 4 ? 'grid-cols-4' : 'grid-cols-6'}`}>
+                        {model.gallery.map((img, i) => (
                           <div key={i} className="aspect-square rounded overflow-hidden bg-muted">
                             <img src={img} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer" />
                           </div>
