@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import OurModels from "./pages/OurModels";
 import Styles from "./pages/Styles";
+import Greenhouse from "./pages/Greenhouse";
+import AnimalShelters from "./pages/AnimalShelters";
 import StylesUtility from "./pages/StylesUtility";
 import StylesBarn from "./pages/StylesBarn";
 import StylesModern from "./pages/StylesModern";
@@ -64,6 +66,9 @@ const App = () => (
             <Route path="/types/garages-carports" element={<GaragesCarports />} />
             <Route path="/types/garages-carports/garage" element={<Garage />} />
             <Route path="/types/garages-carports/carports" element={<Carports />} />
+            {/* Greenhouse & Animal Shelters */}
+            <Route path="/types/greenhouse" element={<Greenhouse />} />
+            <Route path="/types/animal-shelters" element={<AnimalShelters />} />
             {/* Resources */}
             <Route path="/buyers-guide" element={<BuyersGuide />} />
             <Route path="/gallery" element={<Gallery />} />
