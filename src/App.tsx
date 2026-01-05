@@ -13,6 +13,7 @@ import DeluxeStorageCabins from "./pages/DeluxeStorageCabins";
 import UtilityShed from "./pages/UtilityShed";
 import ProLoftedBarn from "./pages/ProLoftedBarn";
 import EconomyShed from "./pages/EconomyShed";
+import BudgetProLoftedBarn from "./pages/BudgetProLoftedBarn";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
 import Carports from "./pages/Carports";
@@ -42,6 +43,7 @@ const App = () => (
             {/* Basic Storage category and detail pages */}
             <Route path="/types/basic-storage" element={<BasicStorage />} />
             <Route path="/types/basic-storage/economy-shed" element={<EconomyShed />} />
+            <Route path="/types/basic-storage/budget-pro-lofted-barn" element={<BudgetProLoftedBarn />} />
             {/* Deluxe Storage & Cabins category and detail pages */}
             <Route path="/types/deluxe-storage-cabins" element={<DeluxeStorageCabins />} />
             <Route path="/types/deluxe-storage-cabins/pro-utility-shed" element={<UtilityShed />} />
