@@ -13,8 +13,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Preload hero image for LCP optimization -->
-    <link rel="preload" as="image" href="https://res.cloudinary.com/dwhwbbbev/image/upload/f_auto,q_auto,w_1600/summit-buildings/hero-shed">
+    <!-- Non-render-blocking Google Fonts -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap">
+    </noscript>
+    
+    <!-- Responsive hero image preloads for LCP optimization -->
+    <link rel="preload" as="image" media="(max-width: 768px)" href="https://res.cloudinary.com/dwhwbbbev/image/upload/f_auto,q_auto,w_800/summit-buildings/hero-shed">
+    <link rel="preload" as="image" media="(min-width: 769px)" href="https://res.cloudinary.com/dwhwbbbev/image/upload/f_auto,q_auto,w_1600/summit-buildings/hero-shed">
     
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://res.cloudinary.com/dwhwbbbev/image/upload/f_auto,q_auto,w_1200/summit-buildings/social-share">
