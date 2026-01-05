@@ -1,4 +1,5 @@
 import summitLogo from "@/assets/summit-logo.png";
+import { cloudinaryImages } from "@/lib/cloudinary";
 
 type PageProps = {
   exportMode?: boolean;
@@ -14,7 +15,7 @@ export const CoverPage = ({ exportMode }: PageProps) => (
     <div
       className="min-h-[700px] md:min-h-[900px] p-8 md:p-16 flex flex-col justify-between text-primary-foreground border-[12px] border-secondary"
       style={{
-        background: `linear-gradient(rgba(10, 29, 55, 0.85), rgba(10, 29, 55, 0.85)), url('https://images.unsplash.com/photo-1510127034890-bc2936860bc2?q=80&w=2070&auto=format&fit=crop')`,
+        background: `linear-gradient(rgba(10, 29, 55, 0.85), rgba(10, 29, 55, 0.85)), url('${cloudinaryImages.heroShed}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -84,21 +85,21 @@ export const Step1Page = ({ exportMode }: PageProps) => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
         <img
           crossOrigin="anonymous"
-          src="https://shedsunlimited.b-cdn.net/wp-content/uploads/blog/10-Backyard-Portable-Buildings-For-Sale-in-2021/backyard-portable-buildings-for-sale-14x30-Premier-Garden-Shed-2-1400x933.jpg"
-          alt="Spacious backyard workshop shed"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.loftedBarn1}
+          alt="Spacious lofted barn shed"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://www.lappstructures.com/wp-content/uploads/2024/12/20200814_111531_05344-1-scaled-aspect-ratio-570-400-1024x719.jpg"
-          alt="Custom interior workshop"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.cabin1}
+          alt="Custom cabin interior"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://www.lappstructures.com/wp-content/uploads/2024/12/20210527_132818_01183-scaled-aspect-ratio-570-400-1024x718.jpg"
-          alt="Organized home office or hobby space inside storage building"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.utilityShed1}
+          alt="Organized utility shed"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
       </div>
 
@@ -136,21 +137,21 @@ export const Step2Page = ({ exportMode }: PageProps) => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
         <img
           crossOrigin="anonymous"
-          src="https://countrysidebarns.com/site/wp-content/uploads/2018/11/12x20-Portable-Side-Porch-Cabin-Shed-Outdoor-Storage-Countryside-Barns-Building-e1633447571173.jpg"
-          alt="Elegant side porch cabin style storage building"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.cabinShed}
+          alt="Elegant cabin style storage building"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://hartvilleoutdoorproducts.com/wp-content/uploads/2024/01/outdoor-shed-with-garage-door-Akron-ohio-2000x1500.webp"
-          alt="Modern gable shed with garage door"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.garage1}
+          alt="Modern garage with roll-up door"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://images.ctfassets.net/89s5b832f23c/eHzRp0Gsh70f5qnXYgPN5/a9fe19e2767cff803560fa75da07016e/RT1dw_10x12_Craftsman_Steep_Pitch_Dormer_Transom_Cedar_Shake_Custom_Painted_Shed__1_.jpg?fm=webp&w=2560&h=1440"
-          alt="Close-up of LP SmartSide siding on premium shed"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.sideLoftedBarn1}
+          alt="Side lofted barn with premium siding"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
       </div>
 
@@ -206,27 +207,6 @@ export const Step3Page = ({ exportMode }: PageProps) => (
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
-        <img
-          crossOrigin="anonymous"
-          src="https://shedsunlimited.b-cdn.net/wp-content/uploads/landing-pages/How-to-Prepare-Your-Gravel-Shed-Pad/gravel-shed-pad-6-1400x933.jpg"
-          alt="Compacted gravel pad with shed"
-          className="w-full h-auto rounded-lg shadow-md"
-        />
-        <img
-          crossOrigin="anonymous"
-          src="https://goldstarbuildings.b-cdn.net/wp-content/uploads/concrete-blocks-for-portable-cabin-foundations-for-cabins-with-metal-roofs-in-erie-pa-768x512.jpg"
-          alt="Concrete blocks under storage building"
-          className="w-full h-auto rounded-lg shadow-md"
-        />
-        <img
-          crossOrigin="anonymous"
-          src="https://www.beachybarns.com/wp-content/uploads/bis-images/14355/concrete-pad-shed-foundations-for-backyard-buildings-in-urbana-oh-1600x9999.jpg"
-          alt="Level foundation options for sheds"
-          className="w-full h-auto rounded-lg shadow-md"
-        />
-      </div>
-
       <footer className="mt-auto border-t border-border pt-5 text-center">
         <p className="font-bold text-primary">Proper Prep Ensures Full Warranty & Smooth Delivery</p>
       </footer>
@@ -261,21 +241,21 @@ export const Step4Page = ({ exportMode }: PageProps) => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
         <img
           crossOrigin="anonymous"
-          src="https://www.horizonstructures.com/wp-content/uploads/2014/11/muledelivery.jpg"
-          alt="Shed Mule delivering building in tight space"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.loftedBarn2}
+          alt="Lofted barn delivered on site"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://i.ytimg.com/vi/F6vmI-eei9k/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBJOhYBvxxF7EgEM5K-_EFTaOqYOw"
-          alt="Mule placing tall barn on site"
-          className="w-full h-auto rounded-lg shadow-md"
+          src={cloudinaryImages.economyShed1}
+          alt="Economy shed setup"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
         <img
           crossOrigin="anonymous"
-          src="https://www.durastorstructures.com/wp-content/uploads/2025/03/delivery-2.png"
+          src={cloudinaryImages.sideUtility1}
           alt="Professional storage building placement"
-          className="w-full h-auto rounded-lg shadow-md"
+          className="w-full h-48 object-cover rounded-lg shadow-md"
         />
       </div>
 
@@ -317,10 +297,26 @@ export const Step5ContactPage = ({ exportMode }: PageProps) => (
         <div className="mt-5 p-4 bg-muted rounded-lg">
           <p className="font-bold text-primary mb-2">Visit Us Online:</p>
           <p className="text-sm text-foreground/80">
-            <strong>Website:</strong> summitbuildings.com
+            <strong>Website:</strong>{" "}
+            <a 
+              href="https://summitbuildings.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-secondary hover:underline"
+            >
+              summitbuildings.com
+            </a>
           </p>
           <p className="text-sm text-foreground/80 mt-1">
-            <strong>3D Builder:</strong> design.idssoftware.com/v3/app?dealerId=summitbuildings
+            <strong>3D Builder:</strong>{" "}
+            <a 
+              href="https://summitbuildings.shedpro.co/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-secondary hover:underline"
+            >
+              summitbuildings.shedpro.co
+            </a>
           </p>
         </div>
       </div>
@@ -328,7 +324,10 @@ export const Step5ContactPage = ({ exportMode }: PageProps) => (
       <footer className="mt-auto border-t border-border pt-4 text-center">
         <p className="font-bold text-primary">7336 State Highway 32, Farmington, MO 63640</p>
         <p className="mt-1 text-foreground/80">
-          <strong>Phone:</strong> 573-747-4700 • <strong>Email:</strong> info@summitbuildings.com
+          <strong>Phone:</strong>{" "}
+          <a href="tel:5737474700" className="text-secondary hover:underline">573-747-4700</a>
+          {" "} • <strong>Email:</strong>{" "}
+          <a href="mailto:info@summitbuildings.com" className="text-secondary hover:underline">info@summitbuildings.com</a>
         </p>
         <p className="mt-2 uppercase tracking-wider text-secondary font-bold text-sm">
           Hand-Crafted in the USA • Rent-To-Own Available
