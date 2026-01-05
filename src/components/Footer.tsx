@@ -9,7 +9,6 @@ const Footer = () => {
       { label: 'Side Utility', href: '/types/basic-storage#side-utility' },
       { label: 'Lofted Barn', href: '/types/basic-storage#lofted-barn' },
       { label: 'Side Lofted Barn', href: '/types/basic-storage#side-lofted-barn' },
-      { label: 'Mini Barn', href: '/types/basic-storage#mini-barn' },
       { label: 'Garden Shed', href: '/types/basic-storage#garden-shed' },
     ],
     deluxeStorage: [
