@@ -5,21 +5,7 @@ import { Check } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import utilityShed from '@/assets/utility-shed.jpg';
-import loftedBarn from '@/assets/lofted-barn.jpg';
-import sideUtility from '@/assets/side-utility-shed.jpg';
-import budgetProUtility from '@/assets/budget-pro-utility.jpeg';
-import budgetProUtility2 from '@/assets/budget-pro-utility-2.jpeg';
-import budgetProUtility3 from '@/assets/budget-pro-utility-3.jpeg';
-import budgetProUtilityAlt from '@/assets/budget-pro-utility.webp';
-import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
-import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
-import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
-import economy from '@/assets/economy.webp';
-import economyShed6 from '@/assets/economy-shed-6.jpg';
-import economyShed7 from '@/assets/economy-shed-7.jpg';
-import economyShed8 from '@/assets/economy-shed-8.jpg';
-import economyShed9 from '@/assets/economy-shed-9.jpg';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const models = [
   {
@@ -31,8 +17,8 @@ const models = [
       'A-frame roof design',
       '7\' 9" Wall Height',
     ],
-    image: budgetProUtility,
-    gallery: [budgetProUtility, budgetProUtility2, budgetProUtility3, budgetProUtilityAlt],
+    image: cloudinaryImages.budgetProUtility,
+    gallery: [cloudinaryImages.budgetProUtility, cloudinaryImages.budgetProUtility2, cloudinaryImages.budgetProUtility3],
     detailLink: '/types/basic-storage/budget-pro-utility',
   },
   {
@@ -44,8 +30,8 @@ const models = [
       'Gambrel roof design',
       '6\' 6" Wall Height',
     ],
-    image: budgetProLoftedBarn,
-    gallery: [budgetProLoftedBarn, budgetProLoftedBarn2, budgetProLoftedBarn3],
+    image: cloudinaryImages.budgetProLoftedBarn,
+    gallery: [cloudinaryImages.budgetProLoftedBarn, cloudinaryImages.budgetProLoftedBarn2, cloudinaryImages.budgetProLoftedBarn3],
     detailLink: '/types/basic-storage/budget-pro-lofted-barn',
   },
   {
@@ -57,16 +43,16 @@ const models = [
       'Practical design',
       'Quality construction',
     ],
-    image: economy,
-    gallery: [economy, economyShed6, economyShed7, economyShed8, economyShed9],
+    image: cloudinaryImages.economy,
+    gallery: [cloudinaryImages.economy, cloudinaryImages.economyShed6, cloudinaryImages.economyShed7, cloudinaryImages.economyShed8, cloudinaryImages.economyShed9],
     detailLink: '/types/basic-storage/economy-shed',
   },
 ];
 
 const quickNavModels = [
-  { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
-  { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: budgetProLoftedBarn },
-  { id: 'economy', name: 'Economy', image: economy },
+  { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: cloudinaryImages.budgetProUtility },
+  { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: cloudinaryImages.budgetProLoftedBarn },
+  { id: 'economy', name: 'Economy', image: cloudinaryImages.economy },
 ];
 
 const BasicStorage = () => {
@@ -177,7 +163,7 @@ const BasicStorage = () => {
                           className="w-full h-full object-cover"
                         />
                       </div>
-      {/* Gallery thumbnails - show actual count of images */}
+                      {/* Gallery thumbnails - show actual count of images */}
                       <div className={`grid gap-2 ${model.gallery.length <= 4 ? 'grid-cols-4' : 'grid-cols-6'}`}>
                         {model.gallery.map((img, i) => (
                           <div key={i} className="aspect-square rounded overflow-hidden bg-muted">

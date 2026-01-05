@@ -5,16 +5,7 @@ import { Check } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import garage1 from '@/assets/garage-1.jpg';
-import garage2 from '@/assets/garage-2.jpg';
-import garage3 from '@/assets/garage-3.jpg';
-import garage4 from '@/assets/garage-4.jpg';
-import carport1 from '@/assets/carport-1.png';
-import carport2 from '@/assets/carport-2.png';
-import carport3 from '@/assets/carport-3.png';
-import rvCover1 from '@/assets/rv-cover-1.jpg';
-import rvCover2 from '@/assets/rv-cover-2.jpg';
-import rvCover3 from '@/assets/rv-cover-3.jpg';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const models = [
   {
@@ -27,8 +18,8 @@ const models = [
       'Multiple size options available',
       'Perfect for vehicles & equipment',
     ],
-    image: garage1,
-    gallery: [garage1, garage2, garage3, garage4, garage1, garage2],
+    image: cloudinaryImages.garage1,
+    gallery: [cloudinaryImages.garage1, cloudinaryImages.garage2, cloudinaryImages.garage3, cloudinaryImages.garage4],
     detailLink: '/types/garages-carports/garage',
   },
   {
@@ -41,8 +32,8 @@ const models = [
       'Commercial or residential use',
       'Multiple roof styles available',
     ],
-    image: carport1,
-    gallery: [carport1, carport2, carport3, carport1, carport2, carport3],
+    image: cloudinaryImages.carport1,
+    gallery: [cloudinaryImages.carport1, cloudinaryImages.carport2, cloudinaryImages.carport3],
     detailLink: '/types/garages-carports/carports',
   },
   {
@@ -55,16 +46,16 @@ const models = [
       'Optional full or partial enclosure',
       'Various widths and lengths available',
     ],
-    image: rvCover1,
-    gallery: [rvCover1, rvCover2, rvCover3, rvCover1, rvCover2, rvCover3],
+    image: cloudinaryImages.rvCover1,
+    gallery: [cloudinaryImages.rvCover1, cloudinaryImages.rvCover2, cloudinaryImages.rvCover3],
     detailLink: '/types/garages-carports/carports',
   },
 ];
 
 const quickNavModels = [
-  { id: 'garage', name: 'Garage', image: garage1 },
-  { id: 'carports', name: 'Carports', image: carport1 },
-  { id: 'rv-covers', name: 'RV Covers', image: rvCover1 },
+  { id: 'garage', name: 'Garage', image: cloudinaryImages.garage1 },
+  { id: 'carports', name: 'Carports', image: cloudinaryImages.carport1 },
+  { id: 'rv-covers', name: 'RV Covers', image: cloudinaryImages.rvCover1 },
 ];
 
 const GaragesCarports = () => {

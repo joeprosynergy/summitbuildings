@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
-import summitLogo from '@/assets/summit-logo.png';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,7 +47,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
-              src={summitLogo}
+              src={cloudinaryImages.summitLogo}
               alt="Summit Portable Buildings"
               className={`h-14 w-auto transition-all duration-300 ${
                 useLightText ? 'brightness-0 invert' : ''

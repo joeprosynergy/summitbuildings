@@ -1,19 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import utilityShed1 from '@/assets/utility-shed-1.jpg';
-import loftedBarn1 from '@/assets/lofted-barn-1.jpg';
-import garage1 from '@/assets/garage-1.jpg';
-import cabin1 from '@/assets/cabin-1.jpg';
-import carport from '@/assets/carport.jpeg';
-import economyShed from '@/assets/economy-shed-1.jpg';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const products = [
   {
     id: 1,
     name: 'Utility',
     description: 'Perfect for tools & equipment. A classy, simple addition to any property.',
-    image: utilityShed1,
+    image: cloudinaryImages.utilityShed1,
     price: 'From $2,800',
     link: '/types/deluxe-storage-cabins/pro-utility-shed',
   },
@@ -21,7 +16,7 @@ const products = [
     id: 2,
     name: 'Lofted',
     description: 'Extra storage up top. Maximize your space with a spacious loft area.',
-    image: loftedBarn1,
+    image: cloudinaryImages.loftedBarn1,
     price: 'From $4,500',
     link: '/types/deluxe-storage-cabins/pro-lofted-barn',
   },
@@ -29,7 +24,7 @@ const products = [
     id: 3,
     name: 'Cabin',
     description: 'With covered porch. Perfect for home offices or guest quarters.',
-    image: cabin1,
+    image: cloudinaryImages.cabin1,
     price: 'From $6,500',
     link: '/types/deluxe-storage-cabins/cabin',
   },
@@ -37,7 +32,7 @@ const products = [
     id: 4,
     name: 'Garage',
     description: 'Secure vehicle storage. Protect your vehicles and equipment.',
-    image: garage1,
+    image: cloudinaryImages.garage1,
     price: 'From $5,800',
     link: '/types/garages-carports/garage',
   },
@@ -45,7 +40,7 @@ const products = [
     id: 5,
     name: 'Carports',
     description: 'Open-air vehicle protection. Affordable coverage for cars, trucks, and more.',
-    image: carport,
+    image: cloudinaryImages.carport,
     price: 'From $1,500',
     link: '/types/garages-carports/carports',
   },
@@ -53,7 +48,7 @@ const products = [
     id: 6,
     name: 'Economy',
     description: 'Budget-friendly storage. Quality construction at an affordable price.',
-    image: economyShed,
+    image: cloudinaryImages.economyShed1,
     price: 'From $1,800',
     link: '/types/basic-storage/economy-shed',
   },

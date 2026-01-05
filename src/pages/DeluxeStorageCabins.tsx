@@ -5,9 +5,7 @@ import { Check } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import proUtility from '@/assets/pro-utility.webp';
-import proLoftedBarn from '@/assets/pro-lofted-barn.jpg';
-import cabinShed from '@/assets/cabin-shed.jpg';
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const models = [
   {
@@ -20,8 +18,8 @@ const models = [
       'Ridge Vent Standard',
       '3/4" T & G Flooring',
     ],
-    image: proUtility,
-    gallery: [proUtility, proUtility, proUtility, proUtility, proUtility, proUtility],
+    image: cloudinaryImages.proUtility,
+    gallery: [cloudinaryImages.proUtility, cloudinaryImages.utilityShed1, cloudinaryImages.utilityShed2, cloudinaryImages.utilityShed3, cloudinaryImages.utilityShed4],
     detailLink: '/types/deluxe-storage-cabins/pro-utility-shed',
   },
   {
@@ -34,8 +32,8 @@ const models = [
       '6\' 6" Wall Height',
       'Classic Barn Styling',
     ],
-    image: proLoftedBarn,
-    gallery: [proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn, proLoftedBarn],
+    image: cloudinaryImages.proLoftedBarn,
+    gallery: [cloudinaryImages.proLoftedBarn, cloudinaryImages.loftedBarn1, cloudinaryImages.loftedBarn2, cloudinaryImages.loftedBarn3, cloudinaryImages.loftedBarn4],
     detailLink: '/types/deluxe-storage-cabins/pro-lofted-barn',
   },
   {
@@ -48,16 +46,16 @@ const models = [
       'Custom Layouts',
       'Perfect for Guest Houses',
     ],
-    image: cabinShed,
-    gallery: [cabinShed, cabinShed, cabinShed, cabinShed, cabinShed, cabinShed],
+    image: cloudinaryImages.cabinShed,
+    gallery: [cloudinaryImages.cabinShed, cloudinaryImages.cabin1, cloudinaryImages.cabin2, cloudinaryImages.cabin3, cloudinaryImages.cabin4],
     detailLink: '/types/deluxe-storage-cabins/cabin',
   },
 ];
 
 const quickNavModels = [
-  { id: 'pro-utility', name: 'Pro - Utility', image: proUtility },
-  { id: 'pro-lofted-barn', name: 'Pro - Lofted Barn', image: proLoftedBarn },
-  { id: 'cabins-tiny-home', name: 'Cabins / Tiny Home', image: cabinShed },
+  { id: 'pro-utility', name: 'Pro - Utility', image: cloudinaryImages.proUtility },
+  { id: 'pro-lofted-barn', name: 'Pro - Lofted Barn', image: cloudinaryImages.proLoftedBarn },
+  { id: 'cabins-tiny-home', name: 'Cabins / Tiny Home', image: cloudinaryImages.cabinShed },
 ];
 
 const DeluxeStorageCabins = () => {

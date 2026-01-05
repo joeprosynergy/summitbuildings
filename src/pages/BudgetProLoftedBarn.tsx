@@ -21,15 +21,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import images - only real Budget Pro Lofted Barn photos
-import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
-import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
-import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: budgetProLoftedBarn, alt: 'Budget Pro Lofted Barn - Main image' },
-  { src: budgetProLoftedBarn2, alt: 'Budget Pro Lofted Barn - Tan with black trim' },
-  { src: budgetProLoftedBarn3, alt: 'Budget Pro Lofted Barn - Green exterior' },
+  { src: cloudinaryImages.budgetProLoftedBarn, alt: 'Budget Pro Lofted Barn - Main image' },
+  { src: cloudinaryImages.budgetProLoftedBarn2, alt: 'Budget Pro Lofted Barn - Tan with black trim' },
+  { src: cloudinaryImages.budgetProLoftedBarn3, alt: 'Budget Pro Lofted Barn - Green exterior' },
 ];
 
 // Features for Budget Pro - Lofted Barn
@@ -267,7 +265,7 @@ const BudgetProLoftedBarn = () => {
                 
                 <div className="relative">
                   <img
-                    src={budgetProLoftedBarn}
+                    src={cloudinaryImages.budgetProLoftedBarn}
                     alt="Summit Budget Pro Lofted Barn"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -320,7 +318,7 @@ const BudgetProLoftedBarn = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={budgetProLoftedBarn}
+                      src={cloudinaryImages.budgetProLoftedBarn}
                       alt="Budget Pro Lofted Barn - Classic Barn Style"
                       className="rounded-xl shadow-lg w-full"
                     />

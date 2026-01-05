@@ -1,8 +1,7 @@
 // Cloudinary configuration for Summit Portable Buildings
-// Cloud name is stored in secrets, but we need a client-side version for URL construction
-// The cloud name is: dq0bffvsy (from your Cloudinary account)
+// All images are served from Cloudinary for optimal delivery
 
-const CLOUDINARY_CLOUD_NAME = 'dq0bffvsy';
+const CLOUDINARY_CLOUD_NAME = 'dwhwbbbev';
 const CLOUDINARY_FOLDER = 'summit-buildings';
 
 // Helper function to construct Cloudinary URL

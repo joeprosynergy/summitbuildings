@@ -21,17 +21,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import all images
-import cabin1 from '@/assets/cabin-1.jpg';
-import cabin2 from '@/assets/cabin-2.jpg';
-import cabin3 from '@/assets/cabin-3.jpg';
-import cabin4 from '@/assets/cabin-4.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: cabin1, alt: 'Summit Cabin - Exterior view with porch' },
-  { src: cabin2, alt: 'Summit Cabin - Interior finished view' },
-  { src: cabin3, alt: 'Summit Cabin - Side view' },
-  { src: cabin4, alt: 'Summit Cabin - Interior details' },
+  { src: cloudinaryImages.cabin1, alt: 'Summit Cabin - Exterior view with porch' },
+  { src: cloudinaryImages.cabin2, alt: 'Summit Cabin - Interior finished view' },
+  { src: cloudinaryImages.cabin3, alt: 'Summit Cabin - Side view' },
+  { src: cloudinaryImages.cabin4, alt: 'Summit Cabin - Interior details' },
 ];
 
 // Summit Cabin features from website
@@ -249,7 +246,7 @@ const Cabin = () => {
                 
                 <div className="relative">
                   <img
-                    src={cabin1}
+                    src={cloudinaryImages.cabin1}
                     alt="Summit Cabin"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -302,7 +299,7 @@ const Cabin = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={cabin2}
+                      src={cloudinaryImages.cabin2}
                       alt="Summit Cabin - Interior"
                       className="rounded-xl shadow-lg w-full"
                     />

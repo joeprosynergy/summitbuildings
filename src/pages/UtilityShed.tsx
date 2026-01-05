@@ -23,27 +23,19 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import all images
-import utilityShed1 from '@/assets/utility-shed-1.jpg';
-import utilityShed2 from '@/assets/utility-shed-2.jpg';
-import utilityShed3 from '@/assets/utility-shed-3.jpg';
-import utilityShed4 from '@/assets/utility-shed-4.jpg';
-import sideUtility1 from '@/assets/side-utility-1.jpg';
-import sideUtility2 from '@/assets/side-utility-2.jpg';
-import sideUtility3 from '@/assets/side-utility-3.jpg';
-import sideUtility4 from '@/assets/side-utility-4.jpg';
-import treatedGardenShed from '@/assets/treated-garden-shed.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: utilityShed1, alt: 'Summit Utility Shed - Gray with white trim' },
-  { src: utilityShed2, alt: 'Summit Utility Shed - Tan with brown trim' },
-  { src: utilityShed3, alt: 'Summit Utility Shed - White exterior' },
-  { src: utilityShed4, alt: 'Summit Utility Shed - Brown rustic style' },
-  { src: sideUtility1, alt: 'Summit Side Utility - Gray with side door' },
-  { src: sideUtility2, alt: 'Summit Side Utility - White with windows' },
-  { src: sideUtility3, alt: 'Summit Side Utility - Tan with shutters' },
-  { src: sideUtility4, alt: 'Summit Side Utility - Dark brown finish' },
-  { src: treatedGardenShed, alt: 'Treated garden shed with black shutters' },
+  { src: cloudinaryImages.utilityShed1, alt: 'Summit Utility Shed - Gray with white trim' },
+  { src: cloudinaryImages.utilityShed2, alt: 'Summit Utility Shed - Tan with brown trim' },
+  { src: cloudinaryImages.utilityShed3, alt: 'Summit Utility Shed - White exterior' },
+  { src: cloudinaryImages.utilityShed4, alt: 'Summit Utility Shed - Brown rustic style' },
+  { src: cloudinaryImages.sideUtility1, alt: 'Summit Side Utility - Gray with side door' },
+  { src: cloudinaryImages.sideUtility2, alt: 'Summit Side Utility - White with windows' },
+  { src: cloudinaryImages.sideUtility3, alt: 'Summit Side Utility - Tan with shutters' },
+  { src: cloudinaryImages.sideUtility4, alt: 'Summit Side Utility - Dark brown finish' },
+  { src: cloudinaryImages.treatedGardenShed, alt: 'Treated garden shed with black shutters' },
 ];
 
 // Combined features for Pro - Utility Shed
@@ -283,7 +275,7 @@ const UtilityShed = () => {
                 
                 <div className="relative">
                   <img
-                    src={utilityShed1}
+                    src={cloudinaryImages.utilityShed1}
                     alt="Summit Pro Utility Shed"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -336,7 +328,7 @@ const UtilityShed = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={sideUtility1}
+                      src={cloudinaryImages.sideUtility1}
                       alt="Pro Utility Shed - Customizable Configuration"
                       className="rounded-xl shadow-lg w-full"
                     />

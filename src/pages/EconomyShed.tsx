@@ -21,25 +21,18 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import all images
-import economyShed1 from '@/assets/economy-shed-1.jpg';
-import economyShed2 from '@/assets/economy-shed-2.jpg';
-import economyShed3 from '@/assets/economy-shed-3.jpg';
-import economyShed4 from '@/assets/economy-shed-4.jpg';
-import economyShed6 from '@/assets/economy-shed-6.jpg';
-import economyShed7 from '@/assets/economy-shed-7.jpg';
-import economyShed8 from '@/assets/economy-shed-8.jpg';
-import economyShed9 from '@/assets/economy-shed-9.jpg';
+// Import from Cloudinary
+import { cloudinaryImages } from '@/lib/cloudinary';
 
 const galleryImages = [
-  { src: economyShed1, alt: 'Economy Shed - Red with white trim' },
-  { src: economyShed2, alt: 'Economy Shed - Dark brown metal siding' },
-  { src: economyShed3, alt: 'Lofted Economy Shed - Gray metal siding' },
-  { src: economyShed4, alt: 'Lofted Economy Shed - Light gray with white trim' },
-  { src: economyShed6, alt: 'Economy Shed - Gray with dark trim' },
-  { src: economyShed7, alt: 'Economy Shed - Tan with white trim' },
-  { src: economyShed8, alt: 'Economy Shed - Tan side view' },
-  { src: economyShed9, alt: 'Economy Shed - Blue with white trim' },
+  { src: cloudinaryImages.economyShed1, alt: 'Economy Shed - Red with white trim' },
+  { src: cloudinaryImages.economyShed2, alt: 'Economy Shed - Dark brown metal siding' },
+  { src: cloudinaryImages.economyShed3, alt: 'Lofted Economy Shed - Gray metal siding' },
+  { src: cloudinaryImages.economyShed4, alt: 'Lofted Economy Shed - Light gray with white trim' },
+  { src: cloudinaryImages.economyShed6, alt: 'Economy Shed - Gray with dark trim' },
+  { src: cloudinaryImages.economyShed7, alt: 'Economy Shed - Tan with white trim' },
+  { src: cloudinaryImages.economyShed8, alt: 'Economy Shed - Tan side view' },
+  { src: cloudinaryImages.economyShed9, alt: 'Economy Shed - Blue with white trim' },
 ];
 
 // Economy Shed features (standard)
@@ -155,7 +148,7 @@ const EconomyShed = () => {
                 
                 <div className="relative">
                   <img
-                    src={economyShed1}
+                    src={cloudinaryImages.economyShed1}
                     alt="Summit Economy Shed"
                     className="rounded-2xl shadow-2xl w-full"
                   />
@@ -210,7 +203,7 @@ const EconomyShed = () => {
                   <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
                     <div className="relative">
                       <img
-                        src={economyShed1}
+                        src={cloudinaryImages.economyShed1}
                         alt="Economy Shed - Utility Style"
                         className="w-full aspect-video object-cover"
                       />
@@ -237,7 +230,7 @@ const EconomyShed = () => {
                   <div className="bg-card rounded-xl overflow-hidden border border-border shadow-lg">
                     <div className="relative">
                       <img
-                        src={economyShed3}
+                        src={cloudinaryImages.economyShed3}
                         alt="Lofted Economy Shed - Barn Style"
                         className="w-full aspect-video object-cover"
                       />
