@@ -9,14 +9,14 @@ const styles = [
     id: 'utility',
     name: 'Utility',
     subtitle: 'Traditional A-Frame Roof',
-    image: cloudinaryImages.utilityStyle,
+    image: cloudinaryImages.utilityShed,
     link: '/styles/utility'
   },
   {
     id: 'barn',
     name: 'Barn',
     subtitle: 'Gambrel Roof',
-    image: cloudinaryImages.barnStyle,
+    image: cloudinaryImages.loftedBarn,
     link: '/styles/barn'
   },
   {
