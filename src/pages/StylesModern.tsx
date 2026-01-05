@@ -10,7 +10,7 @@ const options = [
     name: 'Pro',
     description: 'Premium quality with top-tier materials and craftsmanship.',
     features: ['LP SmartSide siding', '2x6 floor joists 12" OC', '4x6 treated skids', 'House wrap'],
-    image: cloudinaryImages.sideUtility1,
+    image: cloudinaryImages.proModern,
     link: '/types/deluxe-storage-cabins/pro-utility-shed'
   },
   {
@@ -18,7 +18,7 @@ const options = [
     name: 'Garage',
     description: 'Secure vehicle and equipment storage with easy access.',
     features: ['LP SmartSide siding', '2x6 floor joists 12" OC', 'Garage door included'],
-    image: cloudinaryImages.garage,
+    image: cloudinaryImages.garageModern,
     link: '/types/garages-carports/garage'
   },
 ];

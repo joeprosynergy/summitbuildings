@@ -202,8 +202,13 @@ export const IMAGES = {
   miniBarn: 'mini-barn',
   
   // Style Images
+  utilityStyle: 'utility-style',
   barnStyle: 'barn-style',
   modernStyle: 'modern-style',
+  
+  // Modern Style Options
+  proModern: 'pro-modern',
+  garageModern: 'garage-modern',
 } as const;
 
 // Pre-built URLs for convenience
@@ -300,6 +305,11 @@ export const cloudinaryImages = {
   miniBarn: getCloudinaryUrl(IMAGES.miniBarn),
   
   // Style Images
+  utilityStyle: getCloudinaryUrl(IMAGES.utilityStyle),
   barnStyle: getCloudinaryUrl(IMAGES.barnStyle),
   modernStyle: getCloudinaryUrl(IMAGES.modernStyle),
+  
+  // Modern Style Options
+  proModern: getCloudinaryUrl(IMAGES.proModern),
+  garageModern: getCloudinaryUrl(IMAGES.garageModern),
 };
