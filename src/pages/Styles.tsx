@@ -9,21 +9,21 @@ const styles = [
     id: 'utility',
     name: 'Utility',
     subtitle: 'Traditional A-Frame Roof',
-    image: cloudinaryImages.utilityShed,
+    image: cloudinaryImages.utilityShed3,
     link: '/styles/utility'
   },
   {
     id: 'barn',
     name: 'Barn',
     subtitle: 'Gambrel Roof',
-    image: cloudinaryImages.loftedBarn,
+    image: cloudinaryImages.sideLoftedBarn4,
     link: '/styles/barn'
   },
   {
     id: 'modern',
     name: 'Modern',
     subtitle: 'Single Slope Roof',
-    image: cloudinaryImages.modernStyle,
+    image: cloudinaryImages.modernShed,
     link: '/styles/modern'
   },
 ];
