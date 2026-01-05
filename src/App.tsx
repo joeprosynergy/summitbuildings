@@ -8,6 +8,10 @@ import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import AboutUs from "./pages/AboutUs";
 import OurModels from "./pages/OurModels";
+import Styles from "./pages/Styles";
+import StylesUtility from "./pages/StylesUtility";
+import StylesBarn from "./pages/StylesBarn";
+import StylesModern from "./pages/StylesModern";
 import BasicStorage from "./pages/BasicStorage";
 import DeluxeStorageCabins from "./pages/DeluxeStorageCabins";
 import UtilityShed from "./pages/UtilityShed";
@@ -41,6 +45,11 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/types" element={<OurModels />} />
+            {/* Styles pages */}
+            <Route path="/styles" element={<Styles />} />
+            <Route path="/styles/utility" element={<StylesUtility />} />
+            <Route path="/styles/barn" element={<StylesBarn />} />
+            <Route path="/styles/modern" element={<StylesModern />} />
             {/* Basic Storage category and detail pages */}
             <Route path="/types/basic-storage" element={<BasicStorage />} />
             <Route path="/types/basic-storage/economy-shed" element={<EconomyShed />} />
