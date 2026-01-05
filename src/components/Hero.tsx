@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { cloudinaryImages } from '@/lib/cloudinary';
+import { cloudinaryImages, getMobileHeroImage, IMAGES } from '@/lib/cloudinary';
 
 const badges = [
   { icon: Truck, label: 'Free Delivery (50mi)' },
@@ -12,14 +12,22 @@ const badges = [
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${cloudinaryImages.heroShed})` }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
-      </div>
+      {/* Background Image using picture element for responsive loading */}
+      <picture className="absolute inset-0">
+        <source
+          media="(max-width: 768px)"
+          srcSet={getMobileHeroImage(IMAGES.heroShed)}
+        />
+        <img
+          src={cloudinaryImages.heroShed}
+          alt="Summit Portable Buildings quality storage shed"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover"
+        />
+      </picture>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/60" />
 
       {/* Content */}
       <div className="relative z-10 container-custom py-32 lg:py-40">

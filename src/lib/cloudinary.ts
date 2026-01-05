@@ -28,6 +28,10 @@ export const getCloudinaryUrl = (publicId: string, options?: {
 export const getHeroImage = (publicId: string) => 
   getCloudinaryUrl(publicId, { width: 1600 });
 
+/** Mobile hero images - optimized for small screens (800px) */
+export const getMobileHeroImage = (publicId: string) => 
+  getCloudinaryUrl(publicId, { width: 800 });
+
 /** Card images - medium size for grids (600px) */
 export const getCardImage = (publicId: string) => 
   getCloudinaryUrl(publicId, { width: 600 });
