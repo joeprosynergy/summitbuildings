@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, Loader2, Upload, Copy } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2, Upload, Copy, RefreshCw, ChevronDown, ChevronUp, Cloud } from 'lucide-react';
 import { toast } from 'sonner';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 // Import all images that need to be uploaded to Cloudinary
 import budgetProUtility from '@/assets/budget-pro-utility.jpeg';
@@ -63,6 +64,14 @@ import utilityShed2 from '@/assets/utility-shed-2.jpg';
 import utilityShed3 from '@/assets/utility-shed-3.jpg';
 import utilityShed4 from '@/assets/utility-shed-4.jpg';
 import utilityShed from '@/assets/utility-shed.jpg';
+import miniBarn from '@/assets/mini-barn.jpeg';
+import barnStyle from '@/assets/barn-style.jpg';
+import modernShed from '@/assets/modern-shed.jpg';
+import modernStyle from '@/assets/modern-style.jpg';
+import utilityStyle from '@/assets/utility-style.webp';
+
+const CLOUDINARY_CLOUD_NAME = 'dwhwbbbev';
+const CLOUDINARY_FOLDER = 'summit-buildings';
 
 interface ImageItem {
   name: string;
@@ -153,13 +162,20 @@ const imageList: ImageItem[] = [
   { name: 'rv-cover-2.jpg', localPath: rvCover2, publicId: 'rv-cover-2' },
   { name: 'rv-cover-3.jpg', localPath: rvCover3, publicId: 'rv-cover-3' },
   
+  // Style Images
+  { name: 'barn-style.jpg', localPath: barnStyle, publicId: 'barn-style' },
+  { name: 'modern-shed.jpg', localPath: modernShed, publicId: 'modern-shed' },
+  { name: 'modern-style.jpg', localPath: modernStyle, publicId: 'modern-style' },
+  { name: 'utility-style.webp', localPath: utilityStyle, publicId: 'utility-style' },
+  
   // Other
   { name: 'dormer.jpeg', localPath: dormer, publicId: 'dormer' },
   { name: 'treated-garden-shed.jpg', localPath: treatedGardenShed, publicId: 'treated-garden-shed' },
+  { name: 'mini-barn.jpeg', localPath: miniBarn, publicId: 'mini-barn' },
 ];
 
 interface UploadStatus {
-  status: 'pending' | 'uploading' | 'success' | 'error';
+  status: 'pending' | 'uploading' | 'success' | 'error' | 'exists';
   url?: string;
   error?: string;
 }
@@ -167,7 +183,55 @@ interface UploadStatus {
 const AdminCloudinaryUpload = () => {
   const [uploadStatuses, setUploadStatuses] = useState<Record<string, UploadStatus>>({});
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadComplete, setUploadComplete] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+  const [showUploaded, setShowUploaded] = useState(false);
+
+  // Check if image exists in Cloudinary
+  const checkImageExists = async (publicId: string): Promise<boolean> => {
+    try {
+      const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${CLOUDINARY_FOLDER}/${publicId}`;
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  // Check all images on mount
+  const checkAllImages = async () => {
+    setIsChecking(true);
+    const statuses: Record<string, UploadStatus> = {};
+    
+    // Check in batches of 5 to avoid overwhelming the browser
+    const batchSize = 5;
+    for (let i = 0; i < imageList.length; i += batchSize) {
+      const batch = imageList.slice(i, i + batchSize);
+      const results = await Promise.all(
+        batch.map(async (image) => {
+          const exists = await checkImageExists(image.publicId);
+          return { name: image.name, exists };
+        })
+      );
+      
+      results.forEach(({ name, exists }) => {
+        statuses[name] = { 
+          status: exists ? 'exists' : 'pending',
+          url: exists ? `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto/${CLOUDINARY_FOLDER}/${imageList.find(i => i.name === name)?.publicId}` : undefined
+        };
+      });
+      
+      setUploadStatuses({ ...statuses });
+    }
+    
+    setIsChecking(false);
+    const pendingCount = Object.values(statuses).filter(s => s.status === 'pending').length;
+    const existsCount = Object.values(statuses).filter(s => s.status === 'exists').length;
+    toast.success(`Check complete: ${existsCount} already uploaded, ${pendingCount} pending`);
+  };
+
+  useEffect(() => {
+    checkAllImages();
+  }, []);
 
   const convertImageToBase64 = async (imagePath: string): Promise<string> => {
     const response = await fetch(imagePath);
@@ -209,17 +273,18 @@ const AdminCloudinaryUpload = () => {
 
   const startUpload = async () => {
     setIsUploading(true);
-    setUploadComplete(false);
     
-    // Initialize all statuses to pending
-    const initialStatuses: Record<string, UploadStatus> = {};
-    imageList.forEach(img => {
-      initialStatuses[img.name] = { status: 'pending' };
-    });
-    setUploadStatuses(initialStatuses);
+    // Only upload images that are pending (not already in Cloudinary)
+    const pendingImages = imageList.filter(img => uploadStatuses[img.name]?.status === 'pending');
+    
+    if (pendingImages.length === 0) {
+      toast.info('All images are already uploaded to Cloudinary!');
+      setIsUploading(false);
+      return;
+    }
 
     // Upload images sequentially to avoid overwhelming the server
-    for (const image of imageList) {
+    for (const image of pendingImages) {
       setUploadStatuses(prev => ({
         ...prev,
         [image.name]: { status: 'uploading' }
@@ -230,7 +295,7 @@ const AdminCloudinaryUpload = () => {
       setUploadStatuses(prev => ({
         ...prev,
         [image.name]: {
-          status: result.success ? 'success' : 'error',
+          status: result.success ? 'exists' : 'error',
           url: result.url,
           error: result.error
         }
@@ -241,13 +306,12 @@ const AdminCloudinaryUpload = () => {
     }
 
     setIsUploading(false);
-    setUploadComplete(true);
     toast.success('Upload complete! Check results below.');
   };
 
   const copyUrlMapping = () => {
     const successfulUploads = Object.entries(uploadStatuses)
-      .filter(([_, status]) => status.status === 'success' && status.url)
+      .filter(([_, status]) => (status.status === 'success' || status.status === 'exists') && status.url)
       .map(([name, status]) => {
         const publicId = imageList.find(img => img.name === name)?.publicId;
         return `  '${publicId}': '${status.url}',`;
@@ -259,21 +323,42 @@ const AdminCloudinaryUpload = () => {
     toast.success('URL mapping copied to clipboard!');
   };
 
-  const successCount = Object.values(uploadStatuses).filter(s => s.status === 'success').length;
-  const errorCount = Object.values(uploadStatuses).filter(s => s.status === 'error').length;
+  const pendingImages = imageList.filter(img => uploadStatuses[img.name]?.status === 'pending');
+  const uploadedImages = imageList.filter(img => uploadStatuses[img.name]?.status === 'exists' || uploadStatuses[img.name]?.status === 'success');
+  const errorImages = imageList.filter(img => uploadStatuses[img.name]?.status === 'error');
+  const uploadingImage = imageList.find(img => uploadStatuses[img.name]?.status === 'uploading');
 
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">Cloudinary Image Upload</h1>
         <p className="text-muted-foreground mb-8">
-          Upload all {imageList.length} images to Cloudinary for optimal delivery
+          Manage {imageList.length} images for optimal CDN delivery
         </p>
 
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-4 mb-8 flex-wrap">
+          <Button 
+            onClick={checkAllImages} 
+            disabled={isChecking || isUploading}
+            variant="outline"
+            size="lg"
+          >
+            {isChecking ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                Checking...
+              </>
+            ) : (
+              <>
+                <RefreshCw className="w-5 h-5 mr-2" />
+                Check Status
+              </>
+            )}
+          </Button>
+
           <Button 
             onClick={startUpload} 
-            disabled={isUploading}
+            disabled={isUploading || isChecking || pendingImages.length === 0}
             size="lg"
           >
             {isUploading ? (
@@ -284,12 +369,12 @@ const AdminCloudinaryUpload = () => {
             ) : (
               <>
                 <Upload className="w-5 h-5 mr-2" />
-                Start Upload
+                Upload Pending ({pendingImages.length})
               </>
             )}
           </Button>
 
-          {uploadComplete && successCount > 0 && (
+          {uploadedImages.length > 0 && (
             <Button onClick={copyUrlMapping} variant="outline" size="lg">
               <Copy className="w-5 h-5 mr-2" />
               Copy URL Mapping
@@ -297,56 +382,119 @@ const AdminCloudinaryUpload = () => {
           )}
         </div>
 
-        {Object.keys(uploadStatuses).length > 0 && (
-          <div className="mb-6 p-4 bg-muted rounded-lg">
-            <p className="font-medium">
-              Progress: {successCount + errorCount} / {imageList.length}
-              {successCount > 0 && <span className="text-green-600 ml-4">✓ {successCount} success</span>}
-              {errorCount > 0 && <span className="text-red-600 ml-4">✗ {errorCount} failed</span>}
+        {/* Status Summary */}
+        <div className="mb-6 p-4 bg-muted rounded-lg grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="text-center">
+            <p className="text-2xl font-bold text-yellow-600">{pendingImages.length}</p>
+            <p className="text-sm text-muted-foreground">Pending Upload</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-green-600">{uploadedImages.length}</p>
+            <p className="text-sm text-muted-foreground">In Cloudinary</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-red-600">{errorImages.length}</p>
+            <p className="text-sm text-muted-foreground">Failed</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold">{imageList.length}</p>
+            <p className="text-sm text-muted-foreground">Total</p>
+          </div>
+        </div>
+
+        {/* Currently Uploading */}
+        {uploadingImage && (
+          <div className="mb-6 p-4 bg-primary/10 rounded-lg border border-primary">
+            <p className="font-medium flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Uploading: {uploadingImage.name}
             </p>
           </div>
         )}
 
-        <div className="space-y-2">
-          {imageList.map((image) => {
-            const status = uploadStatuses[image.name];
-            return (
-              <div 
-                key={image.name}
-                className="flex items-center gap-4 p-3 bg-card rounded-lg border"
-              >
-                <div className="w-12 h-12 rounded overflow-hidden bg-muted flex-shrink-0">
-                  <img 
-                    src={image.localPath} 
-                    alt={image.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium truncate">{image.name}</p>
-                  {status?.url && (
-                    <p className="text-xs text-muted-foreground truncate">{status.url}</p>
-                  )}
-                  {status?.error && (
-                    <p className="text-xs text-red-600">{status.error}</p>
-                  )}
-                </div>
+        {/* Pending Upload Section */}
+        {pendingImages.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <Upload className="w-5 h-5 text-yellow-600" />
+              Pending Upload ({pendingImages.length})
+            </h2>
+            <div className="space-y-2">
+              {pendingImages.map((image) => (
+                <ImageRow key={image.name} image={image} status={uploadStatuses[image.name]} />
+              ))}
+            </div>
+          </div>
+        )}
 
-                <div className="flex-shrink-0">
-                  {!status && <span className="text-muted-foreground text-sm">Waiting</span>}
-                  {status?.status === 'pending' && <span className="text-muted-foreground text-sm">Pending</span>}
-                  {status?.status === 'uploading' && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
-                  {status?.status === 'success' && <CheckCircle className="w-5 h-5 text-green-600" />}
-                  {status?.status === 'error' && <XCircle className="w-5 h-5 text-red-600" />}
-                </div>
+        {/* Error Section */}
+        {errorImages.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <XCircle className="w-5 h-5 text-red-600" />
+              Failed ({errorImages.length})
+            </h2>
+            <div className="space-y-2">
+              {errorImages.map((image) => (
+                <ImageRow key={image.name} image={image} status={uploadStatuses[image.name]} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Already Uploaded Section (Collapsible) */}
+        {uploadedImages.length > 0 && (
+          <Collapsible open={showUploaded} onOpenChange={setShowUploaded}>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" className="w-full justify-between mb-4">
+                <span className="flex items-center gap-2">
+                  <Cloud className="w-5 h-5 text-green-600" />
+                  Already in Cloudinary ({uploadedImages.length})
+                </span>
+                {showUploaded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="space-y-2">
+                {uploadedImages.map((image) => (
+                  <ImageRow key={image.name} image={image} status={uploadStatuses[image.name]} />
+                ))}
               </div>
-            );
-          })}
-        </div>
+            </CollapsibleContent>
+          </Collapsible>
+        )}
       </div>
     </div>
   );
 };
+
+// Extracted component for image rows
+const ImageRow = ({ image, status }: { image: ImageItem; status?: UploadStatus }) => (
+  <div className="flex items-center gap-4 p-3 bg-card rounded-lg border">
+    <div className="w-12 h-12 rounded overflow-hidden bg-muted flex-shrink-0">
+      <img 
+        src={image.localPath} 
+        alt={image.name}
+        className="w-full h-full object-cover"
+      />
+    </div>
+    
+    <div className="flex-1 min-w-0">
+      <p className="font-medium truncate">{image.name}</p>
+      <p className="text-xs text-muted-foreground truncate">{image.publicId}</p>
+      {status?.error && (
+        <p className="text-xs text-red-600">{status.error}</p>
+      )}
+    </div>
+
+    <div className="flex-shrink-0">
+      {!status && <span className="text-muted-foreground text-sm">Checking...</span>}
+      {status?.status === 'pending' && <span className="text-yellow-600 text-sm">Pending</span>}
+      {status?.status === 'uploading' && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
+      {(status?.status === 'success' || status?.status === 'exists') && <CheckCircle className="w-5 h-5 text-green-600" />}
+      {status?.status === 'error' && <XCircle className="w-5 h-5 text-red-600" />}
+    </div>
+  </div>
+);
 
 export default AdminCloudinaryUpload;
