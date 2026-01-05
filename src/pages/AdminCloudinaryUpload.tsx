@@ -70,6 +70,20 @@ import modernShed from '@/assets/modern-shed.jpg';
 import modernStyle from '@/assets/modern-style.jpg';
 import utilityStyle from '@/assets/utility-style.webp';
 
+// Greenhouse
+import greenhouse1 from '@/assets/greenhouse-1.jpg';
+import greenhouse2 from '@/assets/greenhouse-2.jpg';
+import greenhouse3 from '@/assets/greenhouse-3.jpg';
+import greenhouse4 from '@/assets/greenhouse-4.jpg';
+
+// Animal Shelters
+import animalShelter1 from '@/assets/animal-shelter-1.jpg';
+import animalShelter2 from '@/assets/animal-shelter-2.jpg';
+import dogKennel1 from '@/assets/dog-kennel-1.jpg';
+import dogKennel2 from '@/assets/dog-kennel-2.jpg';
+import chickenCoop1 from '@/assets/chicken-coop-1.jpg';
+import chickenCoop2 from '@/assets/chicken-coop-2.jpg';
+
 const CLOUDINARY_CLOUD_NAME = 'dwhwbbbev';
 const CLOUDINARY_FOLDER = 'summit-buildings';
 
@@ -172,6 +186,20 @@ const imageList: ImageItem[] = [
   { name: 'dormer.jpeg', localPath: dormer, publicId: 'dormer' },
   { name: 'treated-garden-shed.jpg', localPath: treatedGardenShed, publicId: 'treated-garden-shed' },
   { name: 'mini-barn.jpeg', localPath: miniBarn, publicId: 'mini-barn' },
+  
+  // Greenhouse
+  { name: 'greenhouse-1.jpg', localPath: greenhouse1, publicId: 'greenhouse-1' },
+  { name: 'greenhouse-2.jpg', localPath: greenhouse2, publicId: 'greenhouse-2' },
+  { name: 'greenhouse-3.jpg', localPath: greenhouse3, publicId: 'greenhouse-3' },
+  { name: 'greenhouse-4.jpg', localPath: greenhouse4, publicId: 'greenhouse-4' },
+  
+  // Animal Shelters
+  { name: 'animal-shelter-1.jpg', localPath: animalShelter1, publicId: 'animal-shelter-1' },
+  { name: 'animal-shelter-2.jpg', localPath: animalShelter2, publicId: 'animal-shelter-2' },
+  { name: 'dog-kennel-1.jpg', localPath: dogKennel1, publicId: 'dog-kennel-1' },
+  { name: 'dog-kennel-2.jpg', localPath: dogKennel2, publicId: 'dog-kennel-2' },
+  { name: 'chicken-coop-1.jpg', localPath: chickenCoop1, publicId: 'chicken-coop-1' },
+  { name: 'chicken-coop-2.jpg', localPath: chickenCoop2, publicId: 'chicken-coop-2' },
 ];
 
 interface UploadStatus {
