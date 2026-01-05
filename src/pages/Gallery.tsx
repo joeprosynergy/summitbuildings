@@ -55,9 +55,6 @@ const galleryImages: GalleryImage[] = [
   { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/Dormer-2.jpeg', title: 'Dormer 2', category: 'Dormers' },
   { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/10x16-O-Dormer.jpg', title: 'Dormer', category: 'Dormers' },
   
-  // Mini Barns
-  { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/mini-barn.jpeg', title: 'Mini Barn', category: 'Mini Barns' },
-  
   // Specialty
   { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/Chicken-Coop-4.jpeg', title: 'Chicken Coop', category: 'Specialty' },
   { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/Chicken-Coop-2.jpg', title: 'Chicken Coop', category: 'Specialty' },
@@ -73,7 +70,7 @@ const galleryImages: GalleryImage[] = [
   { url: 'https://summitbuildings.com/wp-content/uploads/2024/11/0FF8CAB3-41F7-40CF-B4D1-9DD34E02C11D.jpg', title: 'Custom Build', category: 'Other' },
 ];
 
-const categories = ['All', 'Cabins', 'Lofted Barns', 'Garages', 'Utility Sheds', 'Economy Sheds', 'Dormers', 'Mini Barns', 'Specialty', 'Other'];
+const categories = ['All', 'Cabins', 'Lofted Barns', 'Garages', 'Utility Sheds', 'Economy Sheds', 'Dormers', 'Specialty', 'Other'];
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');

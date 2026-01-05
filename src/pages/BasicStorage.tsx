@@ -16,7 +16,6 @@ import budgetProLoftedBarn from '@/assets/budget-pro-lofted-barn.png';
 import budgetProLoftedBarn2 from '@/assets/budget-pro-lofted-barn-2.jpeg';
 import budgetProLoftedBarn3 from '@/assets/budget-pro-lofted-barn-3.jpeg';
 import economy from '@/assets/economy.webp';
-import miniBarn from '@/assets/mini-barn.jpeg';
 
 const models = [
   {
@@ -46,19 +45,6 @@ const models = [
     detailLink: '/types/basic-storage/budget-pro-lofted-barn',
   },
   {
-    id: 'mini-barn',
-    name: 'Mini Barn',
-    tagline: 'Compact barn style with maximum functionality.',
-    features: [
-      'Classic barn aesthetic',
-      'Gambrel roof design',
-      'Perfect for smaller spaces',
-    ],
-    image: miniBarn,
-    gallery: [miniBarn, miniBarn, miniBarn, miniBarn, miniBarn, miniBarn],
-    detailLink: '/types/basic-storage/mini-barn',
-  },
-  {
     id: 'economy',
     name: 'Economy',
     tagline: 'Affordable storage without compromise.',
@@ -76,7 +62,6 @@ const models = [
 const quickNavModels = [
   { id: 'budget-pro-utility', name: 'Budget Pro - Utility', image: budgetProUtility },
   { id: 'budget-pro-lofted-barn', name: 'Budget Pro - Lofted Barn', image: budgetProLoftedBarn },
-  { id: 'mini-barn', name: 'Mini Barn', image: miniBarn },
   { id: 'economy', name: 'Economy', image: economy },
 ];
 
