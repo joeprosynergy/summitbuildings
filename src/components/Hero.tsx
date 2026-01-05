@@ -23,6 +23,8 @@ const Hero = () => {
           alt="Summit Portable Buildings quality storage shed"
           fetchPriority="high"
           decoding="async"
+          width={1600}
+          height={900}
           className="w-full h-full object-cover"
         />
       </picture>
