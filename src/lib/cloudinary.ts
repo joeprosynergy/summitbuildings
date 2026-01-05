@@ -162,6 +162,20 @@ export const IMAGES = {
   // Modern Style Options
   proModern: 'pro-modern',
   garageModern: 'garage-modern',
+  
+  // Greenhouse
+  greenhouse1: 'greenhouse-1',
+  greenhouse2: 'greenhouse-2',
+  greenhouse3: 'greenhouse-3',
+  greenhouse4: 'greenhouse-4',
+  
+  // Animal Shelters
+  animalShelter1: 'animal-shelter-1',
+  animalShelter2: 'animal-shelter-2',
+  dogKennel1: 'dog-kennel-1',
+  dogKennel2: 'dog-kennel-2',
+  chickenCoop1: 'chicken-coop-1',
+  chickenCoop2: 'chicken-coop-2',
 } as const;
 
 // Pre-built URLs for convenience - use these in components
@@ -271,4 +285,18 @@ export const cloudinaryImages = {
   // Modern Style Options
   proModern: getCardImage(IMAGES.proModern),
   garageModern: getCardImage(IMAGES.garageModern),
+  
+  // Greenhouse
+  greenhouse1: getCardImage(IMAGES.greenhouse1),
+  greenhouse2: getCardImage(IMAGES.greenhouse2),
+  greenhouse3: getCardImage(IMAGES.greenhouse3),
+  greenhouse4: getCardImage(IMAGES.greenhouse4),
+  
+  // Animal Shelters
+  animalShelter1: getCardImage(IMAGES.animalShelter1),
+  animalShelter2: getCardImage(IMAGES.animalShelter2),
+  dogKennel1: getCardImage(IMAGES.dogKennel1),
+  dogKennel2: getCardImage(IMAGES.dogKennel2),
+  chickenCoop1: getCardImage(IMAGES.chickenCoop1),
+  chickenCoop2: getCardImage(IMAGES.chickenCoop2),
 };
