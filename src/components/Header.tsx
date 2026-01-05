@@ -49,6 +49,8 @@ const Header = () => {
             <img
               src={cloudinaryImages.summitLogo}
               alt="Summit Portable Buildings"
+              width={129}
+              height={98}
               className={`h-14 w-auto transition-all duration-300 ${
                 useLightText ? 'brightness-0 invert' : ''
               }`}
