@@ -47,6 +47,7 @@ const ContactForm = () => {
     name: '',
     email: '',
     phone: '',
+    zipCode: '',
     interest: '',
     otherInterest: '',
     size: '',
@@ -116,6 +117,15 @@ const ContactForm = () => {
       return;
     }
 
+    if (!formData.zipCode.trim()) {
+      toast({
+        title: 'Zip Code is required',
+        description: 'Please enter your zip code.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     if (!formData.interest) {
       toast({
         title: 'Please select what you are interested in',
@@ -172,6 +182,14 @@ const ContactForm = () => {
               <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
             </tr>
             <tr style="background-color: #f5f5f5;">
+              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Zip Code</td>
+              <td style="padding: 12px; border: 1px solid #ddd;">${formData.zipCode}</td>
+            </tr>
+            <tr>
+              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
+              <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
+            </tr>
+            <tr style="background-color: #f5f5f5;">
               <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
               <td style="padding: 12px; border: 1px solid #ddd;">${interestDisplay}</td>
             </tr>
@@ -210,6 +228,7 @@ const ContactForm = () => {
         full_name: formData.name,
         phone: formData.phone,
         email: formData.email,
+        zip_code: formData.zipCode,
         interested_in: interestDisplay,
         size: sizeLabel,
         truck_trailer_access: truckAccessLabel,
@@ -238,6 +257,7 @@ const ContactForm = () => {
         name: '',
         email: '',
         phone: '',
+        zipCode: '',
         interest: '',
         otherInterest: '',
         size: '',
@@ -296,8 +316,8 @@ const ContactForm = () => {
         />
       </div>
 
-      {/* Phone & Email */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Phone, Email & Zip Code */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm font-medium text-foreground mb-2">
             Phone <span className="text-destructive">*</span>
@@ -321,6 +341,20 @@ const ContactForm = () => {
             name="email"
             placeholder="john@example.com"
             value={formData.email}
+            onChange={handleChange}
+            required
+            className="bg-background"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Zip Code <span className="text-destructive">*</span>
+          </label>
+          <Input
+            type="text"
+            name="zipCode"
+            placeholder="12345"
+            value={formData.zipCode}
             onChange={handleChange}
             required
             className="bg-background"
