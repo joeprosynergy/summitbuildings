@@ -216,7 +216,7 @@ const BudgetProUtility = () => {
           property="og:description"
           content="Maximum headroom at an affordable price with 7 foot 9 inch walls and customizable layout options."
         />
-        <link rel="canonical" href="https://summitbuildings.com/budget-pro-utility" />
+        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-utility" />
       </Helmet>
 
       <div className="min-h-screen">

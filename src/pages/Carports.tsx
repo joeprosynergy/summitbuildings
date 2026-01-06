@@ -110,7 +110,7 @@ const Carports = () => {
           property="og:description"
           content="Heavy-duty steel carports protect your vehicles from the elements. Perfect for cars, trucks, RVs, boats, and equipment storage."
         />
-        <link rel="canonical" href="https://summitbuildings.com/carports" />
+        <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/carports" />
       </Helmet>
 
       <div className="min-h-screen">

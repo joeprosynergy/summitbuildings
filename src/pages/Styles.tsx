@@ -34,6 +34,7 @@ const Styles = () => {
       <Helmet>
         <title>Building Styles | Summit Portable Buildings</title>
         <meta name="description" content="Choose your preferred building style - Utility with traditional A-frame roof, Barn with gambrel roof, or Modern with single slope roof." />
+        <link rel="canonical" href="https://summitbuildings.com/styles" />
       </Helmet>
 
       <Header />

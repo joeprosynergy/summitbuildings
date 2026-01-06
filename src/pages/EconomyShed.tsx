@@ -104,7 +104,7 @@ const EconomyShed = () => {
           property="og:description"
           content="Our most economical storage building. Lowest cost per square foot. Built simply for storage purposes with metal siding. Available in standard or lofted styles."
         />
-        <link rel="canonical" href="https://summitbuildings.com/economy-shed" />
+        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/economy-shed" />
       </Helmet>
 
       <div className="min-h-screen">
