@@ -16,25 +16,12 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Summit Portable Buildings | Get the Storage Space You Need Without the Hassle</title>
-        <meta
-          name="description"
-          content="Custom storage buildings designed for your property, built by craftsmen, delivered to your door. Serving Missouri, Illinois, Kentucky & Arkansas since 2008."
-        />
-        <meta
-          name="keywords"
-          content="storage buildings, storage sheds, barns, garages, utility sheds, outdoor storage, Missouri, Illinois, Kentucky, Arkansas"
-        />
-        <meta property="og:title" content="Summit Portable Buildings | Custom Storage Solutions" />
-        <meta
-          property="og:description"
-          content="Stop living with clutter. Design your perfect shed online in minutes and we'll handle the rest. Free delivery within 50 miles."
-        />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://summitbuildings.com" />
+        <meta property="og:title" content="Summit Portable Buildings | Built The Old Fashioned Way" />
+        <meta property="og:description" content="Affordable, high quality, hand crafted, storage buildings built in the USA. Serving Missouri, Illinois, Kentucky, and Arkansas." />
+        <meta name="twitter:title" content="Summit Portable Buildings | Built The Old Fashioned Way" />
+        <meta name="twitter:description" content="Affordable, high quality, hand crafted, storage buildings built in the USA. Serving Missouri, Illinois, Kentucky, and Arkansas." />
       </Helmet>
-
+      
       <div className="min-h-screen">
         <Header />
         <main>

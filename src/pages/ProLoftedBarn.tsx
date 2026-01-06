@@ -230,7 +230,7 @@ const ProLoftedBarn = () => {
           property="og:description"
           content="Our best seller! The most versatile building for all purposes with 2 lofts, windows, and classic barn styling. Available as standard or side lofted barn."
         />
-        <link rel="canonical" href="https://summitbuildings.com/pro-lofted-barn" />
+        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-lofted-barn" />
       </Helmet>
 
       <div className="min-h-screen">

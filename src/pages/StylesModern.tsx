@@ -29,6 +29,7 @@ const StylesModern = () => {
       <Helmet>
         <title>Modern Style Buildings | Summit Portable Buildings</title>
         <meta name="description" content="Explore our Modern style buildings with single slope roofs. Choose from Pro or Garage options for a contemporary look." />
+        <link rel="canonical" href="https://summitbuildings.com/styles/modern" />
       </Helmet>
 
       <Header />

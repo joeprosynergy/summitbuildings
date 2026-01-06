@@ -7,6 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Environment variables (Lovable-compatible)
+.env.local
+.env.development
+.env.production
+.env.*
+!.env
+!.env.example
+
+
+# Dependencies & builds
 node_modules
 dist
 dist-ssr

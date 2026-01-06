@@ -64,6 +64,7 @@ const Financing = () => {
       <Helmet>
         <title>Financing & Rent to Own | Summit Portable Buildings</title>
         <meta name="description" content="Flexible payment options for your storage building. Rent to Own with no credit check or financing with rates as low as 9.99%. Apply today!" />
+        <link rel="canonical" href="https://summitbuildings.com/financing" />
       </Helmet>
       
       <Header />

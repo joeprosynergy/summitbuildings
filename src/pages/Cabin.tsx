@@ -199,7 +199,7 @@ const Cabin = () => {
           property="og:description"
           content="A great building for your lake lot, hunting cabin or kid's play house! Windows let in extra light, porch is perfect for sunset views. Moveable and customizable."
         />
-        <link rel="canonical" href="https://summitbuildings.com/cabin" />
+        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/cabin" />
       </Helmet>
 
       <div className="min-h-screen">

@@ -77,6 +77,7 @@ const GaragesCarports = () => {
       <Helmet>
         <title>Garages & Carports | Summit Portable Buildings</title>
         <meta name="description" content="Explore our garages, carports, and RV covers. Heavy-duty steel construction provides superior protection for your vehicles and equipment." />
+        <link rel="canonical" href="https://summitbuildings.com/types/garages-carports" />
       </Helmet>
 
       <Header />

@@ -220,7 +220,7 @@ const Garage = () => {
           property="og:description"
           content="Built to handle vehicle weight with insulated overhead door, steel walk-in door, and floor joists 12 inches on center. The woodworker's delight with large door access."
         />
-        <link rel="canonical" href="https://summitbuildings.com/garage" />
+        <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/garage" />
       </Helmet>
 
       <div className="min-h-screen">

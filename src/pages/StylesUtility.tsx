@@ -61,6 +61,7 @@ const StylesUtility = () => {
       <Helmet>
         <title>Utility Style Buildings | Summit Portable Buildings</title>
         <meta name="description" content="Explore our Utility style buildings with traditional A-frame roofs. Choose from Economy, Budget Pro, Pro, Cabin, Garage, or Carport options." />
+        <link rel="canonical" href="https://summitbuildings.com/styles/utility" />
       </Helmet>
 
       <Header />

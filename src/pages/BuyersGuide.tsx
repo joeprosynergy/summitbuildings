@@ -74,6 +74,7 @@ const BuyersGuide = () => {
           name="description"
           content="Your 5-step roadmap to the perfect storage building. Learn how to choose the right size, materials, prepare your site, and more."
         />
+        <link rel="canonical" href="https://summitbuildings.com/buyers-guide" />
       </Helmet>
 
       <Header />
