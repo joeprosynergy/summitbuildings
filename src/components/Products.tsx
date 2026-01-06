@@ -28,14 +28,14 @@ const styles = [
     name: 'Greenhouse',
     subtitle: 'Grow Year-Round',
     image: cloudinaryImages.greenhouse1,
-    link: '/types/specialty/greenhouse'
+    link: '/styles/greenhouse'
   },
   {
     id: 'animal-shelters',
     name: 'Animal Shelters',
     subtitle: 'Kennels & Coops',
     image: cloudinaryImages.animalShelter1,
-    link: '/types/specialty/animal-shelters'
+    link: '/styles/animal-shelters'
   },
 ];
 
