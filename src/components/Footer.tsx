@@ -174,8 +174,8 @@ const Footer = () => {
           <p className="text-primary-foreground text-lg">
             Get the building of your dreams
           </p>
-          <a href="tel:5747474700" className="text-primary-foreground text-2xl md:text-3xl font-heading hover:text-secondary transition-colors">
-            (574) 747-4700
+          <a href="tel:5737474700" className="text-primary-foreground text-2xl md:text-3xl font-heading hover:text-secondary transition-colors">
+            (573) 747-4700
           </a>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button

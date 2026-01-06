@@ -38,7 +38,7 @@ const Locations = () => {
             Proudly Serving 4 States
           </h2>
           <p className="text-muted-foreground text-lg">
-            We deliver and set up buildings throughout Missouri, Illinois, Kentucky, and Arkansas. Free delivery within 50 miles of any dealership location.
+            We deliver and set up buildings throughout Missouri, Illinois, Kentucky, and Arkansas. Free delivery within 50 miles.
           </p>
         </div>
 
