@@ -6,7 +6,7 @@ import { cloudinaryImages, getMobileHeroImage, IMAGES } from '@/lib/cloudinary';
 const badges = [
   { icon: Truck, label: 'Free Delivery (50mi)' },
   { icon: CreditCard, label: 'No Credit Check Financing' },
-  { icon: Shield, label: '50-Year Warranty' },
+  { icon: Shield, label: '5-Year Warranty' },
 ];
 
 const Hero = () => {
@@ -61,7 +61,7 @@ const Hero = () => {
           </div>
 
           <p className="text-primary-foreground/60 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
-            Serving Missouri, Illinois, Kentucky & Arkansas since 2008
+            Serving Missouri, Illinois, Kentucky & Arkansas since 2016
           </p>
 
           {/* Badges */}

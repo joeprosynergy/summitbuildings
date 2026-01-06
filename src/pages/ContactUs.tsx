@@ -1,13 +1,8 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Phone, Mail, MapPin, Clock, Facebook } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { toast } from 'sonner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ContactForm from '@/components/ContactForm';
 
 const faqs = [
   {
@@ -53,29 +48,6 @@ const faqs = [
 ];
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    message: '',
-  });
-  const [consent, setConsent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!consent) {
-      toast.error('Please accept the consent checkbox to continue.');
-      return;
-    }
-    toast.success('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', phone: '', email: '', message: '' });
-    setConsent(false);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   return (
     <>
       <Helmet>
@@ -98,7 +70,7 @@ const ContactUs = () => {
                 We'd love <span className="text-secondary">to hear from you</span>
               </h1>
               <p className="text-lg text-muted-foreground">
-                Fill out our form and someone from our team will get back to you in one to two business days. Or give us a call and talk to someone today!
+                Fill out our form and someone from our team will get back to you promptly. Or give us a call and talk to someone today!
               </p>
             </div>
           </div>
@@ -113,78 +85,7 @@ const ContactUs = () => {
                 <h2 className="font-heading text-2xl font-bold text-foreground mb-6">
                   Send us a message
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Full Name
-                    </label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your name"
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                      Phone *
-                    </label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="(555) 123-4567"
-                      required
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      Email *
-                    </label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="your@email.com"
-                      required
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                      Leave a Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="How can we help you?"
-                      rows={4}
-                      className="w-full"
-                    />
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Checkbox
-                      id="consent"
-                      checked={consent}
-                      onCheckedChange={(checked) => setConsent(checked as boolean)}
-                    />
-                    <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
-                      By checking this box, I consent to receive transactional messages related to my account, orders, or services I have requested. These messages may include appointment reminders, order confirmations, and account notifications among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out.
-                    </label>
-                  </div>
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
-                    Submit
-                  </Button>
-                </form>
+                <ContactForm />
               </div>
 
               {/* Contact Info */}
@@ -203,7 +104,7 @@ const ContactUs = () => {
                       </div>
                       <div>
                         <p className="font-semibold text-foreground">Phone</p>
-                        <p className="text-muted-foreground">573-747-4700</p>
+                        <p className="text-muted-foreground">(573) 747-4700</p>
                       </div>
                     </a>
                     <a

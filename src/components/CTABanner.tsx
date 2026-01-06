@@ -28,9 +28,9 @@ const CTABanner = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact">
+            <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
               <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
-                Get Your Free Quote
+                Design Your Shed
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>

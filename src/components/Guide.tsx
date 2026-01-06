@@ -1,16 +1,16 @@
 import { Home, Hammer, Shield, Heart } from 'lucide-react';
 
 const stats = [
-  { value: '16+', label: 'Years Experience' },
+  { value: '8+', label: 'Years Experience' },
   { value: '4', label: 'States Served' },
   { value: '1000+', label: 'Buildings Delivered' },
-  { value: '50', label: 'Year Warranty' },
+  { value: '5', label: 'Year Warranty' },
 ];
 
 const credentials = [
-  { icon: Home, label: 'Family Owned', sublabel: 'Since 2008' },
+  { icon: Home, label: 'Family Owned', sublabel: 'Since 2016' },
   { icon: Hammer, label: 'Hand-Crafted', sublabel: 'USA Built' },
-  { icon: Shield, label: '50-Year Warranty', sublabel: 'LP SmartSide' },
+  { icon: Shield, label: '5-Year Warranty', sublabel: 'LP SmartSide' },
   { icon: Heart, label: 'Faith Based', sublabel: 'Values Driven' },
 ];
 
@@ -33,7 +33,7 @@ const Guide = () => {
               Finding quality storage that fits your property and budget feels impossible. Big box stores sell junk that falls apart. Custom builds cost a fortune.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              We're <strong className="text-foreground">Summit Portable Buildings</strong>, a family-owned company that's been building storage solutions the right way since 2008. We've helped over 1,000 families across four states get the space they need without the headaches.
+              We're <strong className="text-foreground">Summit Portable Buildings</strong>, a family-owned company that's been building storage solutions the right way since 2016. We've helped over 1,000 families across four states get the space they need without the headaches.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
               Every building is hand-crafted by skilled craftsmen right here in the USA using premium materials that last for generations, not years.

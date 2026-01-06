@@ -101,7 +101,7 @@ const Products = () => {
                   ) : (
                     <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
                       <Button variant="hero" size="lg" className="w-full">
-                        Customize Now
+                        Design Yours Now
                         <ArrowRight className="w-4 h-4" />
                       </Button>
                     </a>
@@ -131,7 +131,7 @@ const Products = () => {
         <div className="text-center mt-12">
           <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
             <Button variant="cta" size="xl">
-              See All Models & Customize
+              Design Yours Now
               <ArrowRight className="w-5 h-5" />
             </Button>
           </a>
