@@ -50,6 +50,8 @@ const App = () => (
             <Route path="/styles/utility" element={<StylesUtility />} />
             <Route path="/styles/barn" element={<StylesBarn />} />
             <Route path="/styles/modern" element={<StylesModern />} />
+            <Route path="/styles/greenhouse" element={<Greenhouse />} />
+            <Route path="/styles/animal-shelters" element={<AnimalShelters />} />
             {/* Basic Storage category and detail pages */}
             <Route path="/types/basic-storage" element={<BasicStorage />} />
             <Route path="/types/basic-storage/economy-shed" element={<EconomyShed />} />
