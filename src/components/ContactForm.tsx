@@ -187,13 +187,9 @@ const ContactForm = () => {
             </tr>
             <tr>
               <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
               <td style="padding: 12px; border: 1px solid #ddd;">${interestDisplay}</td>
             </tr>
-            <tr>
+            <tr style="background-color: #f5f5f5;">
               <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Size</td>
               <td style="padding: 12px; border: 1px solid #ddd;">${sizeLabel}</td>
             </tr>
