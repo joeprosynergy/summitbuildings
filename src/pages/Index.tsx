@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Stakes from '@/components/Stakes';
@@ -13,7 +14,15 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <>
+      <Helmet>
+        <meta property="og:title" content="Summit Portable Buildings | Built The Old Fashioned Way" />
+        <meta property="og:description" content="Affordable, high quality, hand crafted, storage buildings built in the USA. Serving Missouri, Illinois, Kentucky, and Arkansas." />
+        <meta name="twitter:title" content="Summit Portable Buildings | Built The Old Fashioned Way" />
+        <meta name="twitter:description" content="Affordable, high quality, hand crafted, storage buildings built in the USA. Serving Missouri, Illinois, Kentucky, and Arkansas." />
+      </Helmet>
+      
+      <div className="min-h-screen">
         <Header />
         <main>
           <Hero />
@@ -26,9 +35,10 @@ const Index = () => {
           <Testimonials />
           <Locations />
           <Contact />
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
