@@ -10,19 +10,25 @@ import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'react-router-dom';
 
 const interestOptions = [
-  'Storage Shed',
-  'Cabin',
-  'Garage',
-  'Carport',
-  'Greenhouse',
-  'Animal Shelter/Kennel',
-  'Other',
+  { value: 'storage-shed', label: 'Storage Shed' },
+  { value: 'cabin', label: 'Cabin' },
+  { value: 'garage', label: 'Garage' },
+  { value: 'carport', label: 'Carport' },
+  { value: 'greenhouse', label: 'Greenhouse' },
+  { value: 'animal-shelter', label: 'Animal Shelter/Kennel' },
+  { value: 'other', label: 'Other' },
 ];
 
 const sizeOptions = [
   { value: 'small', label: 'Small (up to 10x12)' },
   { value: 'medium', label: 'Medium (10x12 to 12x20)' },
   { value: 'large', label: "Large (anything wider than 12' or longer than 20')" },
+];
+
+const truckAccessOptions = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' },
+  { value: 'help', label: 'I need help with this' },
 ];
 
 const contactMethodOptions = [
@@ -41,7 +47,7 @@ const ContactForm = () => {
     name: '',
     email: '',
     phone: '',
-    interest: [] as string[],
+    interest: '',
     otherInterest: '',
     size: '',
     truckAccess: '',
@@ -49,6 +55,7 @@ const ContactForm = () => {
     message: '',
   });
   const [consent, setConsent] = useState(false);
+  const [honeypot, setHoneypot] = useState(false);
 
   const splitName = (fullName: string) => {
     const trimmed = fullName.trim();
@@ -63,6 +70,15 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Honeypot check - if filled, silently reject
+    if (honeypot) {
+      toast({
+        title: 'Thank you',
+        description: 'We are unable to help with your request.',
+      });
+      return;
+    }
     
     if (!consent) {
       toast({
@@ -100,10 +116,10 @@ const ContactForm = () => {
       return;
     }
 
-    if (formData.interest.length === 0) {
+    if (!formData.interest) {
       toast({
         title: 'Please select what you are interested in',
-        description: 'Select at least one option.',
+        description: 'Select one option.',
         variant: 'destructive',
       });
       return;
@@ -124,13 +140,14 @@ const ContactForm = () => {
       const { firstName, lastName } = splitName(formData.name);
       const currentPage = window.location.origin + location.pathname;
       
-      const interestDisplay = formData.interest.includes('Other') && formData.otherInterest
-        ? formData.interest.filter(i => i !== 'Other').concat([`Other: ${formData.otherInterest}`]).join(', ')
-        : formData.interest.join(', ');
+      const interestLabel = interestOptions.find(i => i.value === formData.interest)?.label || formData.interest;
+      const interestDisplay = formData.interest === 'other' && formData.otherInterest
+        ? `Other: ${formData.otherInterest}`
+        : interestLabel;
 
       const sizeLabel = sizeOptions.find(s => s.value === formData.size)?.label || formData.size;
       const contactMethodLabel = contactMethodOptions.find(c => c.value === formData.contactMethod)?.label || formData.contactMethod || 'Not specified';
-      const truckAccessLabel = formData.truckAccess === 'yes' ? 'Yes' : formData.truckAccess === 'no' ? 'No' : 'Not specified';
+      const truckAccessLabel = truckAccessOptions.find(t => t.value === formData.truckAccess)?.label || 'Not specified';
 
       // Build HTML email content
       const htmlContent = `
@@ -221,7 +238,7 @@ const ContactForm = () => {
         name: '',
         email: '',
         phone: '',
-        interest: [],
+        interest: '',
         otherInterest: '',
         size: '',
         truckAccess: '',
@@ -247,20 +264,22 @@ const ContactForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleInterestChange = (option: string, checked: boolean) => {
-    if (checked) {
-      setFormData({ ...formData, interest: [...formData.interest, option] });
-    } else {
-      setFormData({
-        ...formData,
-        interest: formData.interest.filter((i) => i !== option),
-        ...(option === 'Other' ? { otherInterest: '' } : {}),
-      });
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Honeypot field - hidden from users */}
+      <div className="absolute opacity-0 pointer-events-none" aria-hidden="true" tabIndex={-1}>
+        <label htmlFor="do_you_like_cabbage">Do you like cabbage?</label>
+        <input
+          type="checkbox"
+          id="do_you_like_cabbage"
+          name="do_you_like_cabbage"
+          checked={honeypot}
+          onChange={(e) => setHoneypot(e.target.checked)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       {/* Name */}
       <div>
         <label className="block text-sm font-medium text-foreground mb-2">
@@ -310,28 +329,26 @@ const ContactForm = () => {
       </div>
 
       {/* What are you interested in? */}
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-3">
+      <div className="bg-muted/50 p-5 rounded-lg border border-border">
+        <h3 className="text-base font-semibold text-foreground mb-4">
           What are you interested in? <span className="text-destructive">*</span>
-        </label>
-        <div className="grid grid-cols-2 gap-3">
+        </h3>
+        <RadioGroup
+          value={formData.interest}
+          onValueChange={(value) => setFormData({ ...formData, interest: value, otherInterest: value !== 'other' ? '' : formData.otherInterest })}
+          className="grid grid-cols-2 gap-3"
+        >
           {interestOptions.map((option) => (
-            <div key={option} className="flex items-center space-x-2">
-              <Checkbox
-                id={`interest-${option}`}
-                checked={formData.interest.includes(option)}
-                onCheckedChange={(checked) =>
-                  handleInterestChange(option, checked === true)
-                }
-              />
-              <Label htmlFor={`interest-${option}`} className="text-sm cursor-pointer">
-                {option}
+            <div key={option.value} className="flex items-center space-x-2">
+              <RadioGroupItem value={option.value} id={`interest-${option.value}`} />
+              <Label htmlFor={`interest-${option.value}`} className="text-sm cursor-pointer">
+                {option.label}
               </Label>
             </div>
           ))}
-        </div>
-        {formData.interest.includes('Other') && (
-          <div className="mt-3">
+        </RadioGroup>
+        {formData.interest === 'other' && (
+          <div className="mt-4">
             <Input
               type="text"
               name="otherInterest"
@@ -345,14 +362,14 @@ const ContactForm = () => {
       </div>
 
       {/* Size */}
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-3">
+      <div className="bg-muted/50 p-5 rounded-lg border border-border">
+        <h3 className="text-base font-semibold text-foreground mb-4">
           Size <span className="text-destructive">*</span>
-        </label>
+        </h3>
         <RadioGroup
           value={formData.size}
           onValueChange={(value) => setFormData({ ...formData, size: value })}
-          className="space-y-2"
+          className="space-y-3"
         >
           {sizeOptions.map((option) => (
             <div key={option.value} className="flex items-center space-x-2">
@@ -366,31 +383,31 @@ const ContactForm = () => {
       </div>
 
       {/* Truck Access */}
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-3">
+      <div className="bg-muted/50 p-5 rounded-lg border border-border">
+        <h3 className="text-base font-semibold text-foreground mb-4">
           Does your site have access for a truck and trailer?
-        </label>
+        </h3>
         <RadioGroup
           value={formData.truckAccess}
           onValueChange={(value) => setFormData({ ...formData, truckAccess: value })}
-          className="flex gap-6"
+          className="flex flex-wrap gap-4"
         >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="yes" id="truck-yes" />
-            <Label htmlFor="truck-yes" className="text-sm cursor-pointer">Yes</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="no" id="truck-no" />
-            <Label htmlFor="truck-no" className="text-sm cursor-pointer">No</Label>
-          </div>
+          {truckAccessOptions.map((option) => (
+            <div key={option.value} className="flex items-center space-x-2">
+              <RadioGroupItem value={option.value} id={`truck-${option.value}`} />
+              <Label htmlFor={`truck-${option.value}`} className="text-sm cursor-pointer">
+                {option.label}
+              </Label>
+            </div>
+          ))}
         </RadioGroup>
       </div>
 
       {/* Contact Method */}
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-3">
+      <div className="bg-muted/50 p-5 rounded-lg border border-border">
+        <h3 className="text-base font-semibold text-foreground mb-4">
           Preferred method we use to contact you
-        </label>
+        </h3>
         <RadioGroup
           value={formData.contactMethod}
           onValueChange={(value) => setFormData({ ...formData, contactMethod: value })}
