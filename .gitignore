@@ -12,7 +12,7 @@ lerna-debug.log*
 .env.development
 .env.production
 .env.*
-!.env
+.env
 !.env.example
 
 
