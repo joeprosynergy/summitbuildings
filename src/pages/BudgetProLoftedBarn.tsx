@@ -221,7 +221,7 @@ const BudgetProLoftedBarn = () => {
           property="og:description"
           content="Classic barn styling at an affordable price with 1 loft for extra storage and customizable layout options."
         />
-        <link rel="canonical" href="https://summitbuildings.com/budget-pro-lofted-barn" />
+        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-lofted-barn" />
       </Helmet>
 
       <div className="min-h-screen">

@@ -77,6 +77,7 @@ const DeluxeStorageCabins = () => {
       <Helmet>
         <title>Deluxe Storage & Cabins | Summit Portable Buildings</title>
         <meta name="description" content="Explore our premium deluxe storage buildings and cabins including Pro Utility, Pro Lofted Barn, Cabins, and Dormers. Superior quality with extra features." />
+        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins" />
       </Helmet>
 
       <Header />

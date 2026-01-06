@@ -85,6 +85,7 @@ const Gallery = () => {
       <Helmet>
         <title>Gallery | Summit Portable Buildings</title>
         <meta name="description" content="Browse our gallery of custom storage buildings, cabins, garages, lofted barns, and more. See the quality craftsmanship of Summit Portable Buildings." />
+        <link rel="canonical" href="https://summitbuildings.com/gallery" />
       </Helmet>
       
       <Header />

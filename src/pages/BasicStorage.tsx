@@ -74,6 +74,7 @@ const BasicStorage = () => {
       <Helmet>
         <title>Basic Storage Sheds | Summit Portable Buildings</title>
         <meta name="description" content="Explore our basic storage sheds including Utility Sheds, Side Utility, and Lofted Barns. Affordable, practical storage solutions built to last." />
+        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage" />
       </Helmet>
 
       <Header />

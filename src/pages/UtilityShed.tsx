@@ -231,7 +231,7 @@ const UtilityShed = () => {
           property="og:description"
           content="A classy, yet simple addition to your property. Superior workmanship makes it the obvious choice for your storage needs. Available as standard utility or side utility with windows."
         />
-        <link rel="canonical" href="https://summitbuildings.com/pro-utility-shed" />
+        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-utility-shed" />
       </Helmet>
 
       <div className="min-h-screen">

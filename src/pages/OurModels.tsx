@@ -55,6 +55,7 @@ const OurModels = () => {
       <Helmet>
         <title>Our Models | Summit Portable Buildings</title>
         <meta name="description" content="Browse our complete selection of storage buildings. From basic storage sheds to deluxe cabins and garages, find the perfect structure for your needs." />
+        <link rel="canonical" href="https://summitbuildings.com/types" />
       </Helmet>
 
       <Header />

@@ -53,6 +53,7 @@ const StylesBarn = () => {
       <Helmet>
         <title>Barn Style Buildings | Summit Portable Buildings</title>
         <meta name="description" content="Explore our Barn style buildings with gambrel roofs. Choose from Economy, Budget Pro, Pro, Cabin, or Garage options." />
+        <link rel="canonical" href="https://summitbuildings.com/styles/barn" />
       </Helmet>
 
       <Header />
