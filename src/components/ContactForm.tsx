@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Send } from 'lucide-react';
+import { Send, Upload, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const interestOptions = [
   { value: 'carport', label: 'Carport' },
   { value: 'greenhouse', label: 'Greenhouse' },
   { value: 'animal-shelter', label: 'Animal Shelter/Kennel' },
+  { value: 'shed-move', label: 'Shed Move' },
   { value: 'other', label: 'Other' },
 ];
 
@@ -54,9 +55,20 @@ const ContactForm = () => {
     truckAccess: '',
     contactMethod: '',
     message: '',
+    // Shed move specific fields
+    pickupAddress: '',
+    dropoffAddress: '',
+    shedSize: '',
+    payerName: '',
+    payerSameAsAbove: false,
+    billingAddress: '',
+    billingAddressOption: '', // 'pickup' | 'dropoff' | 'custom'
   });
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState(false);
+  const [images, setImages] = useState<{ file: File; preview: string; base64?: string }[]>([]);
+
+  const isShedMove = formData.interest === 'shed-move';
 
   const splitName = (fullName: string) => {
     const trimmed = fullName.trim();
@@ -67,6 +79,42 @@ const ContactForm = () => {
     const firstName = parts[0];
     const lastName = parts.slice(1).join(' ');
     return { firstName, lastName };
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const newImages: { file: File; preview: string; base64?: string }[] = [];
+    
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.startsWith('image/')) {
+        const preview = URL.createObjectURL(file);
+        
+        // Convert to base64
+        const base64 = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+        });
+
+        newImages.push({ file, preview, base64 });
+      }
+    }
+
+    setImages((prev) => [...prev, ...newImages]);
+  };
+
+  const removeImage = (index: number) => {
+    setImages((prev) => {
+      const newImages = [...prev];
+      URL.revokeObjectURL(newImages[index].preview);
+      newImages.splice(index, 1);
+      return newImages;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -135,13 +183,49 @@ const ContactForm = () => {
       return;
     }
 
-    if (!formData.size) {
-      toast({
-        title: 'Size is required',
-        description: 'Please select a size.',
-        variant: 'destructive',
-      });
-      return;
+    // Validation for shed move
+    if (isShedMove) {
+      if (!formData.pickupAddress.trim()) {
+        toast({
+          title: 'Pickup Address is required',
+          description: 'Please enter the pickup address.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      if (!formData.dropoffAddress.trim()) {
+        toast({
+          title: 'Drop Off Address is required',
+          description: 'Please enter the drop off address.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      if (!formData.shedSize.trim()) {
+        toast({
+          title: 'Shed Size is required',
+          description: 'Please enter the shed size.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      if (!formData.payerName.trim() && !formData.payerSameAsAbove) {
+        toast({
+          title: 'Payer Name is required',
+          description: 'Please enter the name of the party responsible for payment.',
+          variant: 'destructive',
+        });
+        return;
+      }
+    } else {
+      if (!formData.size) {
+        toast({
+          title: 'Size is required',
+          description: 'Please select a size.',
+          variant: 'destructive',
+        });
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -159,81 +243,196 @@ const ContactForm = () => {
       const contactMethodLabel = contactMethodOptions.find(c => c.value === formData.contactMethod)?.label || formData.contactMethod || 'Not specified';
       const truckAccessLabel = truckAccessOptions.find(t => t.value === formData.truckAccess)?.label || 'Not specified';
 
-      // Build HTML email content
-      const htmlContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #1a1a2e; border-bottom: 2px solid #c9a227; padding-bottom: 10px;">New Contact Form Submission</h2>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd; width: 40%;">First Name</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${firstName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Last Name</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${lastName}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Phone</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${formData.phone}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Email</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Zip Code</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${formData.zipCode}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${interestDisplay}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Size</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${sizeLabel}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Truck & Trailer Access</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${truckAccessLabel}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Preferred Contact Method</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${contactMethodLabel}</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Message</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${formData.message || 'No message provided'}</td>
-            </tr>
-            <tr>
-              <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Page Submitted From</td>
-              <td style="padding: 12px; border: 1px solid #ddd;">${currentPage}</td>
-            </tr>
-          </table>
-          
-          <p style="margin-top: 20px; color: #666; font-size: 12px;">
-            Submitted on: ${new Date().toLocaleString()}
-          </p>
-        </div>
-      `;
+      // Get billing address based on selection
+      let billingAddressDisplay = formData.billingAddress;
+      if (formData.billingAddressOption === 'pickup') {
+        billingAddressDisplay = formData.pickupAddress;
+      } else if (formData.billingAddressOption === 'dropoff') {
+        billingAddressDisplay = formData.dropoffAddress;
+      }
 
-      // Data for Zapier - each field as separate line item
-      const zapierData = {
-        first_name: firstName,
-        last_name: lastName,
-        full_name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        zip_code: formData.zipCode,
-        interested_in: interestDisplay,
-        size: sizeLabel,
-        truck_trailer_access: truckAccessLabel,
-        preferred_contact_method: contactMethodLabel,
-        message: formData.message || 'No message provided',
-        page_submitted_from: currentPage,
-        submitted_at: new Date().toISOString(),
-        html_content: htmlContent,
-      };
+      const payerNameDisplay = formData.payerSameAsAbove ? formData.name : formData.payerName;
+
+      let htmlContent = '';
+
+      if (isShedMove) {
+        // Shed Move HTML Content
+        htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #1a1a2e; border-bottom: 2px solid #c9a227; padding-bottom: 10px;">🚚 Shed Move Request</h2>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd; width: 40%;">First Name</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${firstName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Last Name</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${lastName}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Phone</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.phone}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Email</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Zip Code</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.zipCode}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Pickup Address</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.pickupAddress}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Drop Off Address</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.dropoffAddress}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Shed Size</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.shedSize}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Party Responsible for Payment</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${payerNameDisplay}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Billing Address</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${billingAddressDisplay}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Preferred Contact Method</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${contactMethodLabel}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Message</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.message || 'No message provided'}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Photos Attached</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${images.length} image(s)</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Page Submitted From</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${currentPage}</td>
+              </tr>
+            </table>
+            
+            <p style="margin-top: 20px; color: #666; font-size: 12px;">
+              Submitted on: ${new Date().toLocaleString()}
+            </p>
+          </div>
+        `;
+      } else {
+        // Standard form HTML Content
+        htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #1a1a2e; border-bottom: 2px solid #c9a227; padding-bottom: 10px;">New Contact Form Submission</h2>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd; width: 40%;">First Name</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${firstName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Last Name</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${lastName}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Phone</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.phone}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Email</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.email}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Zip Code</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.zipCode}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Interested In</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${interestDisplay}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Size</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${sizeLabel}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Truck & Trailer Access</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${truckAccessLabel}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Preferred Contact Method</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${contactMethodLabel}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Message</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${formData.message || 'No message provided'}</td>
+              </tr>
+              <tr style="background-color: #f5f5f5;">
+                <td style="padding: 12px; font-weight: bold; border: 1px solid #ddd;">Page Submitted From</td>
+                <td style="padding: 12px; border: 1px solid #ddd;">${currentPage}</td>
+              </tr>
+            </table>
+            
+            <p style="margin-top: 20px; color: #666; font-size: 12px;">
+              Submitted on: ${new Date().toLocaleString()}
+            </p>
+          </div>
+        `;
+      }
+
+      // Build zapier data based on form type
+      let zapierData: Record<string, unknown>;
+
+      if (isShedMove) {
+        zapierData = {
+          first_name: firstName,
+          last_name: lastName,
+          full_name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          zip_code: formData.zipCode,
+          interested_in: 'Shed Move',
+          pickup_address: formData.pickupAddress,
+          dropoff_address: formData.dropoffAddress,
+          shed_size: formData.shedSize,
+          payer_name: payerNameDisplay,
+          billing_address: billingAddressDisplay,
+          preferred_contact_method: contactMethodLabel,
+          message: formData.message || 'No message provided',
+          page_submitted_from: currentPage,
+          submitted_at: new Date().toISOString(),
+          html_content: htmlContent,
+          images_count: images.length,
+          // Send images as base64 array
+          images: images.map((img, i) => ({
+            filename: img.file.name,
+            base64: img.base64,
+            index: i + 1,
+          })),
+        };
+      } else {
+        zapierData = {
+          first_name: firstName,
+          last_name: lastName,
+          full_name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          zip_code: formData.zipCode,
+          interested_in: interestDisplay,
+          size: sizeLabel,
+          truck_trailer_access: truckAccessLabel,
+          preferred_contact_method: contactMethodLabel,
+          message: formData.message || 'No message provided',
+          page_submitted_from: currentPage,
+          submitted_at: new Date().toISOString(),
+          html_content: htmlContent,
+        };
+      }
 
       await fetch(ZAPIER_WEBHOOK_URL, {
         method: 'POST',
@@ -249,6 +448,7 @@ const ContactForm = () => {
         description: "We'll get back to you promptly.",
       });
 
+      // Reset form
       setFormData({
         name: '',
         email: '',
@@ -260,8 +460,18 @@ const ContactForm = () => {
         truckAccess: '',
         contactMethod: '',
         message: '',
+        pickupAddress: '',
+        dropoffAddress: '',
+        shedSize: '',
+        payerName: '',
+        payerSameAsAbove: false,
+        billingAddress: '',
+        billingAddressOption: '',
       });
       setConsent(false);
+      // Clean up image previews
+      images.forEach((img) => URL.revokeObjectURL(img.preview));
+      setImages([]);
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
@@ -278,6 +488,15 @@ const ContactForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle billing address option change
+  const handleBillingOptionChange = (option: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      billingAddressOption: option,
+      billingAddress: option === 'pickup' ? prev.pickupAddress : option === 'dropoff' ? prev.dropoffAddress : prev.billingAddress,
+    }));
   };
 
   return (
@@ -365,7 +584,21 @@ const ContactForm = () => {
         </h3>
         <RadioGroup
           value={formData.interest}
-          onValueChange={(value) => setFormData({ ...formData, interest: value, otherInterest: value !== 'other' ? '' : formData.otherInterest })}
+          onValueChange={(value) => setFormData({ 
+            ...formData, 
+            interest: value, 
+            otherInterest: value !== 'other' ? '' : formData.otherInterest,
+            // Reset shed move fields when switching away
+            ...(value !== 'shed-move' && {
+              pickupAddress: '',
+              dropoffAddress: '',
+              shedSize: '',
+              payerName: '',
+              payerSameAsAbove: false,
+              billingAddress: '',
+              billingAddressOption: '',
+            }),
+          })}
           className="grid grid-cols-2 gap-3"
         >
           {interestOptions.map((option) => (
@@ -391,47 +624,229 @@ const ContactForm = () => {
         )}
       </div>
 
-      {/* Size */}
-      <div className="bg-muted/50 p-5 rounded-lg border border-border">
-        <h3 className="text-base font-semibold text-foreground mb-4">
-          Size <span className="text-destructive">*</span>
-        </h3>
-        <RadioGroup
-          value={formData.size}
-          onValueChange={(value) => setFormData({ ...formData, size: value })}
-          className="space-y-3"
-        >
-          {sizeOptions.map((option) => (
-            <div key={option.value} className="flex items-center space-x-2">
-              <RadioGroupItem value={option.value} id={`size-${option.value}`} />
-              <Label htmlFor={`size-${option.value}`} className="text-sm cursor-pointer">
-                {option.label}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
-      </div>
+      {/* SHED MOVE SPECIFIC FIELDS */}
+      {isShedMove && (
+        <>
+          {/* Pickup Address */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Pickup Address <span className="text-destructive">*</span>
+            </h3>
+            <Input
+              type="text"
+              name="pickupAddress"
+              placeholder="Full address where the shed is currently located"
+              value={formData.pickupAddress}
+              onChange={handleChange}
+              required
+              className="bg-background"
+            />
+          </div>
 
-      {/* Truck Access */}
-      <div className="bg-muted/50 p-5 rounded-lg border border-border">
-        <h3 className="text-base font-semibold text-foreground mb-4">
-          Does your site have access for a truck and trailer?
-        </h3>
-        <RadioGroup
-          value={formData.truckAccess}
-          onValueChange={(value) => setFormData({ ...formData, truckAccess: value })}
-          className="flex flex-wrap gap-4"
-        >
-          {truckAccessOptions.map((option) => (
-            <div key={option.value} className="flex items-center space-x-2">
-              <RadioGroupItem value={option.value} id={`truck-${option.value}`} />
-              <Label htmlFor={`truck-${option.value}`} className="text-sm cursor-pointer">
-                {option.label}
+          {/* Drop Off Address */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Drop Off Address <span className="text-destructive">*</span>
+            </h3>
+            <Input
+              type="text"
+              name="dropoffAddress"
+              placeholder="Full address where you want the shed delivered"
+              value={formData.dropoffAddress}
+              onChange={handleChange}
+              required
+              className="bg-background"
+            />
+          </div>
+
+          {/* Shed Size */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Shed Size <span className="text-destructive">*</span>
+            </h3>
+            <Input
+              type="text"
+              name="shedSize"
+              placeholder="e.g., 10x12, 12x20, etc."
+              value={formData.shedSize}
+              onChange={handleChange}
+              required
+              className="bg-background"
+            />
+          </div>
+
+          {/* Payer Name */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Name of Party Responsible for Payment <span className="text-destructive">*</span>
+            </h3>
+            <div className="flex items-center space-x-2 mb-4">
+              <Checkbox
+                id="payerSameAsAbove"
+                checked={formData.payerSameAsAbove}
+                onCheckedChange={(checked) =>
+                  setFormData({
+                    ...formData,
+                    payerSameAsAbove: checked === true,
+                    payerName: checked === true ? '' : formData.payerName,
+                  })
+                }
+              />
+              <Label htmlFor="payerSameAsAbove" className="text-sm cursor-pointer">
+                Same as above (use my name)
               </Label>
             </div>
-          ))}
-        </RadioGroup>
-      </div>
+            {!formData.payerSameAsAbove && (
+              <Input
+                type="text"
+                name="payerName"
+                placeholder="Full name of the person responsible for payment"
+                value={formData.payerName}
+                onChange={handleChange}
+                className="bg-background"
+              />
+            )}
+          </div>
+
+          {/* Billing Address */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Billing Address
+            </h3>
+            <RadioGroup
+              value={formData.billingAddressOption}
+              onValueChange={handleBillingOptionChange}
+              className="space-y-3 mb-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="pickup" id="billing-pickup" />
+                <Label htmlFor="billing-pickup" className="text-sm cursor-pointer">
+                  Same as pickup address
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="dropoff" id="billing-dropoff" />
+                <Label htmlFor="billing-dropoff" className="text-sm cursor-pointer">
+                  Same as drop off address
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="custom" id="billing-custom" />
+                <Label htmlFor="billing-custom" className="text-sm cursor-pointer">
+                  Different address
+                </Label>
+              </div>
+            </RadioGroup>
+            {formData.billingAddressOption === 'custom' && (
+              <Input
+                type="text"
+                name="billingAddress"
+                placeholder="Enter billing address"
+                value={formData.billingAddress}
+                onChange={handleChange}
+                className="bg-background"
+              />
+            )}
+          </div>
+
+          {/* Photo Upload */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-2">
+              Photos of Your Shed
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Please upload 2-3 photos of exterior and 2-3 photos of interior
+            </p>
+            
+            <div className="space-y-4">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-secondary transition-colors bg-background">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-semibold">Click to upload</span> or drag and drop
+                  </p>
+                  <p className="text-xs text-muted-foreground">PNG, JPG, JPEG up to 10MB each</p>
+                </div>
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                />
+              </label>
+
+              {images.length > 0 && (
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                  {images.map((img, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={img.preview}
+                        alt={`Upload ${index + 1}`}
+                        className="w-full h-20 object-cover rounded-lg border border-border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(index)}
+                        className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* NON-SHED-MOVE SPECIFIC FIELDS */}
+      {!isShedMove && (
+        <>
+          {/* Size */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Size <span className="text-destructive">*</span>
+            </h3>
+            <RadioGroup
+              value={formData.size}
+              onValueChange={(value) => setFormData({ ...formData, size: value })}
+              className="space-y-3"
+            >
+              {sizeOptions.map((option) => (
+                <div key={option.value} className="flex items-center space-x-2">
+                  <RadioGroupItem value={option.value} id={`size-${option.value}`} />
+                  <Label htmlFor={`size-${option.value}`} className="text-sm cursor-pointer">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+
+          {/* Truck Access */}
+          <div className="bg-muted/50 p-5 rounded-lg border border-border">
+            <h3 className="text-base font-semibold text-foreground mb-4">
+              Does your site have access for a truck and trailer?
+            </h3>
+            <RadioGroup
+              value={formData.truckAccess}
+              onValueChange={(value) => setFormData({ ...formData, truckAccess: value })}
+              className="flex flex-wrap gap-4"
+            >
+              {truckAccessOptions.map((option) => (
+                <div key={option.value} className="flex items-center space-x-2">
+                  <RadioGroupItem value={option.value} id={`truck-${option.value}`} />
+                  <Label htmlFor={`truck-${option.value}`} className="text-sm cursor-pointer">
+                    {option.label}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        </>
+      )}
 
       {/* Contact Method */}
       <div className="bg-muted/50 p-5 rounded-lg border border-border">

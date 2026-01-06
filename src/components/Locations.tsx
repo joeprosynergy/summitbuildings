@@ -93,7 +93,10 @@ const Locations = () => {
             </Link>
           </div>
           <p className="text-primary-foreground/60 text-sm mt-6">
-            Questions? Call us at (573) 747-4700
+            Questions? Call us at{' '}
+            <a href="tel:5737474700" className="hover:text-secondary transition-colors underline">
+              (573) 747-4700
+            </a>
           </p>
         </div>
       </div>
