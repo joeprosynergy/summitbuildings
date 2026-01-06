@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -27,10 +28,11 @@ import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
 import Gallery from "./pages/Gallery";
 import Financing from "./pages/Financing";
-import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
+
+const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
 
 const App = () => (
   <HelmetProvider>
@@ -72,7 +74,16 @@ const App = () => (
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact-us" element={<ContactUs />} />
             {/* Utilities */}
-            <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
+             <Route
+               path="/cloudinary-upload"
+               element={
+                 <Suspense
+                   fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}
+                 >
+                   <AdminCloudinaryUpload />
+                 </Suspense>
+               }
+             />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
