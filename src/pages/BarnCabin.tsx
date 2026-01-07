@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import GallerySection from '@/components/GallerySection';
+import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 
 // Import images
@@ -171,56 +172,16 @@ const BarnCabin = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
-          <section className="pt-32 pb-16 min-h-[600px] lg:min-h-[700px] bg-gradient-to-br from-navy via-navy-dark to-navy flex items-center">
-            <div className="container-custom">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <Link 
-                    to={backPath.path}
-                    className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
-                  >
-                    {backPath.label}
-                  </Link>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    <span className="text-secondary">LOFTED CABIN</span>
-                  </h1>
-                  <p className="text-lg text-primary-foreground/80 mb-6">
-                    The Lofted Cabin combines classic barn styling with cabin functionality. The iconic gambrel roof maximizes overhead space with two generous lofts, while the covered porch provides the perfect spot to relax and enjoy the outdoors.
-                  </p>
-                  <p className="text-primary-foreground/80 mb-6">
-                    Perfect for lake lots, hunting properties, or as a backyard guest house. The barn-style roofline gives you more usable space than traditional cabins, and the included porch adds charm and functionality.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                      <Button variant="hero" size="xl">
-                        Build Your Own
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </a>
-                    <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
-                      <Button variant="heroOutline" size="xl">
-                        Browse Our Inventory
-                      </Button>
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="relative">
-                  <img
-                    src={barnCabin1}
-                    alt="Lofted Cabin"
-                    className="rounded-2xl shadow-2xl w-full"
-                  />
-                  <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading text-sm md:text-base">
-                    FREE DELIVERY*<br />
-                    <span className="text-xs font-normal">Within 50 miles</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <ProductHero
+            backPath={backPath}
+            title=""
+            titleHighlight="LOFTED CABIN"
+            titlePosition="only"
+            description="The Lofted Cabin combines classic barn styling with cabin functionality. The iconic gambrel roof maximizes overhead space with two generous lofts, while the covered porch provides the perfect spot to relax and enjoy the outdoors."
+            secondaryDescription="Perfect for lake lots, hunting properties, or as a backyard guest house. The barn-style roofline gives you more usable space than traditional cabins, and the included porch adds charm and functionality."
+            image={barnCabin1}
+            imageAlt="Lofted Cabin"
+          />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
