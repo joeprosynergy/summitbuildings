@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -7,12 +6,16 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [envError, setEnvError] = useState<string | null>(null);
 
   const handleSendLink = async () => {
     setMessage(null);
     setIsLoading(true);
 
     try {
+      const { getBackendClient } = await import("@/lib/backendClient");
+      const supabase = getBackendClient();
+      
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -25,12 +28,29 @@ const AdminLogin = () => {
       } else {
         setMessage({ type: "success", text: "Check your email for the login link" });
       }
-    } catch {
-      setMessage({ type: "error", text: "Failed to send request" });
+    } catch (err) {
+      if (err instanceof Error && err.message.includes('not configured')) {
+        setEnvError(err.message);
+      } else {
+        setMessage({ type: "error", text: "Failed to send request" });
+      }
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (envError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="w-full max-w-sm space-y-4 text-center">
+          <h1 className="text-xl font-semibold text-foreground">Admin Unavailable</h1>
+          <p className="text-sm text-muted-foreground">
+            Admin authentication isn't available in this environment.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
