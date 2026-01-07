@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useBackPath } from '@/hooks/useBackPath';
 import { 
   Check,
   ArrowRight,
@@ -137,6 +138,12 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 
 const AnimalShelters = () => {
   const location = useLocation();
+  const { path: backPath, label: backLabel } = useBackPath({
+    defaultPath: '/types',
+    defaultLabel: 'All Models',
+    stylesPath: '/styles',
+    stylesLabel: 'Building Styles',
+  });
 
   useEffect(() => {
     if (location.hash) {
@@ -175,10 +182,10 @@ const AnimalShelters = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/types" 
+                    to={backPath} 
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
-                    ← Back to All Models
+                    ← Back to {backLabel}
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
                     ANIMAL <span className="text-secondary">SHELTERS</span>
