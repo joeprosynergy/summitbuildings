@@ -2,23 +2,25 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { cloudinaryImages } from '@/lib/cloudinary';
+
+import modernShed1 from '@/assets/modern-shed-1.jpg';
+import garageImage from '@/assets/garage-1.jpg';
 
 const options = [
   {
     id: 'pro',
     name: 'Pro',
-    description: 'Premium quality with top-tier materials and craftsmanship.',
-    features: ['LP SmartSide siding', '2x6 floor joists 12" OC', '4x6 treated skids', 'House wrap'],
-    image: cloudinaryImages.proModern,
-    link: '/types/deluxe-storage-cabins/pro-utility-shed'
+    description: 'Premium quality with single slope roof and contemporary design.',
+    features: ['LP SmartSide siding', '2x6 floor joists 12" OC', '6" Overhangs', 'Single slope roof'],
+    image: modernShed1,
+    link: '/types/deluxe-storage-cabins/modern-shed'
   },
   {
     id: 'garage',
     name: 'Garage',
     description: 'Secure vehicle and equipment storage with easy access.',
     features: ['LP SmartSide siding', '2x6 floor joists 12" OC', 'Garage door included'],
-    image: cloudinaryImages.garageModern,
+    image: garageImage,
     link: '/types/garages-carports/garage'
   },
 ];
