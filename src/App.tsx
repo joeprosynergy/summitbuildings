@@ -36,6 +36,7 @@ import NotFound from "./pages/NotFound";
 import Inventory from "./pages/Inventory";
 import Configurator3D from "./pages/Configurator3D";
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
+const AssetAudit = lazy(() => import("./pages/AssetAudit"));
 
 const App = () => (
   <HelmetProvider>
@@ -91,7 +92,17 @@ const App = () => (
                    <AdminCloudinaryUpload />
                  </Suspense>
                }
-             />
+              />
+              <Route
+                path="/asset-audit"
+                element={
+                  <Suspense
+                    fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}
+                  >
+                    <AssetAudit />
+                  </Suspense>
+                }
+              />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
