@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LogOut, Settings, Users, FileText } from "lucide-react";
@@ -9,35 +8,67 @@ const Admin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [envError, setEnvError] = useState<string | null>(null);
 
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/admin/login");
-        return;
-      }
-      setIsAuthenticated(true);
-      setIsLoading(false);
-    };
-
-    checkSession();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+    const initAuth = async () => {
+      try {
+        const { getBackendClient } = await import("@/lib/backendClient");
+        const supabase = getBackendClient();
+        
+        const { data: { session } } = await supabase.auth.getSession();
         if (!session) {
+          navigate("/admin/login");
+          return;
+        }
+        setIsAuthenticated(true);
+        setIsLoading(false);
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+          (event, session) => {
+            if (!session) {
+              navigate("/admin/login");
+            }
+          }
+        );
+
+        return () => subscription.unsubscribe();
+      } catch (err) {
+        if (err instanceof Error && err.message.includes('not configured')) {
+          setEnvError(err.message);
+          setIsLoading(false);
+        } else {
           navigate("/admin/login");
         }
       }
-    );
+    };
 
-    return () => subscription.unsubscribe();
+    initAuth();
   }, [navigate]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/admin/login");
+    try {
+      const { getBackendClient } = await import("@/lib/backendClient");
+      const supabase = getBackendClient();
+      await supabase.auth.signOut();
+      navigate("/admin/login");
+    } catch {
+      navigate("/admin/login");
+    }
   };
+
+  if (envError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="w-full max-w-sm space-y-4 text-center">
+          <h1 className="text-xl font-semibold text-foreground">Admin Unavailable</h1>
+          <p className="text-sm text-muted-foreground">
+            Admin authentication isn't available in this environment.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

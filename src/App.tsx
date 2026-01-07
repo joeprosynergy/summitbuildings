@@ -35,8 +35,8 @@ import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
 import Inventory from "./pages/Inventory";
 import Configurator3D from "./pages/Configurator3D";
-import AdminLogin from "./pages/AdminLogin";
-import Admin from "./pages/Admin";
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const Admin = lazy(() => import("./pages/Admin"));
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
 const AssetAudit = lazy(() => import("./pages/AssetAudit"));
 
@@ -85,8 +85,16 @@ const App = () => (
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/3d-configurator" element={<Configurator3D />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/login" element={
+              <Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}>
+                <AdminLogin />
+              </Suspense>
+            } />
+            <Route path="/admin" element={
+              <Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}>
+                <Admin />
+              </Suspense>
+            } />
              <Route
                path="/cloudinary-upload"
                element={
