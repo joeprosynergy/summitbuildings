@@ -2,8 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, Check, ExternalLink, Home, Wrench, Briefcase, Palette } from 'lucide-react';
+import { Check, Home, Wrench, Briefcase, Palette, ExternalLink } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -11,6 +10,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import GallerySection from '@/components/GallerySection';
+import ProductHero from '@/components/ProductHero';
+import { useBackPath } from '@/hooks/useBackPath';
 
 import modernShed1 from '@/assets/modern-shed-1.jpg';
 import modernShed2 from '@/assets/modern-shed-2.jpg';
@@ -120,6 +121,13 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 );
 
 const ModernShed = () => {
+  const backPath = useBackPath({
+    defaultPath: '/types/deluxe-storage-cabins',
+    defaultLabel: '← Back to Deluxe Storage & Cabins',
+    stylesPath: '/styles/modern',
+    stylesLabel: '← Back to Modern Style',
+  });
+
   return (
     <>
       <Helmet>
@@ -131,50 +139,14 @@ const ModernShed = () => {
       <Header />
 
       <main className="pt-20">
-        {/* Hero Section */}
-        <section className="bg-primary py-12 md:py-20">
-          <div className="container-custom">
-            <Link to="/styles/modern" className="inline-flex items-center text-secondary font-semibold tracking-wider uppercase mb-6 hover:underline">
-              <ChevronLeft className="h-4 w-4 mr-1" />
-              Back to Modern Style
-            </Link>
-
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-6">
-                  Modern Shed
-                </h1>
-                <p className="text-xl text-primary-foreground/80 mb-8">
-                  Contemporary design with clean lines and a distinctive single slope roof. Perfect for modern home offices, art studios, or stylish storage solutions.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href="https://summitbuildings.shedpro.co/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-secondary text-secondary-foreground font-bold px-6 py-3 rounded-md hover:brightness-110 transition-all"
-                  >
-                    Design Your Modern Shed
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                  <Link
-                    to="/contact-us"
-                    className="inline-flex items-center justify-center gap-2 bg-primary-foreground/10 text-primary-foreground font-bold px-6 py-3 rounded-md hover:bg-primary-foreground/20 transition-all border border-primary-foreground/30"
-                  >
-                    Contact Us
-                  </Link>
-                </div>
-              </div>
-              <div className="relative">
-                <img
-                  src={modernShed1}
-                  alt="Modern Shed"
-                  className="rounded-lg shadow-xl w-full"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <ProductHero
+          backPath={backPath}
+          title="MODERN"
+          titleHighlight="SHED"
+          description="Contemporary design with clean lines and a distinctive single slope roof. Perfect for modern home offices, art studios, or stylish storage solutions."
+          image={modernShed1}
+          imageAlt="Modern Shed"
+        />
 
         {/* Gallery Section */}
         <section className="bg-muted/30 py-16">
