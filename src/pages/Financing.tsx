@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -366,9 +367,9 @@ const Financing = () => {
                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
                 asChild
               >
-                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                <Link to="/inventory">
                   Browse Our Inventory
-                </a>
+                </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a href="/contact-us">Contact Us</a>

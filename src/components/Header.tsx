@@ -27,7 +27,7 @@ const Header = () => {
   const navLinks = [
     { href: '/about-us', label: 'About Us', isRoute: true },
     { href: '/styles', label: 'Building Styles', isRoute: true },
-    { href: 'https://summitportablebuildings.shedsuite.com/', label: 'See Inventory', isExternal: true },
+    { href: '/inventory', label: 'See Inventory', isRoute: true },
     { href: '/contact-us', label: 'Contact Us', isRoute: true },
   ];
 
@@ -59,45 +59,17 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              link.isRoute ? (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`font-medium transition-colors duration-200 ${
-                    useLightText
-                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
-                      : 'text-foreground/80 hover:text-secondary'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ) : link.isExternal ? (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`font-medium transition-colors duration-200 ${
-                    useLightText
-                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
-                      : 'text-foreground/80 hover:text-secondary'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`font-medium transition-colors duration-200 ${
-                    useLightText
-                      ? 'text-primary-foreground/90 hover:text-secondary-foreground'
-                      : 'text-foreground/80 hover:text-secondary'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              )
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`font-medium transition-colors duration-200 ${
+                  useLightText
+                    ? 'text-primary-foreground/90 hover:text-secondary-foreground'
+                    : 'text-foreground/80 hover:text-secondary'
+                }`}
+              >
+                {link.label}
+              </Link>
             ))}
           </nav>
 
@@ -138,36 +110,14 @@ const Header = () => {
           <div className="lg:hidden bg-card border-t border-border animate-fade-in">
             <nav className="flex flex-col py-4">
               {navLinks.map((link) => (
-                link.isRoute ? (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : link.isExternal ? (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                )
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
               ))}
               <div className="px-4 pt-4 border-t border-border mt-4">
                 <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">

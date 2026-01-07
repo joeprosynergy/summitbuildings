@@ -152,11 +152,11 @@ const GaragesCarports = () => {
                             View Details
                           </Button>
                         </Link>
-                        <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                        <Link to="/inventory">
                           <Button variant="outline" size="lg">
                             Browse Our Inventory
                           </Button>
-                        </a>
+                        </Link>
                       </div>
                     </div>
 

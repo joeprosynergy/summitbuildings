@@ -183,7 +183,7 @@ const Footer = () => {
               className="bg-primary-foreground border-border text-foreground hover:bg-primary-foreground/90 px-8"
               asChild
             >
-              <a href="https://summitportablebuildings.shedsuite.com/" target="_blank" rel="noopener noreferrer">Browse Inventory</a>
+              <Link to="/inventory">Browse Inventory</Link>
             </Button>
             <Button
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"
