@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { supabase } from "@/integrations/supabase/client";
 import { RefreshCw, Upload, CheckCircle, XCircle, ExternalLink, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+const ASSET_AUDIT_URL = 'https://lmpdjitplofcysyfgcjl.supabase.co/functions/v1/asset-audit';
+const UPLOAD_URL = 'https://lmpdjitplofcysyfgcjl.supabase.co/functions/v1/upload-to-cloudinary';
 
 // Use Vite's glob import to get all assets with their resolved URLs
 const assetModules = import.meta.glob('/src/assets/**/*.(jpg|jpeg|png|webp|gif|svg)', { 
@@ -140,11 +142,20 @@ export default function AssetAudit() {
   const runAudit = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('asset-audit', {
-        body: { assets: KNOWN_ASSETS },
+      const response = await fetch(ASSET_AUDIT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ assets: KNOWN_ASSETS }),
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
 
       setResults(data.results);
       setSummary(data.summary);
@@ -192,15 +203,27 @@ export default function AssetAudit() {
         reader.readAsDataURL(blob);
       });
       
-      const { data, error } = await supabase.functions.invoke('upload-to-cloudinary', {
-        body: {
+      const uploadResponse = await fetch(UPLOAD_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           imageBase64: base64,
           folder: 'summit-sheds',
           publicId,
-        },
+        }),
       });
 
-      if (error) throw error;
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(errorText || `HTTP ${uploadResponse.status}`);
+      }
+
+      const uploadData = await uploadResponse.json();
+      if (!uploadData.success) {
+        throw new Error(uploadData.error || 'Upload failed');
+      }
 
       toast({
         title: "Upload Successful",
@@ -260,11 +283,23 @@ export default function AssetAudit() {
           reader.readAsDataURL(blob);
         });
 
-        const { error } = await supabase.functions.invoke('upload-to-cloudinary', {
-          body: { imageBase64: base64, folder: 'summit-sheds', publicId },
+        const uploadResponse = await fetch(UPLOAD_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ imageBase64: base64, folder: 'summit-sheds', publicId }),
         });
 
-        if (error) throw error;
+        if (!uploadResponse.ok) {
+          throw new Error(`HTTP ${uploadResponse.status}`);
+        }
+
+        const uploadData = await uploadResponse.json();
+        if (!uploadData.success) {
+          throw new Error(uploadData.error || 'Upload failed');
+        }
+
         successCount++;
       } catch (error) {
         console.error(`Failed to upload ${result.path}:`, error);
@@ -413,7 +448,7 @@ export default function AssetAudit() {
                             href={result.cloudinaryUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-xs text-primary hover:underline"
+                            className="text-primary hover:underline text-sm"
                           >
                             View
                           </a>
