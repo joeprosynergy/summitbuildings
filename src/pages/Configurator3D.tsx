@@ -1,17 +1,26 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 const Configurator3D = () => {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const state = location.state as { from?: string } | null;
 
   const handleBack = () => {
-    const from = searchParams.get('from');
-    
-    if (from) {
-      window.location.href = from;
+    // Priority 1: Check query param
+    const fromParam = searchParams.get('from');
+    if (fromParam) {
+      window.location.href = fromParam;
       return;
     }
     
-    // Check if referrer exists and is same origin
+    // Priority 2: Check router state (set by Link components)
+    if (state?.from) {
+      navigate(state.from);
+      return;
+    }
+    
+    // Priority 3: Check document.referrer (for direct/external navigation)
     const referrer = document.referrer;
     if (referrer) {
       try {
@@ -25,8 +34,8 @@ const Configurator3D = () => {
       }
     }
     
-    // Default to home
-    window.location.href = '/';
+    // Priority 4: Default to home
+    navigate('/');
   };
 
   return (

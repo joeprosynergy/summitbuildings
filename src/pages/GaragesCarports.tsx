@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { cloudinaryImages } from '@/lib/cloudinary';
+import InventoryLink from '@/components/InventoryLink';
 
 const models = [
   {
@@ -152,11 +153,11 @@ const GaragesCarports = () => {
                             View Details
                           </Button>
                         </Link>
-                        <Link to="/inventory">
+                        <InventoryLink>
                           <Button variant="outline" size="lg">
                             Browse Our Inventory
                           </Button>
-                        </Link>
+                        </InventoryLink>
                       </div>
                     </div>
 

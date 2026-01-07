@@ -62,6 +62,7 @@ const Header = () => {
               <Link
                 key={link.href}
                 to={link.href}
+                state={link.href === '/inventory' ? { from: location.pathname } : undefined}
                 className={`font-medium transition-colors duration-200 ${
                   useLightText
                     ? 'text-primary-foreground/90 hover:text-secondary-foreground'
@@ -113,6 +114,7 @@ const Header = () => {
                 <Link
                   key={link.href}
                   to={link.href}
+                  state={link.href === '/inventory' ? { from: location.pathname } : undefined}
                   className="px-4 py-3 text-foreground/80 hover:text-secondary hover:bg-muted transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

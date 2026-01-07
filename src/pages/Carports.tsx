@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import InventoryLink from '@/components/InventoryLink';
 import { 
   Check,
   ArrowRight,
@@ -320,12 +321,12 @@ const Carports = () => {
                 Contact us today for a free quote on your carport or RV cover.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/inventory">
+                <InventoryLink>
                   <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
                     Browse Our Inventory
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </Link>
+                </InventoryLink>
                 <Link to="/types">
                   <Button variant="heroOutline" size="xl">
                     See More Models
