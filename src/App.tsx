@@ -33,7 +33,7 @@ import Financing from "./pages/Financing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
-
+import Inventory from "./pages/Inventory";
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
 
 const App = () => (
@@ -79,7 +79,7 @@ const App = () => (
             <Route path="/financing" element={<Financing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact-us" element={<ContactUs />} />
-            {/* Utilities */}
+            <Route path="/inventory" element={<Inventory />} />
              <Route
                path="/cloudinary-upload"
                element={
