@@ -7,6 +7,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { RefreshCw, Upload, CheckCircle, XCircle, ExternalLink, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+// Use Vite's glob import to get all assets with their resolved URLs
+const assetModules = import.meta.glob('/src/assets/**/*.(jpg|jpeg|png|webp|gif|svg)', { 
+  eager: true, 
+  as: 'url' 
+});
+
+// Create a map from path to resolved URL
+const assetUrlMap: Record<string, string> = {};
+Object.entries(assetModules).forEach(([path, url]) => {
+  // Convert /src/assets/file.jpg to src/assets/file.jpg
+  const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+  assetUrlMap[normalizedPath] = url as string;
+});
+
 // Known assets from src/assets directory
 const KNOWN_ASSETS = [
   { path: "src/assets/animal-shelter-1.jpg", usedIn: ["AnimalShelters.tsx"] },
@@ -152,17 +166,33 @@ export default function AssetAudit() {
     setUploadingPaths(prev => new Set(prev).add(result.path));
     
     try {
-      // For local assets, we need to fetch them first
       const fileName = result.path.split('/').pop() || '';
       const publicId = fileName.replace(/\.[^.]+$/, '');
       
-      // Import the asset dynamically
-      const assetModule = await import(`../${result.path.replace('src/', '')}`);
-      const assetUrl = assetModule.default;
+      // Get the resolved asset URL from our glob import map
+      const assetUrl = assetUrlMap[result.path];
+      
+      if (!assetUrl) {
+        throw new Error(`Asset not found in build: ${result.path}`);
+      }
+
+      // Fetch the asset and convert to base64
+      const response = await fetch(assetUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch asset: ${response.statusText}`);
+      }
+      
+      const blob = await response.blob();
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
       
       const { data, error } = await supabase.functions.invoke('upload-to-cloudinary', {
         body: {
-          imageUrl: assetUrl,
+          imageBase64: base64,
           folder: 'summit-sheds',
           publicId,
         },
