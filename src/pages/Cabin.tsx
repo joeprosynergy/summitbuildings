@@ -20,6 +20,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useBackPath } from '@/hooks/useBackPath';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -186,6 +187,13 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 );
 
 const Cabin = () => {
+  const backPath = useBackPath({
+    defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
+    defaultLabel: '← Back to Deluxe Storage & Cabins',
+    stylesPath: '/styles/utility',
+    stylesLabel: '← Back to Styles',
+  });
+
   return (
     <>
       <Helmet>
@@ -212,10 +220,10 @@ const Cabin = () => {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <Link 
-                    to="/types/deluxe-storage-cabins#cabins-tiny-home" 
+                    to={backPath.path}
                     className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
                   >
-                    ← Back to Deluxe Storage & Cabins
+                    {backPath.label}
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
                     SUMMIT <span className="text-secondary">CABIN</span>
