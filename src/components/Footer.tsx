@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import InventoryLink from '@/components/InventoryLink';
 
 const Footer = () => {
   const links = {
@@ -183,7 +184,7 @@ const Footer = () => {
               className="bg-primary-foreground border-border text-foreground hover:bg-primary-foreground/90 px-8"
               asChild
             >
-              <Link to="/inventory">Browse Inventory</Link>
+              <InventoryLink>Browse Inventory</InventoryLink>
             </Button>
             <Button
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"

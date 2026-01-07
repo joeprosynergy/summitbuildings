@@ -150,7 +150,11 @@ const ProductHero = ({
                     </Button>
                   </a>
                 ) : (
-                  <Link key={index} to={button.href}>
+                  <Link 
+                    key={index} 
+                    to={button.href}
+                    state={button.href === '/inventory' ? { from: location.pathname } : undefined}
+                  >
                     <Button variant={button.variant} size="xl">
                       {button.text}
                       <ArrowRight className="w-5 h-5" />

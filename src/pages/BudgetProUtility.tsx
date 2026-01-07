@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import InventoryLink from '@/components/InventoryLink';
 import { 
   Check,
   ArrowRight,
@@ -453,11 +454,11 @@ const BudgetProUtility = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link to="/inventory">
+                <InventoryLink>
                   <Button variant="heroOutline" size="xl">
                     Browse Our Inventory
                   </Button>
-                </Link>
+                </InventoryLink>
               </div>
             </div>
           </section>
