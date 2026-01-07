@@ -29,10 +29,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: "Server configuration error" });
     }
 
-    // Create Supabase client server-side
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    // Create Supabase client with PKCE flow enabled
+    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        flowType: 'pkce',
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
 
-    // Send magic link
+    // Send magic link with PKCE
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
