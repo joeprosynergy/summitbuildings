@@ -25,11 +25,10 @@ const Header = () => {
   }, []);
 
   const navLinks = [
+    { href: '/about-us', label: 'About Us', isRoute: true },
     { href: '/styles', label: 'Building Styles', isRoute: true },
     { href: 'https://summitportablebuildings.shedsuite.com/', label: 'See Inventory', isExternal: true },
-    { href: '/about-us', label: 'About Us', isRoute: true },
-    { href: isHomePage ? '#locations' : '/#locations', label: 'Locations' },
-    { href: '/contact-us', label: 'Contact', isRoute: true },
+    { href: '/contact-us', label: 'Contact Us', isRoute: true },
   ];
 
   return (

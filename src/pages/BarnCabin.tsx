@@ -7,10 +7,9 @@ import { useState } from 'react';
 import { 
   Check,
   ArrowRight,
-  X,
-  ChevronLeft,
-  ChevronRight,
   Grid,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import {
   Accordion,
@@ -154,86 +153,72 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-interface GalleryLightboxProps {
+interface GallerySectionProps {
   images: { src: string; alt: string }[];
-  isOpen: boolean;
-  currentIndex: number;
-  onClose: () => void;
-  onNext: () => void;
-  onPrev: () => void;
-  onSelectIndex: (index: number) => void;
 }
 
-const GalleryLightbox = ({ images, isOpen, currentIndex, onClose, onNext, onPrev, onSelectIndex }: GalleryLightboxProps) => {
-  if (!isOpen) return null;
-  
+const GallerySection = ({ images }: GallerySectionProps) => {
+  const [showAll, setShowAll] = useState(false);
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/95 flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4">
-        <span className="text-white/80 text-sm">{currentIndex + 1} / {images.length}</span>
-        <button onClick={onClose} className="text-white/80 hover:text-white p-2">
-          <X className="w-6 h-6" />
+    <>
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
+          Photo Gallery
+        </h2>
+        <button 
+          onClick={() => setShowAll(!showAll)}
+          className="flex items-center gap-2 text-secondary hover:text-secondary/80 transition-colors font-medium"
+        >
+          {showAll ? (
+            <>
+              <ChevronUp className="w-5 h-5" />
+              Show Less
+            </>
+          ) : (
+            <>
+              <Grid className="w-5 h-5" />
+              View All Photos
+            </>
+          )}
         </button>
       </div>
       
-      {/* Main image */}
-      <div className="flex-1 flex items-center justify-center relative px-16">
-        <button 
-          onClick={onPrev} 
-          className="absolute left-4 text-white/80 hover:text-white p-2 bg-black/50 rounded-full"
-        >
-          <ChevronLeft className="w-8 h-8" />
-        </button>
-        <img
-          src={images[currentIndex].src}
-          alt={images[currentIndex].alt}
-          className="max-h-[70vh] max-w-full object-contain rounded-lg"
-        />
-        <button 
-          onClick={onNext} 
-          className="absolute right-4 text-white/80 hover:text-white p-2 bg-black/50 rounded-full"
-        >
-          <ChevronRight className="w-8 h-8" />
-        </button>
-      </div>
-      
-      {/* Thumbnail strip */}
-      <div className="p-4 flex justify-center gap-2 overflow-x-auto">
-        {images.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => onSelectIndex(index)}
-            className={`flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-              index === currentIndex ? 'border-secondary' : 'border-transparent opacity-60 hover:opacity-100'
-            }`}
-          >
+      {showAll ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {images.map((image, index) => (
             <img
+              key={index}
               src={image.src}
               alt={image.alt}
-              className="w-16 h-16 object-cover"
+              className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
             />
-          </button>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      ) : (
+        <Carousel className="w-full max-w-5xl mx-auto">
+          <CarouselContent>
+            {images.map((image, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="p-2">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
+        </Carousel>
+      )}
+    </>
   );
 };
 
 const BarnCabin = () => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => setLightboxOpen(false);
-  
-  const nextImage = () => setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
-  const prevImage = () => setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
     defaultLabel: '← Back to Deluxe Storage & Cabins',
@@ -256,16 +241,6 @@ const BarnCabin = () => {
         />
         <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/barn-cabin" />
       </Helmet>
-
-      <GalleryLightbox
-        images={galleryImages}
-        isOpen={lightboxOpen}
-        currentIndex={lightboxIndex}
-        onClose={closeLightbox}
-        onNext={nextImage}
-        onPrev={prevImage}
-        onSelectIndex={setLightboxIndex}
-      />
 
       <div className="min-h-screen">
         <Header />
@@ -325,40 +300,7 @@ const BarnCabin = () => {
           {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                  Photo Gallery
-                </h2>
-                <button 
-                  onClick={() => openLightbox(0)}
-                  className="flex items-center gap-2 text-secondary hover:text-secondary/80 transition-colors font-medium"
-                >
-                  <Grid className="w-5 h-5" />
-                  View All Photos
-                </button>
-              </div>
-              <Carousel className="w-full max-w-5xl mx-auto">
-                <CarouselContent>
-                  {galleryImages.map((image, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-2">
-                        <button 
-                          onClick={() => openLightbox(index)}
-                          className="w-full cursor-pointer"
-                        >
-                          <img
-                            src={image.src}
-                            alt={image.alt}
-                            className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                          />
-                        </button>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
+              <GallerySection images={galleryImages} />
             </div>
           </section>
 
