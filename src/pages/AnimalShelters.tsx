@@ -170,7 +170,10 @@ const AnimalShelters = () => {
         
         <main>
           <ProductHero
-            backPath={{ path: '/types', label: '← Back to All Models' }}
+            backPath={{ 
+              defaultPath: '/types', 
+              defaultLabel: '← Back to All Models' 
+            }}
             title="ANIMAL"
             titleHighlight="SHELTERS"
             description="Quality housing solutions for your animals. From dog kennels to chicken coops to full animal shelters, we build durable, comfortable, and secure structures."
