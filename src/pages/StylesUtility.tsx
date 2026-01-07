@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -105,11 +105,13 @@ interface OptionCardProps {
     image: string;
     link: string;
   };
+  currentPath: string;
 }
 
-const OptionCard = ({ option }: OptionCardProps) => (
+const OptionCard = ({ option, currentPath }: OptionCardProps) => (
   <Link
     to={option.link}
+    state={{ from: currentPath }}
     className="group bg-muted/30 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
   >
     <div className="aspect-[4/3] overflow-hidden bg-muted">
@@ -142,6 +144,9 @@ const OptionCard = ({ option }: OptionCardProps) => (
 );
 
 const StylesUtility = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <>
       <Helmet>
@@ -180,7 +185,7 @@ const StylesUtility = () => {
               <div className="p-6 md:p-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                   {storageOptions.map((option) => (
-                    <OptionCard key={option.id} option={option} />
+                    <OptionCard key={option.id} option={option} currentPath={currentPath} />
                   ))}
                 </div>
               </div>
@@ -200,7 +205,7 @@ const StylesUtility = () => {
               <div className="p-6 md:p-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                   {cabinOptions.map((option) => (
-                    <OptionCard key={option.id} option={option} />
+                    <OptionCard key={option.id} option={option} currentPath={currentPath} />
                   ))}
                 </div>
               </div>
@@ -220,7 +225,7 @@ const StylesUtility = () => {
               <div className="p-6 md:p-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                   {garageOptions.map((option) => (
-                    <OptionCard key={option.id} option={option} />
+                    <OptionCard key={option.id} option={option} currentPath={currentPath} />
                   ))}
                 </div>
               </div>
