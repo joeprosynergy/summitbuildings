@@ -14,13 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import GallerySection from '@/components/GallerySection';
 
 // Import images
 import greenhouse1 from '@/assets/greenhouse-1.jpg';
@@ -185,26 +179,7 @@ const Greenhouse = () => {
           {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Photo Gallery
-              </h2>
-              <Carousel className="w-full max-w-5xl mx-auto">
-                <CarouselContent>
-                  {galleryImages.map((image, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-2">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full aspect-square object-cover rounded-lg shadow-md"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
+              <GallerySection images={galleryImages} />
             </div>
           </section>
 

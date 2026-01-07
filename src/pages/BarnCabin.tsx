@@ -3,13 +3,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { 
   Check,
   ArrowRight,
-  Grid,
-  ChevronDown,
-  ChevronUp,
 } from 'lucide-react';
 import {
   Accordion,
@@ -17,13 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import GallerySection from '@/components/GallerySection';
 import { useBackPath } from '@/hooks/useBackPath';
 
 // Import images
@@ -152,71 +142,6 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
     </span>
   </div>
 );
-
-interface GallerySectionProps {
-  images: { src: string; alt: string }[];
-}
-
-const GallerySection = ({ images }: GallerySectionProps) => {
-  const [showAll, setShowAll] = useState(false);
-
-  return (
-    <>
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-          Photo Gallery
-        </h2>
-        <button 
-          onClick={() => setShowAll(!showAll)}
-          className="flex items-center gap-2 text-secondary hover:text-secondary/80 transition-colors font-medium"
-        >
-          {showAll ? (
-            <>
-              <ChevronUp className="w-5 h-5" />
-              Show Less
-            </>
-          ) : (
-            <>
-              <Grid className="w-5 h-5" />
-              View All Photos
-            </>
-          )}
-        </button>
-      </div>
-      
-      {showAll ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image.src}
-              alt={image.alt}
-              className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            />
-          ))}
-        </div>
-      ) : (
-        <Carousel className="w-full max-w-5xl mx-auto">
-          <CarouselContent>
-            {images.map((image, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-2">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden md:flex" />
-          <CarouselNext className="hidden md:flex" />
-        </Carousel>
-      )}
-    </>
-  );
-};
 
 const BarnCabin = () => {
   const backPath = useBackPath({

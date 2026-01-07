@@ -3,21 +3,14 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Check, ExternalLink, Home, Wrench, Briefcase, Palette, Grid } from 'lucide-react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ChevronLeft, Check, ExternalLink, Home, Wrench, Briefcase, Palette } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useState } from 'react';
+import GallerySection from '@/components/GallerySection';
 
 import modernShed1 from '@/assets/modern-shed-1.jpg';
 import modernShed2 from '@/assets/modern-shed-2.jpg';
@@ -126,60 +119,6 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-const GallerySection = ({ images }: { images: { src: string; alt: string }[] }) => {
-  const [showAll, setShowAll] = useState(false);
-
-  return (
-    <div className="space-y-6">
-      {/* Carousel for main view */}
-      <Carousel className="w-full">
-        <CarouselContent>
-          {images.map((image, index) => (
-            <CarouselItem key={index}>
-              <div className="aspect-video overflow-hidden rounded-lg">
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-2" />
-        <CarouselNext className="right-2" />
-      </Carousel>
-
-      {/* View All Photos Button */}
-      <div className="text-center">
-        <Button
-          variant="outline"
-          onClick={() => setShowAll(!showAll)}
-          className="gap-2"
-        >
-          <Grid className="h-4 w-4" />
-          {showAll ? 'Hide Photos' : `View All ${images.length} Photos`}
-        </Button>
-      </div>
-
-      {/* Expanded Grid View */}
-      {showAll && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {images.map((image, index) => (
-            <div key={index} className="aspect-video overflow-hidden rounded-lg">
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
 const ModernShed = () => {
   return (
     <>
@@ -240,12 +179,7 @@ const ModernShed = () => {
         {/* Gallery Section */}
         <section className="bg-muted/30 py-16">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-8 text-center">
-              Photo Gallery
-            </h2>
-            <div className="max-w-4xl mx-auto">
-              <GallerySection images={galleryImages} />
-            </div>
+            <GallerySection images={galleryImages} />
           </div>
         </section>
 
