@@ -133,6 +133,8 @@ export default function AssetAudit() {
   const [summary, setSummary] = useState<AuditSummary | null>(null);
   const [loading, setLoading] = useState(false);
   const [uploadingPaths, setUploadingPaths] = useState<Set<string>>(new Set());
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState({ current: 0, total: 0 });
   const { toast } = useToast();
 
   const runAudit = async () => {
@@ -223,6 +225,69 @@ export default function AssetAudit() {
     }
   };
 
+  const uploadAllMissing = async () => {
+    const missingAssets = results.filter(r => r.status === 'not_uploaded');
+    if (missingAssets.length === 0) return;
+
+    setBulkUploading(true);
+    setBulkProgress({ current: 0, total: missingAssets.length });
+
+    let successCount = 0;
+    let failCount = 0;
+
+    for (let i = 0; i < missingAssets.length; i++) {
+      const result = missingAssets[i];
+      setBulkProgress({ current: i + 1, total: missingAssets.length });
+      setUploadingPaths(prev => new Set(prev).add(result.path));
+
+      try {
+        const fileName = result.path.split('/').pop() || '';
+        const publicId = fileName.replace(/\.[^.]+$/, '');
+        const assetUrl = assetUrlMap[result.path];
+
+        if (!assetUrl) {
+          throw new Error(`Asset not found: ${result.path}`);
+        }
+
+        const response = await fetch(assetUrl);
+        if (!response.ok) throw new Error(`Failed to fetch asset`);
+
+        const blob = await response.blob();
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+
+        const { error } = await supabase.functions.invoke('upload-to-cloudinary', {
+          body: { imageBase64: base64, folder: 'summit-sheds', publicId },
+        });
+
+        if (error) throw error;
+        successCount++;
+      } catch (error) {
+        console.error(`Failed to upload ${result.path}:`, error);
+        failCount++;
+      } finally {
+        setUploadingPaths(prev => {
+          const next = new Set(prev);
+          next.delete(result.path);
+          return next;
+        });
+      }
+    }
+
+    setBulkUploading(false);
+    toast({
+      title: "Bulk Upload Complete",
+      description: `${successCount} uploaded, ${failCount} failed`,
+      variant: failCount > 0 ? "destructive" : "default",
+    });
+
+    await runAudit();
+  };
+
   const getStatusBadge = (status: AuditResult['status']) => {
     switch (status) {
       case 'uploaded':
@@ -234,6 +299,8 @@ export default function AssetAudit() {
     }
   };
 
+  const missingCount = results.filter(r => r.status === 'not_uploaded').length;
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -242,10 +309,31 @@ export default function AssetAudit() {
             <h1 className="text-3xl font-bold">Asset Audit</h1>
             <p className="text-muted-foreground mt-1">Track and manage Cloudinary asset uploads</p>
           </div>
-          <Button onClick={runAudit} disabled={loading}>
-            {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
-            Run Audit
-          </Button>
+          <div className="flex gap-2">
+            {missingCount > 0 && (
+              <Button 
+                onClick={uploadAllMissing} 
+                disabled={loading || bulkUploading}
+                variant="default"
+              >
+                {bulkUploading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Uploading {bulkProgress.current}/{bulkProgress.total}
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload All ({missingCount})
+                  </>
+                )}
+              </Button>
+            )}
+            <Button onClick={runAudit} disabled={loading || bulkUploading} variant="outline">
+              {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+              Run Audit
+            </Button>
+          </div>
         </div>
 
         {summary && (
