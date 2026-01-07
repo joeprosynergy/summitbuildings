@@ -37,6 +37,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       email,
       options: {
         shouldCreateUser: true,
+        emailRedirectTo: "https://summitbuildings.vercel.app/api/auth/callback",
       },
     });
 
