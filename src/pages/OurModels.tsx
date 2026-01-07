@@ -69,9 +69,11 @@ const OurModels = () => {
         <section className="bg-primary py-16 md:py-24">
           <div className="container-custom text-center">
             <p className="text-secondary font-semibold tracking-wider uppercase mb-4">Hand-Built to Last</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-6">
-              {content.heading}
-            </h1>
+            <div className="mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground">
+                {content.heading}
+              </h1>
+            </div>
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
               Choose one of our popular models or customize your own
             </p>
