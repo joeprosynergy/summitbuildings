@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
 
-const styles = [
+const roofStyles = [
   {
     id: 'utility',
     name: 'Utility',
@@ -28,12 +28,29 @@ const styles = [
   },
 ];
 
+const specialtyStyles = [
+  {
+    id: 'greenhouse',
+    name: 'Greenhouse',
+    subtitle: 'Grow Year-Round',
+    image: cloudinaryImages.greenhouse1,
+    link: '/styles/greenhouse'
+  },
+  {
+    id: 'animal-shelters',
+    name: 'Animal Shelters',
+    subtitle: 'Kennels & Coops',
+    image: cloudinaryImages.animalShelter1,
+    link: '/styles/animal-shelters'
+  },
+];
+
 const Styles = () => {
   return (
     <>
       <Helmet>
         <title>Building Styles | Summit Portable Buildings</title>
-        <meta name="description" content="Choose your preferred building style - Utility with traditional A-frame roof, Barn with gambrel roof, or Modern with single slope roof." />
+        <meta name="description" content="Choose your preferred building style - Utility with traditional A-frame roof, Barn with gambrel roof, Modern with single slope roof, plus Greenhouses and Animal Shelters." />
         <link rel="canonical" href="https://summitbuildings.com/styles" />
       </Helmet>
 
@@ -53,7 +70,7 @@ const Styles = () => {
           </div>
         </section>
 
-        {/* Styles Grid */}
+        {/* Roof Styles Grid */}
         <section className="bg-background py-16 md:py-24">
           <div className="container-custom">
             <div className="bg-card rounded-lg shadow-lg overflow-hidden">
@@ -65,7 +82,7 @@ const Styles = () => {
 
               <div className="p-6 md:p-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                  {styles.map((style) => (
+                  {roofStyles.map((style) => (
                     <Link
                       key={style.id}
                       to={style.link}
@@ -76,6 +93,46 @@ const Styles = () => {
                           src={style.image}
                           alt={style.name}
                           className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover"
+                        />
+                      </div>
+                      <h3 className="font-heading font-bold text-xl text-foreground group-hover:text-secondary transition-colors uppercase tracking-wide">
+                        {style.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mt-1">
+                        {style.subtitle}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Specialty Structures Grid */}
+        <section className="bg-muted/30 py-16 md:py-24">
+          <div className="container-custom">
+            <div className="bg-card rounded-lg shadow-lg overflow-hidden">
+              <div className="bg-primary py-5 px-6">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground text-center uppercase tracking-wide">
+                  Specialty Structures
+                </h2>
+              </div>
+
+              <div className="p-6 md:p-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                  {specialtyStyles.map((style) => (
+                    <Link
+                      key={style.id}
+                      to={style.link}
+                      state={{ from: '/styles' }}
+                      className="group text-center"
+                    >
+                      <div className="aspect-[4/3] mb-4 overflow-hidden rounded-lg shadow-sm bg-muted">
+                        <img
+                          src={style.image}
+                          alt={style.name}
+                          className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-contain"
                         />
                       </div>
                       <h3 className="font-heading font-bold text-xl text-foreground group-hover:text-secondary transition-colors uppercase tracking-wide">

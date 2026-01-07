@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,15 +23,20 @@ import BudgetProLoftedBarn from "./pages/BudgetProLoftedBarn";
 import BudgetProUtility from "./pages/BudgetProUtility";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
+import BarnCabin from "./pages/BarnCabin";
+import ModernShed from "./pages/ModernShed";
 import Carports from "./pages/Carports";
 import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
 import Gallery from "./pages/Gallery";
 import Financing from "./pages/Financing";
-import AdminCloudinaryUpload from "./pages/AdminCloudinaryUpload";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
+import Inventory from "./pages/Inventory";
+import Configurator3D from "./pages/Configurator3D";
+const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
+const AssetAudit = lazy(() => import("./pages/AssetAudit"));
 
 const App = () => (
   <HelmetProvider>
@@ -48,6 +54,8 @@ const App = () => (
             <Route path="/styles/utility" element={<StylesUtility />} />
             <Route path="/styles/barn" element={<StylesBarn />} />
             <Route path="/styles/modern" element={<StylesModern />} />
+            <Route path="/styles/greenhouse" element={<Greenhouse />} />
+            <Route path="/styles/animal-shelters" element={<AnimalShelters />} />
             {/* Basic Storage category and detail pages */}
             <Route path="/types/basic-storage" element={<BasicStorage />} />
             <Route path="/types/basic-storage/economy-shed" element={<EconomyShed />} />
@@ -58,6 +66,8 @@ const App = () => (
             <Route path="/types/deluxe-storage-cabins/pro-utility-shed" element={<UtilityShed />} />
             <Route path="/types/deluxe-storage-cabins/pro-lofted-barn" element={<ProLoftedBarn />} />
             <Route path="/types/deluxe-storage-cabins/cabin" element={<Cabin />} />
+            <Route path="/types/deluxe-storage-cabins/barn-cabin" element={<BarnCabin />} />
+            <Route path="/types/deluxe-storage-cabins/modern-shed" element={<ModernShed />} />
             {/* Garages & Carports category and detail pages */}
             <Route path="/types/garages-carports" element={<GaragesCarports />} />
             <Route path="/types/garages-carports/garage" element={<Garage />} />
@@ -71,8 +81,28 @@ const App = () => (
             <Route path="/financing" element={<Financing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact-us" element={<ContactUs />} />
-            {/* Utilities */}
-            <Route path="/cloudinary-upload" element={<AdminCloudinaryUpload />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/3d-configurator" element={<Configurator3D />} />
+             <Route
+               path="/cloudinary-upload"
+               element={
+                 <Suspense
+                   fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}
+                 >
+                   <AdminCloudinaryUpload />
+                 </Suspense>
+               }
+              />
+              <Route
+                path="/asset-audit"
+                element={
+                  <Suspense
+                    fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}
+                  >
+                    <AssetAudit />
+                  </Suspense>
+                }
+              />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

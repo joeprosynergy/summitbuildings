@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import InventoryLink from '@/components/InventoryLink';
 
 const Footer = () => {
   const links = {
@@ -174,8 +175,8 @@ const Footer = () => {
           <p className="text-primary-foreground text-lg">
             Get the building of your dreams
           </p>
-          <a href="tel:5747474700" className="text-primary-foreground text-2xl md:text-3xl font-heading hover:text-secondary transition-colors">
-            (574) 747-4700
+          <a href="tel:5737474700" className="text-primary-foreground text-2xl md:text-3xl font-heading hover:text-secondary transition-colors">
+            (573) 747-4700
           </a>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
@@ -183,7 +184,7 @@ const Footer = () => {
               className="bg-primary-foreground border-border text-foreground hover:bg-primary-foreground/90 px-8"
               asChild
             >
-              <a href="https://summitportablebuildings.shedsuite.com/" target="_blank" rel="noopener noreferrer">Browse Inventory</a>
+              <InventoryLink>Browse Inventory</InventoryLink>
             </Button>
             <Button
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8"

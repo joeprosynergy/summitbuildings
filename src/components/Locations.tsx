@@ -38,7 +38,7 @@ const Locations = () => {
             Proudly Serving 4 States
           </h2>
           <p className="text-muted-foreground text-lg">
-            We deliver and set up buildings throughout Missouri, Illinois, Kentucky, and Arkansas. Free delivery within 50 miles of any dealership location.
+            We deliver and set up buildings throughout Missouri, Illinois, Kentucky, and Arkansas. Free delivery within 50 miles.
           </p>
         </div>
 
@@ -93,7 +93,10 @@ const Locations = () => {
             </Link>
           </div>
           <p className="text-primary-foreground/60 text-sm mt-6">
-            Questions? Call us at (573) 747-4700
+            Questions? Call us at{' '}
+            <a href="tel:5737474700" className="hover:text-secondary transition-colors underline">
+              (573) 747-4700
+            </a>
           </p>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle2, Calendar, DollarSign, Clock, Home, FileText, CreditCard, Key, Truck, ShieldCheck, Percent, Building } from 'lucide-react';
+import InventoryLink from '@/components/InventoryLink';
 
 const Financing = () => {
   const rentToOwnBenefits = [
@@ -366,9 +368,9 @@ const Financing = () => {
                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
                 asChild
               >
-                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                <InventoryLink>
                   Browse Our Inventory
-                </a>
+                </InventoryLink>
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a href="/contact-us">Contact Us</a>

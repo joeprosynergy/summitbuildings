@@ -1,15 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { cloudinaryImages, getMobileHeroImage, IMAGES } from '@/lib/cloudinary';
 
 const badges = [
   { icon: Truck, label: 'Free Delivery (50mi)' },
   { icon: CreditCard, label: 'No Credit Check Financing' },
-  { icon: Shield, label: '50-Year Warranty' },
+  { icon: Shield, label: '5-Year Warranty' },
 ];
 
 const Hero = () => {
+  const location = useLocation();
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image using picture element for responsive loading */}
@@ -47,12 +48,12 @@ const Hero = () => {
             Stop living with clutter. Design your perfect shed online in minutes and we'll handle the rest.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+            <Link to="/3d-configurator" state={{ from: location.pathname }}>
               <Button variant="hero" size="xl">
                 Design Your Shed Now
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </a>
+            </Link>
             <Link to="/buyers-guide">
               <Button variant="heroOutline" size="xl">
                 Get Free Buying Guide
@@ -61,7 +62,7 @@ const Hero = () => {
           </div>
 
           <p className="text-primary-foreground/60 text-sm mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
-            Serving Missouri, Illinois, Kentucky & Arkansas since 2008
+            Serving Missouri, Illinois, Kentucky & Arkansas since 2016
           </p>
 
           {/* Badges */}

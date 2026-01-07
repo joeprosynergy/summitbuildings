@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { 
   Check,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
 import {
   Accordion,
@@ -15,13 +13,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import GallerySection from '@/components/GallerySection';
+import ProductHero from '@/components/ProductHero';
+import { useBackPath } from '@/hooks/useBackPath';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -218,6 +212,13 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 );
 
 const UtilityShed = () => {
+  const backPath = useBackPath({
+    defaultPath: '/types/deluxe-storage-cabins#pro-utility',
+    defaultLabel: '← Back to Deluxe Storage & Cabins',
+    stylesPath: '/styles/utility',
+    stylesLabel: '← Back to Styles',
+  });
+
   return (
     <>
       <Helmet>
@@ -238,79 +239,20 @@ const UtilityShed = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
-          <section className="pt-32 pb-16 min-h-[600px] lg:min-h-[700px] bg-gradient-to-br from-navy via-navy-dark to-navy flex items-center">
-            <div className="container-custom">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <Link 
-                    to="/types/deluxe-storage-cabins#pro-utility" 
-                    className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
-                  >
-                    ← Back to Deluxe Storage & Cabins
-                  </Link>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    PRO - <span className="text-secondary">UTILITY SHED</span>
-                  </h1>
-                  <p className="text-lg text-primary-foreground/80 mb-6">
-                    A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations.
-                  </p>
-                  
-                  <p className="text-secondary font-heading text-xl mb-6">Sizes: 8×8 to 14×40</p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                      <Button variant="hero" size="xl">
-                        Build Your Own
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </a>
-                    <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
-                      <Button variant="heroOutline" size="xl">
-                        Browse Our Inventory
-                      </Button>
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="relative">
-                  <img
-                    src={cloudinaryImages.utilityShed1}
-                    alt="Summit Pro Utility Shed"
-                    className="rounded-2xl shadow-2xl w-full"
-                  />
-                  <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading text-sm md:text-base">
-                    FREE DELIVERY*<br />
-                    <span className="text-xs font-normal">Within 50 miles</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <ProductHero
+            backPath={backPath}
+            title="PRO -"
+            titleHighlight="UTILITY SHED"
+            description="A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations."
+            subtitle="Sizes: 8×8 to 14×40"
+            image={cloudinaryImages.utilityShed1}
+            imageAlt="Summit Pro Utility Shed"
+          />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Photo Gallery
-              </h2>
-              <Carousel className="w-full max-w-5xl mx-auto">
-                <CarouselContent>
-                  {galleryImages.map((image, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-2">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full aspect-square object-cover rounded-lg shadow-md"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
+              <GallerySection images={galleryImages} />
             </div>
           </section>
 

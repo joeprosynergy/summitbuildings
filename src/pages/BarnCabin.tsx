@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import InventoryLink from '@/components/InventoryLink';
 import { 
   Check,
   ArrowRight,
@@ -17,37 +18,40 @@ import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 
-// Import from Cloudinary
-import { cloudinaryImages } from '@/lib/cloudinary';
+// Import images
+import barnCabin1 from '@/assets/barn-cabin-1.jpg';
+import barnCabin2 from '@/assets/barn-cabin-2.jpg';
+import barnCabin3 from '@/assets/barn-cabin-3.jpg';
+import barnCabin4 from '@/assets/barn-cabin-4.jpg';
+import barnCabin5 from '@/assets/barn-cabin-5.jpg';
 
 const galleryImages = [
-  { src: cloudinaryImages.cabin1, alt: 'Summit Cabin - Exterior view with porch' },
-  { src: cloudinaryImages.cabin2, alt: 'Summit Cabin - Interior finished view' },
-  { src: cloudinaryImages.cabin3, alt: 'Summit Cabin - Side view' },
-  { src: cloudinaryImages.cabin4, alt: 'Summit Cabin - Interior details' },
+  { src: barnCabin1, alt: 'Lofted Cabin - Exterior view with porch' },
+  { src: barnCabin2, alt: 'Lofted Cabin - Blue exterior with porch' },
+  { src: barnCabin3, alt: 'Lofted Cabin - Interior with loft space' },
+  { src: barnCabin4, alt: 'Lofted Cabin - Interior view toward door' },
+  { src: barnCabin5, alt: 'Lofted Cabin - Gray exterior front view' },
 ];
 
-// Summit Cabin features from website
+// Lofted Cabin features - based on Pro Lofted Barn specs with cabin-specific differences
 const cabinFeatures = [
-  "14' X 32' Base Size",
-  "7/12 Pitch Roof",
-  "3/4 Advantec Floor",
-  "6 Interior LED Lighting & Electrical Package",
-  "7 Extra Receptacles + 200 Amp Box Upgrade",
-  "2 x 6 Truss",
-  "7/16 OSB & Housewrap on Walls",
-  "Moisture Barrier and Drip Edge on Roof",
-  "6' Treated Wood Fold Up Lean To Porch",
-  "D-Log on One 32' Side",
-  "36\" 9 Lite Door",
-  "6\" Overhang",
-  "6 x 36 x 48 Double Pane Windows",
+  "36\" 9-Lite Pre-Hung Door",
+  "4' Deep Porch with Railing",
+  "2 Lofts for Maximum Storage",
+  "Loft Ladder Included",
+  "3/4\" T & G Advantech Flooring",
   "Mesh Vented Ridge",
-  "Metal Siding",
-  "Wall Studs/Rafters 16\" O.C.",
+  "Moisture Barrier & Drip Edge on Roof",
+  "6'6\" (78\") Wall Height",
+  "16\" O.C. Wall Studs",
+  "16\" O.C. Rafters",
+  "Gambrel (Barn) Roof Style",
+  "Metal Siding & Roofing",
+  "50 Year Warranty on Siding",
+  "40 Year Warranty on Roof",
 ];
 
-// Color swatches - Cabin uses Metal, Urethane, and Vinyl
+// Color swatches - Metal siding options
 const sidingOptions = {
   metal: [
     { name: 'Alamo White', color: '#E5E5DC' },
@@ -72,44 +76,6 @@ const sidingOptions = {
     { name: 'Tan', color: '#D2B48C' },
     { name: 'Taupe', color: '#483C32' },
   ],
-  urethane: [
-    { name: 'Barnwood', color: '#6B5B4F' },
-    { name: 'Butternut', color: '#C49B5F' },
-    { name: 'Charcoal', color: '#36454F' },
-    { name: 'Chestnut Brown', color: '#5C3317' },
-    { name: 'Golden Wheat', color: '#C9A86C' },
-    { name: 'Mahogany', color: '#4A2C2A' },
-    { name: 'Natural Cedar', color: '#A87B5B' },
-    { name: 'Natural Teak', color: '#8B7355' },
-    { name: 'Redwood', color: '#8B4513' },
-    { name: 'Sage', color: '#87AE73' },
-  ],
-  vinyl: [
-    { name: 'Beige', color: '#C8B89A' },
-    { name: 'Cactus', color: '#5F7355' },
-    { name: 'Champagne', color: '#E8DCC4' },
-    { name: 'Cream', color: '#FFFDD0' },
-    { name: 'Deep Water', color: '#354B5E' },
-    { name: 'Fern', color: '#4F7942' },
-    { name: 'Firebrick', color: '#B22222' },
-    { name: 'Granite', color: '#676767' },
-    { name: 'Graphite', color: '#383838' },
-    { name: 'Khaki', color: '#C3B091' },
-    { name: 'Maverick Brown', color: '#6B4423' },
-    { name: 'Mocha', color: '#6F4E37' },
-    { name: 'Myrtle', color: '#21421E' },
-    { name: 'Olive', color: '#556B2F' },
-    { name: 'Russet', color: '#80461B' },
-    { name: 'Sandstone', color: '#786D5F' },
-    { name: 'Seaport', color: '#3A5F7B' },
-    { name: 'Sierra', color: '#A0785A' },
-    { name: 'Silver', color: '#C0C0C0' },
-    { name: 'Smoke', color: '#738276' },
-    { name: 'Steel Blue', color: '#4682B4' },
-    { name: 'Wheat', color: '#D4C4A8' },
-    { name: 'White', color: '#F5F5F5' },
-    { name: 'Yellow', color: '#F0D060' },
-  ],
 };
 
 const upgradeOptions = [
@@ -119,8 +85,6 @@ const upgradeOptions = [
       'Single 36" Wood Door',
       'Double 36" Wood Doors',
       'Single/Double 36" 6 Panel Fiberglass Door',
-      'Single/Double 36" 6 Panel Fiberglass 11 Lite Door',
-      'Single/Double 36" Solid Pre-Hung Door',
       'Single/Double 36" 9 Lite Pre-Hung Door',
       'Dead Bolt for Steel Door(s)',
     ],
@@ -149,8 +113,8 @@ const upgradeOptions = [
   {
     category: 'Porch Options',
     items: [
-      '4\' Treated Wood Fold Up Lean To Porch',
-      '6\' Treated Wood Fold Up Lean To Porch',
+      '4\' Treated Wood Porch',
+      '6\' Treated Wood Porch',
       'Porch Railing (per foot)',
       'Porch Steps',
     ],
@@ -158,7 +122,7 @@ const upgradeOptions = [
   {
     category: 'Extras',
     items: [
-      'D-Log Siding Upgrade',
+      'Additional Lofts',
       'Wainscott (metal siding) (per foot)',
       'Ridge Vent (per foot)',
       'Moisture Barrier / Single Bubble Insulation',
@@ -181,28 +145,28 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-const Cabin = () => {
+const BarnCabin = () => {
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
     defaultLabel: '← Back to Deluxe Storage & Cabins',
-    stylesPath: '/styles/utility',
-    stylesLabel: '← Back to Styles',
+    stylesPath: '/styles/barn',
+    stylesLabel: '← Back to Barn Styles',
   });
 
   return (
     <>
       <Helmet>
-        <title>Summit Cabin | Summit Portable Buildings</title>
+        <title>Lofted Cabin | Barn Style | Summit Portable Buildings</title>
         <meta
           name="description"
-          content="The Summit Cabin is perfect for your lake lot, hunting cabin, or tiny home. Features 7/12 pitch roof, 6' treated wood porch, LED lighting, electrical package, and double pane windows. Starting at $29,717.89. Free delivery within 50 miles."
+          content="The Lofted Cabin features a classic gambrel roof design with two lofts for maximum storage. Perfect for lake lots, hunting cabins, or tiny homes. Free delivery within 50 miles."
         />
-        <meta property="og:title" content="Summit Cabin | Summit Portable Buildings" />
+        <meta property="og:title" content="Lofted Cabin | Summit Portable Buildings" />
         <meta
           property="og:description"
-          content="A great building for your lake lot, hunting cabin or kid's play house! Windows let in extra light, porch is perfect for sunset views. Moveable and customizable."
+          content="Classic barn-style cabin with gambrel roof, dual lofts, and covered porch. Ideal for lake retreats, hunting cabins, or guest houses."
         />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/cabin" />
+        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/barn-cabin" />
       </Helmet>
 
       <div className="min-h-screen">
@@ -211,13 +175,13 @@ const Cabin = () => {
         <main>
           <ProductHero
             backPath={backPath}
-            title="SUMMIT"
-            titleHighlight="CABIN"
-            description="The Summit Cabin is a great building for your lake lot, hunting cabin, or kid's play house! The windows let in extra light so that you don't need electricity during the daytime. The porch is the perfect place to sit and enjoy the sunset after a long day."
-            secondaryDescription="Rather than taking the time to build something permanent, consider this building because it can be moved if necessary. There are so many sizing and siding options that you can find something to fit your hunting property or back yard!"
-            subtitle="Starting at $29,717.89"
-            image={cloudinaryImages.cabin1}
-            imageAlt="Summit Cabin"
+            title=""
+            titleHighlight="LOFTED CABIN"
+            titlePosition="only"
+            description="The Lofted Cabin combines classic barn styling with cabin functionality. The iconic gambrel roof maximizes overhead space with two generous lofts, while the covered porch provides the perfect spot to relax and enjoy the outdoors."
+            secondaryDescription="Perfect for lake lots, hunting properties, or as a backyard guest house. The barn-style roofline gives you more usable space than traditional cabins, and the included porch adds charm and functionality."
+            image={barnCabin1}
+            imageAlt="Lofted Cabin"
           />
 
           {/* Image Gallery */}
@@ -232,27 +196,27 @@ const Cabin = () => {
             <div className="container-custom">
               <div className="max-w-4xl mx-auto">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Living & Relaxation</span>
+                  Classic Barn Style <span className="text-secondary">Living Space</span>
                 </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                  The possibilities are endless with a Summit Cabin. Whether it's a tiny home, hunting cabin, or lake retreat — every inch of space can be utilized to perfection. Fully customizable to your needs.
+                  The gambrel roof design provides maximum overhead storage with two large lofts. The included porch with railing creates the perfect outdoor living space.
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={cloudinaryImages.cabin2}
-                      alt="Summit Cabin - Interior"
+                      src={barnCabin5}
+                      alt="Lofted Cabin - Details"
                       className="rounded-xl shadow-lg w-full"
                     />
                     <div className="absolute -bottom-3 -right-3 bg-secondary text-primary-foreground px-4 py-2 rounded-lg font-heading text-sm">
-                      Fully Customizable
+                      Two Lofts Included
                     </div>
                   </div>
                   
                   <div className="bg-card rounded-xl p-8 border border-border shadow-lg">
                     <h3 className="font-heading text-2xl font-bold text-foreground mb-6">
-                      Summit Cabin Features
+                      Standard Features
                     </h3>
                     <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
                       {cabinFeatures.map((feature) => (
@@ -289,11 +253,11 @@ const Cabin = () => {
                     'Hunting Cabin',
                     'Tiny Home',
                     'Guest House',
-                    'Kids Play House',
                     'Home Office',
-                    'Art Studio',
                     'She Shed / Man Cave',
                     'Backyard Retreat',
+                    'Art Studio',
+                    'Workshop with Storage',
                   ].map((use) => (
                     <div key={use} className="flex items-center gap-3 bg-card p-4 rounded-lg border border-border/50">
                       <Check className="w-5 h-5 text-secondary flex-shrink-0" />
@@ -302,7 +266,7 @@ const Cabin = () => {
                   ))}
                 </div>
                 <p className="text-center text-muted-foreground mt-8 text-sm">
-                  The built-in porch provides the perfect spot to relax and enjoy the outdoors. Large windows bring in natural light, reducing the need for electricity during the day.
+                  The dual lofts provide excellent storage or sleeping space, while the covered porch is perfect for morning coffee or evening relaxation.
                 </p>
               </div>
             </div>
@@ -312,15 +276,15 @@ const Cabin = () => {
           <section className="section-padding bg-muted/30">
             <div className="container-custom">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-8">
-                COLOR AND MATERIAL OPTIONS
+                COLOR OPTIONS
               </h2>
               
               <div className="bg-card rounded-lg border border-border overflow-hidden">
                 <Accordion type="single" collapsible defaultValue="metal" className="w-full">
-                  <AccordionItem value="metal" className="border-b border-border">
+                  <AccordionItem value="metal" className="border-none">
                     <AccordionTrigger className="px-6 py-4 hover:no-underline">
                       <span className="font-heading text-lg font-bold text-secondary uppercase">
-                        Metal Siding Options
+                        Metal Siding & Roof Options
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-6">
@@ -331,58 +295,28 @@ const Cabin = () => {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                  
-                  <AccordionItem value="urethane" className="border-b border-border">
-                    <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                      <span className="font-heading text-lg font-bold text-secondary uppercase">
-                        Urethane Siding Options
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-6">
-                      <div className="flex flex-wrap gap-6 pt-4">
-                        {sidingOptions.urethane.map((swatch) => (
-                          <ColorSwatch key={swatch.name} name={swatch.name} color={swatch.color} />
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                  
-                  <AccordionItem value="vinyl" className="border-none">
-                    <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                      <span className="font-heading text-lg font-bold text-secondary uppercase">
-                        Vinyl Siding Options
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-6">
-                      <div className="flex flex-wrap gap-6 pt-4">
-                        {sidingOptions.vinyl.map((swatch) => (
-                          <ColorSwatch key={swatch.name} name={swatch.name} color={swatch.color} />
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
                 </Accordion>
               </div>
             </div>
           </section>
 
-          {/* Upgrade Options */}
+          {/* Upgrades Section */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-8">
-                Available Upgrades
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-secondary mb-8">
+                UPGRADE OPTIONS
               </h2>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {upgradeOptions.map((group) => (
-                  <div key={group.category} className="bg-card rounded-xl p-6 border border-border/50">
+                {upgradeOptions.map((category) => (
+                  <div key={category.category} className="bg-card rounded-lg border border-border p-6">
                     <h3 className="font-heading text-lg font-bold text-foreground mb-4">
-                      {group.category}
+                      {category.category}
                     </h3>
                     <ul className="space-y-2">
-                      {group.items.map((item) => (
-                        <li key={item} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
+                      {category.items.map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-muted-foreground text-sm">
+                          <span className="w-1.5 h-1.5 bg-secondary rounded-full flex-shrink-0"></span>
                           {item}
                         </li>
                       ))}
@@ -393,38 +327,27 @@ const Cabin = () => {
             </div>
           </section>
 
-          {/* Important Notes */}
-          <section className="py-8 bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-3xl mx-auto text-center">
-                <p className="text-sm text-muted-foreground">
-                  *Free delivery within 50 miles. Prices subject to change without warning. Base price shown is for standard configuration.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* CTA */}
-          <section className="section-padding bg-gradient-to-r from-secondary to-primary">
+          {/* CTA Section */}
+          <section className="section-padding bg-primary">
             <div className="container-custom text-center">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
+                Ready to Build Your Lofted Cabin?
               </h2>
-              <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-                Design your perfect cabin online or contact us for a free quote.
+              <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
+                Design your perfect barn-style cabin online in minutes, or browse our in-stock inventory for immediate availability.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
+                  <Button variant="hero" size="xl">
                     Build Your Own
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link to="/types">
+                <InventoryLink>
                   <Button variant="heroOutline" size="xl">
-                    See More Models
+                    Browse Inventory
                   </Button>
-                </Link>
+                </InventoryLink>
               </div>
             </div>
           </section>
@@ -436,4 +359,4 @@ const Cabin = () => {
   );
 };
 
-export default Cabin;
+export default BarnCabin;

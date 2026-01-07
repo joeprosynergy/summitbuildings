@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import InventoryLink from '@/components/InventoryLink';
 import { 
   Check,
   ArrowRight,
@@ -17,13 +18,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import GallerySection from '@/components/GallerySection';
+import ProductHero from '@/components/ProductHero';
+import { useBackPath } from '@/hooks/useBackPath';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -97,6 +94,13 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 );
 
 const Carports = () => {
+  const backPath = useBackPath({
+    defaultPath: '/types/garages-carports#carports',
+    defaultLabel: '← Back to Garages & Carports',
+    stylesPath: '/styles/utility',
+    stylesLabel: '← Back to Styles',
+  });
+
   return (
     <>
       <Helmet>
@@ -117,96 +121,43 @@ const Carports = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
-          <section className="pt-32 pb-16 min-h-[600px] lg:min-h-[700px] bg-gradient-to-br from-navy via-navy-dark to-navy flex items-center">
-            <div className="container-custom">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <Link 
-                    to="/types" 
-                    className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
-                  >
-                    ← Back to All Models
-                  </Link>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    CARPORTS & <span className="text-secondary">RV COVERS</span>
-                  </h1>
-                  <p className="text-lg text-primary-foreground/80 mb-6">
-                    Steel carports are the best option for protecting your vehicles against the cold, rain, sun, and wind – even tornadoes and hurricanes. As good if not better than traditional stick frame or concrete buildings for commercial, industrial, or residential use.
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-4 mb-8">
-                    <div className="flex items-center gap-2 text-primary-foreground/80">
-                      <Shield className="w-5 h-5 text-secondary" />
-                      <span>Hurricane Rated</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary-foreground/80">
-                      <Sun className="w-5 h-5 text-secondary" />
-                      <span>UV Protection</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary-foreground/80">
-                      <Cloud className="w-5 h-5 text-secondary" />
-                      <span>Weather Resistant</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-primary-foreground/80">
-                      <Wind className="w-5 h-5 text-secondary" />
-                      <span>Wind Certified</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
-                      <Button variant="hero" size="xl">
-                        Browse Our Inventory
-                        <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </a>
-                    <Link to="/types">
-                      <Button variant="heroOutline" size="xl">
-                        View All Models
-                      </Button>
-                    </Link>
-                  </div>
+          <ProductHero
+            backPath={backPath}
+            title="CARPORTS &"
+            titleHighlight="RV COVERS"
+            description="Steel carports are the best option for protecting your vehicles against the cold, rain, sun, and wind – even tornadoes and hurricanes. As good if not better than traditional stick frame or concrete buildings for commercial, industrial, or residential use."
+            image={cloudinaryImages.carport1}
+            imageAlt="Steel Carport"
+            extraContent={
+              <div className="flex flex-wrap gap-4 mb-8">
+                <div className="flex items-center gap-2 text-primary-foreground/80">
+                  <Shield className="w-5 h-5 text-secondary" />
+                  <span>Hurricane Rated</span>
                 </div>
-                
-                <div className="relative">
-                  <img
-                    src={cloudinaryImages.carport1}
-                    alt="Steel Carport"
-                    className="rounded-2xl shadow-2xl w-full"
-                  />
-                  <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading text-sm md:text-base">
-                    FREE DELIVERY*<br />
-                    <span className="text-xs font-normal">Within 50 miles</span>
-                  </div>
+                <div className="flex items-center gap-2 text-primary-foreground/80">
+                  <Sun className="w-5 h-5 text-secondary" />
+                  <span>UV Protection</span>
+                </div>
+                <div className="flex items-center gap-2 text-primary-foreground/80">
+                  <Cloud className="w-5 h-5 text-secondary" />
+                  <span>Weather Resistant</span>
+                </div>
+                <div className="flex items-center gap-2 text-primary-foreground/80">
+                  <Wind className="w-5 h-5 text-secondary" />
+                  <span>Wind Certified</span>
                 </div>
               </div>
-            </div>
-          </section>
+            }
+            ctaButtons={[
+              { text: 'Browse Our Inventory', href: '/inventory', variant: 'hero', external: false },
+              { text: 'View All Models', href: '/types', variant: 'heroOutline', external: false },
+            ]}
+          />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Photo Gallery
-              </h2>
-              <Carousel className="w-full max-w-5xl mx-auto">
-                <CarouselContent>
-                  {galleryImages.map((image, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-2">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full aspect-square object-cover rounded-lg shadow-md"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-              </Carousel>
+              <GallerySection images={galleryImages} />
             </div>
           </section>
 
@@ -370,12 +321,12 @@ const Carports = () => {
                 Contact us today for a free quote on your carport or RV cover.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                <InventoryLink>
                   <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
                     Browse Our Inventory
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </a>
+                </InventoryLink>
                 <Link to="/types">
                   <Button variant="heroOutline" size="xl">
                     See More Models
