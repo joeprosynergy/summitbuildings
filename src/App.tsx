@@ -37,6 +37,7 @@ import Inventory from "./pages/Inventory";
 import Configurator3D from "./pages/Configurator3D";
 import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
+import AuthCallback from "./pages/AuthCallback";
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
 const AssetAudit = lazy(() => import("./pages/AssetAudit"));
 
@@ -87,6 +88,7 @@ const App = () => (
             <Route path="/3d-configurator" element={<Configurator3D />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route
               path="/cloudinary-upload"
               element={
