@@ -1,29 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  useEffect(() => {
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (session) {
+          navigate("/admin", { replace: true });
+        }
+        setIsCheckingSession(false);
+      }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate("/admin", { replace: true });
+      }
+      setIsCheckingSession(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   const handleSendLink = async () => {
     setMessage(null);
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/auth/send-magic-link", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin/login`,
+        },
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage({ type: "success", text: "Check your email for the login link" });
+      if (error) {
+        setMessage({ type: "error", text: error.message });
       } else {
-        setMessage({ type: "error", text: data.error || "Something went wrong" });
+        setMessage({ type: "success", text: "Check your email for the login link" });
       }
     } catch {
       setMessage({ type: "error", text: "Failed to send request" });
@@ -31,6 +56,14 @@ const AdminLogin = () => {
       setIsLoading(false);
     }
   };
+
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
