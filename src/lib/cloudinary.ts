@@ -1,6 +1,10 @@
 // Cloudinary configuration for Summit Portable Buildings
-// IMPORTANT: All images must be pre-uploaded via /admin/cloudinary-upload
+// IMPORTANT: All images must be pre-uploaded via /cloudinary-upload
 // Images are served from Cloudinary CDN for optimal performance and Core Web Vitals
+//
+// NOTE: CLOUDINARY_CLOUD_NAME is safe to expose client-side - it's only used
+// to construct public CDN URLs for reading images. Upload credentials are
+// kept server-side in the edge function.
 
 const CLOUDINARY_CLOUD_NAME = 'dwhwbbbev';
 const CLOUDINARY_FOLDER = 'summit-buildings';
