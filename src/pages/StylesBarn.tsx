@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
+import barnCabin1 from '@/assets/barn-cabin-1.jpg';
 
 // Storage options for Barn style
 const storageOptions = [
@@ -35,12 +36,12 @@ const storageOptions = [
 // Cabins & Tiny Homes for Barn style
 const cabinOptions = [
   {
-    id: 'cabin',
-    name: 'Cabin',
-    description: 'Perfect for lake lots, hunting cabins, or tiny homes.',
-    features: ['7/12 pitch roof', '6\' treated wood porch', 'LED lighting & electrical'],
-    image: cloudinaryImages.cabinShed,
-    link: '/types/deluxe-storage-cabins/cabin'
+    id: 'barn-cabin',
+    name: 'Countryside Lofted Cabin',
+    description: 'Classic barn styling with dual lofts and covered porch.',
+    features: ['Gambrel roof', '12\' x 4\' porch with railing', 'Two 8\' deep lofts'],
+    image: barnCabin1,
+    link: '/types/deluxe-storage-cabins/barn-cabin'
   },
 ];
 

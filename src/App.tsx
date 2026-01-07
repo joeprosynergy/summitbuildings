@@ -23,6 +23,7 @@ import BudgetProLoftedBarn from "./pages/BudgetProLoftedBarn";
 import BudgetProUtility from "./pages/BudgetProUtility";
 import Garage from "./pages/Garage";
 import Cabin from "./pages/Cabin";
+import BarnCabin from "./pages/BarnCabin";
 import Carports from "./pages/Carports";
 import GaragesCarports from "./pages/GaragesCarports";
 import BuyersGuide from "./pages/BuyersGuide";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/types/deluxe-storage-cabins/pro-utility-shed" element={<UtilityShed />} />
             <Route path="/types/deluxe-storage-cabins/pro-lofted-barn" element={<ProLoftedBarn />} />
             <Route path="/types/deluxe-storage-cabins/cabin" element={<Cabin />} />
+            <Route path="/types/deluxe-storage-cabins/barn-cabin" element={<BarnCabin />} />
             {/* Garages & Carports category and detail pages */}
             <Route path="/types/garages-carports" element={<GaragesCarports />} />
             <Route path="/types/garages-carports/garage" element={<Garage />} />
