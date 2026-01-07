@@ -1,0 +1,44 @@
+import { useSearchParams, useNavigate } from 'react-router-dom';
+
+const Inventory = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    const from = searchParams.get('from');
+    
+    if (from) {
+      navigate(from);
+    } else if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      navigate('/');
+    }
+  };
+
+  return (
+    <div className="h-screen w-full flex flex-col overflow-hidden">
+      {/* Top Bar */}
+      <div className="h-10 min-h-[40px] bg-white border-b border-gray-200 flex items-center px-4">
+        <button
+          onClick={handleBack}
+          className="text-gray-700 hover:text-gray-900 text-sm font-medium transition-colors"
+        >
+          ← Back to website
+        </button>
+      </div>
+
+      {/* Iframe Container */}
+      <iframe
+        src="https://summitportablebuildings.shedsuite.com/821"
+        className="w-full border-0 flex-1"
+        style={{ height: 'calc(100vh - 40px)' }}
+        loading="lazy"
+        allow="fullscreen"
+        title="Summit Portable Buildings Inventory"
+      />
+    </div>
+  );
+};
+
+export default Inventory;
