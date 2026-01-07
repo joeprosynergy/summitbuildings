@@ -85,11 +85,11 @@ const Header = () => {
               <Phone className="w-4 h-4" />
               <span>573-747-4700</span>
             </a>
-            <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+            <Link to="/3d-configurator" state={{ from: location.pathname }}>
               <Button variant="hero" size="lg">
                 Design Your Shed
               </Button>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -122,11 +122,11 @@ const Header = () => {
                 </Link>
               ))}
               <div className="px-4 pt-4 border-t border-border mt-4">
-                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                <Link to="/3d-configurator" state={{ from: location.pathname }}>
                   <Button variant="hero" size="lg" className="w-full">
                     Design Your Shed
                   </Button>
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
