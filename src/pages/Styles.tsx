@@ -127,11 +127,11 @@ const Styles = () => {
                       to={style.link}
                       className="group text-center"
                     >
-                      <div className="aspect-square mb-4 overflow-hidden rounded-lg shadow-sm bg-muted">
+                      <div className="aspect-[4/3] mb-4 overflow-hidden rounded-lg shadow-sm bg-muted">
                         <img
                           src={style.image}
                           alt={style.name}
-                          className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-cover"
+                          className="w-full h-full transition-transform duration-300 group-hover:scale-105 object-contain"
                         />
                       </div>
                       <h3 className="font-heading font-bold text-xl text-foreground group-hover:text-secondary transition-colors uppercase tracking-wide">
