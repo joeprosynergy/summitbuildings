@@ -43,10 +43,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       isProduction ? "Secure" : "",
     ].filter(Boolean).join("; ");
 
-    res.setHeader("Set-Cookie", [
-      `sb-access-token=${access_token}; ${cookieOptions}`,
-      `sb-refresh-token=${refresh_token}; ${cookieOptions}`,
-    ]);
+    const cookie = [
+  `sb-session=${access_token}`,
+  `HttpOnly`,
+  `Path=/`,
+  `SameSite=Lax`,
+  `Secure`,
+  `Domain=summitbuildings.vercel.app`,
+].join("; ");
+
+res.setHeader("Set-Cookie", cookie);
+res.status(302);
+res.setHeader("Location", "/admin");
+res.end();
+return;
 
     return res.redirect("/admin");
   } catch (err) {
