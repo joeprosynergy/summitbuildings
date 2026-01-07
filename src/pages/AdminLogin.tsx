@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -12,18 +13,17 @@ const AdminLogin = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/auth/send-magic-link", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin`,
+        },
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage({ type: "success", text: "Check your email for the login link" });
+      if (error) {
+        setMessage({ type: "error", text: error.message });
       } else {
-        setMessage({ type: "error", text: data.error || "Something went wrong" });
+        setMessage({ type: "success", text: "Check your email for the login link" });
       }
     } catch {
       setMessage({ type: "error", text: "Failed to send request" });
