@@ -20,10 +20,17 @@ serve(async (req) => {
       throw new Error('Cloudinary credentials not configured');
     }
 
-    const { imageBase64, publicId, folder } = await req.json();
+    const body = await req.json();
+    const { imageBase64, imageUrl, publicId, folder } = body;
 
-    if (!imageBase64) {
-      throw new Error('No image data provided');
+    // Support both base64 and URL uploads
+    const fileData = imageBase64 || imageUrl;
+    if (!fileData) {
+      throw new Error('No image data provided. Send imageBase64 or imageUrl.');
+    }
+
+    if (!publicId) {
+      throw new Error('publicId is required');
     }
 
     // Generate signature for upload
@@ -41,7 +48,7 @@ serve(async (req) => {
 
     // Upload to Cloudinary
     const formData = new FormData();
-    formData.append('file', imageBase64);
+    formData.append('file', fileData);
     formData.append('public_id', publicId);
     formData.append('timestamp', timestamp.toString());
     formData.append('api_key', apiKey);
@@ -64,11 +71,15 @@ serve(async (req) => {
       throw new Error(result.error?.message || 'Upload failed');
     }
 
+    // Return success without exposing cloud name or secrets
     return new Response(
       JSON.stringify({ 
         success: true, 
         url: result.secure_url,
-        publicId: result.public_id 
+        publicId: result.public_id,
+        format: result.format,
+        width: result.width,
+        height: result.height
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -77,9 +88,10 @@ serve(async (req) => {
     );
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('Error uploading to Cloudinary:', error);
+    // Log error server-side only, don't expose details to client
+    console.error('Cloudinary upload error:', errorMessage);
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ success: false, error: errorMessage }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500 
