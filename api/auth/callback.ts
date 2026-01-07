@@ -13,15 +13,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl || !supabaseAnonKey) {
     console.error("Missing Supabase environment variables");
     return res.redirect("/admin/login?error=server_error");
   }
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+  const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
+      flowType: 'pkce',
       autoRefreshToken: false,
       persistSession: false,
     },
