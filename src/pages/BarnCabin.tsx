@@ -3,9 +3,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { 
   Check,
   ArrowRight,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Grid,
 } from 'lucide-react';
 import {
   Accordion,
@@ -24,28 +29,35 @@ import { useBackPath } from '@/hooks/useBackPath';
 
 // Import images
 import barnCabin1 from '@/assets/barn-cabin-1.jpg';
-import { cloudinaryImages } from '@/lib/cloudinary';
+import barnCabin2 from '@/assets/barn-cabin-2.jpg';
+import barnCabin3 from '@/assets/barn-cabin-3.jpg';
+import barnCabin4 from '@/assets/barn-cabin-4.jpg';
+import barnCabin5 from '@/assets/barn-cabin-5.jpg';
 
 const galleryImages = [
-  { src: barnCabin1, alt: 'Countryside Lofted Cabin - Exterior view with porch' },
-  { src: cloudinaryImages.loftedBarn1, alt: 'Countryside Lofted Cabin - Barn style roofline' },
-  { src: cloudinaryImages.loftedBarn2, alt: 'Countryside Lofted Cabin - Side view' },
+  { src: barnCabin1, alt: 'Lofted Cabin - Exterior view with porch' },
+  { src: barnCabin2, alt: 'Lofted Cabin - Blue exterior with porch' },
+  { src: barnCabin3, alt: 'Lofted Cabin - Interior with loft space' },
+  { src: barnCabin4, alt: 'Lofted Cabin - Interior view toward door' },
+  { src: barnCabin5, alt: 'Lofted Cabin - Gray exterior front view' },
 ];
 
-// Countryside Lofted Cabin features
+// Lofted Cabin features - based on Pro Lofted Barn specs with cabin-specific differences
 const cabinFeatures = [
-  "12' X 32' Standard Size",
-  "Gambrel (Barn) Roof Style",
-  "3/4\" Advantech Flooring",
-  "Two 12' Wide x 8' Deep Lofts",
   "36\" 9-Lite Pre-Hung Door",
-  "12' Wide x 4' Deep Porch with Railing",
-  "Metal Siding & Roofing",
-  "6'6\" Side Walls",
+  "4' Deep Porch with Railing",
+  "2 Lofts for Maximum Storage",
+  "Loft Ladder Included",
+  "3/4\" T & G Advantech Flooring",
+  "Mesh Vented Ridge",
+  "Moisture Barrier & Drip Edge on Roof",
+  "6'6\" (78\") Wall Height",
   "16\" O.C. Wall Studs",
+  "16\" O.C. Rafters",
+  "Gambrel (Barn) Roof Style",
+  "Metal Siding & Roofing",
   "50 Year Warranty on Siding",
   "40 Year Warranty on Roof",
-  "Moisture Barrier & Drip Edge",
 ];
 
 // Color swatches - Metal siding options
@@ -142,7 +154,86 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface GalleryLightboxProps {
+  images: { src: string; alt: string }[];
+  isOpen: boolean;
+  currentIndex: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  onSelectIndex: (index: number) => void;
+}
+
+const GalleryLightbox = ({ images, isOpen, currentIndex, onClose, onNext, onPrev, onSelectIndex }: GalleryLightboxProps) => {
+  if (!isOpen) return null;
+  
+  return (
+    <div className="fixed inset-0 z-50 bg-black/95 flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4">
+        <span className="text-white/80 text-sm">{currentIndex + 1} / {images.length}</span>
+        <button onClick={onClose} className="text-white/80 hover:text-white p-2">
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+      
+      {/* Main image */}
+      <div className="flex-1 flex items-center justify-center relative px-16">
+        <button 
+          onClick={onPrev} 
+          className="absolute left-4 text-white/80 hover:text-white p-2 bg-black/50 rounded-full"
+        >
+          <ChevronLeft className="w-8 h-8" />
+        </button>
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="max-h-[70vh] max-w-full object-contain rounded-lg"
+        />
+        <button 
+          onClick={onNext} 
+          className="absolute right-4 text-white/80 hover:text-white p-2 bg-black/50 rounded-full"
+        >
+          <ChevronRight className="w-8 h-8" />
+        </button>
+      </div>
+      
+      {/* Thumbnail strip */}
+      <div className="p-4 flex justify-center gap-2 overflow-x-auto">
+        {images.map((image, index) => (
+          <button
+            key={index}
+            onClick={() => onSelectIndex(index)}
+            className={`flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
+              index === currentIndex ? 'border-secondary' : 'border-transparent opacity-60 hover:opacity-100'
+            }`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-16 h-16 object-cover"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const BarnCabin = () => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => setLightboxOpen(false);
+  
+  const nextImage = () => setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+  const prevImage = () => setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
     defaultLabel: '← Back to Deluxe Storage & Cabins',
@@ -153,18 +244,28 @@ const BarnCabin = () => {
   return (
     <>
       <Helmet>
-        <title>Countryside Lofted Cabin | Barn Style | Summit Portable Buildings</title>
+        <title>Lofted Cabin | Barn Style | Summit Portable Buildings</title>
         <meta
           name="description"
-          content="The Countryside Lofted Cabin features a classic gambrel roof design with two lofts for maximum storage. Perfect for lake lots, hunting cabins, or tiny homes. Starting at $12,476. Free delivery within 50 miles."
+          content="The Lofted Cabin features a classic gambrel roof design with two lofts for maximum storage. Perfect for lake lots, hunting cabins, or tiny homes. Free delivery within 50 miles."
         />
-        <meta property="og:title" content="Countryside Lofted Cabin | Summit Portable Buildings" />
+        <meta property="og:title" content="Lofted Cabin | Summit Portable Buildings" />
         <meta
           property="og:description"
           content="Classic barn-style cabin with gambrel roof, dual lofts, and covered porch. Ideal for lake retreats, hunting cabins, or guest houses."
         />
         <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/barn-cabin" />
       </Helmet>
+
+      <GalleryLightbox
+        images={galleryImages}
+        isOpen={lightboxOpen}
+        currentIndex={lightboxIndex}
+        onClose={closeLightbox}
+        onNext={nextImage}
+        onPrev={prevImage}
+        onSelectIndex={setLightboxIndex}
+      />
 
       <div className="min-h-screen">
         <Header />
@@ -182,16 +283,14 @@ const BarnCabin = () => {
                     {backPath.label}
                   </Link>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-                    COUNTRYSIDE <span className="text-secondary">LOFTED CABIN</span>
+                    <span className="text-secondary">LOFTED CABIN</span>
                   </h1>
                   <p className="text-lg text-primary-foreground/80 mb-6">
-                    The Countryside Lofted Cabin combines classic barn styling with cabin functionality. The iconic gambrel roof maximizes overhead space with two generous lofts, while the covered porch provides the perfect spot to relax and enjoy the outdoors.
+                    The Lofted Cabin combines classic barn styling with cabin functionality. The iconic gambrel roof maximizes overhead space with two generous lofts, while the covered porch provides the perfect spot to relax and enjoy the outdoors.
                   </p>
                   <p className="text-primary-foreground/80 mb-6">
                     Perfect for lake lots, hunting properties, or as a backyard guest house. The barn-style roofline gives you more usable space than traditional cabins, and the included porch adds charm and functionality.
                   </p>
-                  
-                  <p className="text-secondary font-heading text-xl mb-6">Starting at $12,476</p>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
@@ -211,7 +310,7 @@ const BarnCabin = () => {
                 <div className="relative">
                   <img
                     src={barnCabin1}
-                    alt="Countryside Lofted Cabin"
+                    alt="Lofted Cabin"
                     className="rounded-2xl shadow-2xl w-full"
                   />
                   <div className="absolute -bottom-4 -right-4 bg-secondary text-primary-foreground px-6 py-3 rounded-xl font-heading text-sm md:text-base">
@@ -226,19 +325,33 @@ const BarnCabin = () => {
           {/* Image Gallery */}
           <section className="section-padding bg-background">
             <div className="container-custom">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
-                Photo Gallery
-              </h2>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
+                  Photo Gallery
+                </h2>
+                <button 
+                  onClick={() => openLightbox(0)}
+                  className="flex items-center gap-2 text-secondary hover:text-secondary/80 transition-colors font-medium"
+                >
+                  <Grid className="w-5 h-5" />
+                  View All Photos
+                </button>
+              </div>
               <Carousel className="w-full max-w-5xl mx-auto">
                 <CarouselContent>
                   {galleryImages.map((image, index) => (
                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                       <div className="p-2">
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full aspect-square object-cover rounded-lg shadow-md"
-                        />
+                        <button 
+                          onClick={() => openLightbox(index)}
+                          className="w-full cursor-pointer"
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="w-full aspect-square object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                          />
+                        </button>
                       </div>
                     </CarouselItem>
                   ))}
@@ -263,8 +376,8 @@ const BarnCabin = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div className="relative">
                     <img
-                      src={barnCabin1}
-                      alt="Countryside Lofted Cabin - Details"
+                      src={barnCabin5}
+                      alt="Lofted Cabin - Details"
                       className="rounded-xl shadow-lg w-full"
                     />
                     <div className="absolute -bottom-3 -right-3 bg-secondary text-primary-foreground px-4 py-2 rounded-lg font-heading text-sm">
@@ -389,7 +502,7 @@ const BarnCabin = () => {
           <section className="section-padding bg-primary">
             <div className="container-custom text-center">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
-                Ready to Build Your Countryside Cabin?
+                Ready to Build Your Lofted Cabin?
               </h2>
               <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
                 Design your perfect barn-style cabin online in minutes, or browse our in-stock inventory for immediate availability.
