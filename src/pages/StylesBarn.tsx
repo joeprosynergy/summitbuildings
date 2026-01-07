@@ -37,9 +37,9 @@ const storageOptions = [
 const cabinOptions = [
   {
     id: 'barn-cabin',
-    name: 'Countryside Lofted Cabin',
+    name: 'Lofted Cabin',
     description: 'Classic barn styling with dual lofts and covered porch.',
-    features: ['Gambrel roof', '12\' x 4\' porch with railing', 'Two 8\' deep lofts'],
+    features: ['Gambrel roof', '4\' deep porch with railing', 'Two lofts included'],
     image: barnCabin1,
     link: '/types/deluxe-storage-cabins/barn-cabin'
   },
@@ -206,26 +206,6 @@ const StylesBarn = () => {
               <div className="p-6 md:p-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                   {cabinOptions.map((option) => (
-                    <OptionCard key={option.id} option={option} currentPath={currentPath} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Garages & Carports Section */}
-        <section className="bg-background py-16 md:py-24">
-          <div className="container-custom">
-            <div className="bg-card rounded-lg shadow-lg overflow-hidden">
-              <div className="bg-primary py-5 px-6">
-                <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground text-center uppercase tracking-wide">
-                  Garages & Carports
-                </h2>
-              </div>
-              <div className="p-6 md:p-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-                  {garageOptions.map((option) => (
                     <OptionCard key={option.id} option={option} currentPath={currentPath} />
                   ))}
                 </div>
