@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +7,7 @@ import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const CLOUDINARY_FOLDER = 'summit-buildings';
+const EDGE_FUNCTION_URL = 'https://lmpdjitplofcysyfgcjl.supabase.co/functions/v1/upload-to-cloudinary';
 
 interface UploadResult {
   success: boolean;
@@ -77,16 +77,23 @@ const AdminCloudinaryUpload = () => {
     publicId: string 
   }): Promise<UploadResult> => {
     try {
-      const { data: result, error } = await supabase.functions.invoke('upload-to-cloudinary', {
-        body: {
+      const response = await fetch(EDGE_FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           ...data,
           folder: CLOUDINARY_FOLDER
-        }
+        })
       });
 
-      if (error) {
-        return { success: false, error: error.message };
+      if (!response.ok) {
+        const errorText = await response.text();
+        return { success: false, error: errorText || `HTTP ${response.status}` };
       }
+
+      const result = await response.json();
 
       if (!result.success) {
         return { success: false, error: result.error || 'Upload failed' };
