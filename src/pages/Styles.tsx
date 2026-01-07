@@ -125,6 +125,7 @@ const Styles = () => {
                     <Link
                       key={style.id}
                       to={style.link}
+                      state={{ from: '/styles' }}
                       className="group text-center"
                     >
                       <div className="aspect-[4/3] mb-4 overflow-hidden rounded-lg shadow-sm bg-muted">
