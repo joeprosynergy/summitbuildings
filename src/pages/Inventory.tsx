@@ -1,19 +1,32 @@
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const Inventory = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const handleBack = () => {
     const from = searchParams.get('from');
     
     if (from) {
-      navigate(from);
-    } else if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      navigate('/');
+      window.location.href = from;
+      return;
     }
+    
+    // Check if referrer exists and is same origin
+    const referrer = document.referrer;
+    if (referrer) {
+      try {
+        const referrerUrl = new URL(referrer);
+        if (referrerUrl.origin === window.location.origin) {
+          window.location.href = referrer;
+          return;
+        }
+      } catch {
+        // Invalid URL, fall through to default
+      }
+    }
+    
+    // Default to home
+    window.location.href = '/';
   };
 
   return (

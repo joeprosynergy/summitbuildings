@@ -2,8 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { useBackPath } from '@/hooks/useBackPath';
 import { 
   Check,
   ArrowRight,
@@ -101,12 +99,6 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 );
 
 const Greenhouse = () => {
-  const { path: backPath, label: backLabel } = useBackPath({
-    defaultPath: '/types',
-    defaultLabel: 'All Models',
-    stylesPath: '/styles',
-    stylesLabel: 'Building Styles',
-  });
   return (
     <>
       <Helmet>
@@ -128,7 +120,10 @@ const Greenhouse = () => {
         
         <main>
           <ProductHero
-            backPath={{ path: backPath, label: `← Back to ${backLabel}` }}
+            backPath={{ 
+              defaultPath: '/types', 
+              defaultLabel: '← Back to All Models' 
+            }}
             title=""
             titleHighlight="GREENHOUSE"
             titlePosition="only"

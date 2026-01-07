@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,10 +9,15 @@ interface CTAButton {
   external?: boolean;
 }
 
+interface BackPathConfig {
+  path: string;
+  label: string;
+}
+
 interface ProductHeroProps {
-  backPath: {
-    path: string;
-    label: string;
+  backPath: BackPathConfig | {
+    defaultPath: string;
+    defaultLabel: string;
   };
   title: string;
   titleHighlight: string;
@@ -58,6 +63,35 @@ const ProductHero = ({
   ctaButtons = defaultCTAButtons,
   extraContent,
 }: ProductHeroProps) => {
+  const location = useLocation();
+  const state = location.state as { from?: string } | null;
+  
+  // Resolve back path - support dynamic navigation based on where user came from
+  const resolveBackPath = (): BackPathConfig => {
+    // If backPath has path/label directly, use it
+    if ('path' in backPath && 'label' in backPath) {
+      return backPath as BackPathConfig;
+    }
+    
+    // Dynamic resolution
+    const config = backPath as { defaultPath: string; defaultLabel: string };
+    
+    // Check location state first (set by Link components with state)
+    if (state?.from) {
+      return {
+        path: state.from,
+        label: `← Back`,
+      };
+    }
+    
+    // Default fallback
+    return {
+      path: config.defaultPath,
+      label: config.defaultLabel,
+    };
+  };
+  
+  const resolvedBackPath = resolveBackPath();
   const renderTitle = () => {
     if (titlePosition === 'only') {
       return <span className="text-secondary">{titleHighlight}</span>;
@@ -82,10 +116,10 @@ const ProductHero = ({
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <Link 
-              to={backPath.path}
+              to={resolvedBackPath.path}
               className="inline-flex items-center gap-2 text-secondary/80 hover:text-secondary mb-4 transition-colors"
             >
-              {backPath.label}
+              {resolvedBackPath.label}
             </Link>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
               {renderTitle()}
