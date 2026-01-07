@@ -25,8 +25,7 @@ const AdminLogin = () => {
       } else {
         setMessage({ type: "error", text: data.error || "Something went wrong" });
       }
-    } catch (err) {
-      console.error("Login request failed:", err);
+    } catch {
       setMessage({ type: "error", text: "Failed to send request" });
     } finally {
       setIsLoading(false);

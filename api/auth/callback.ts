@@ -22,7 +22,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.redirect("/admin/login?error=server_error");
   }
 
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      flowType: 'pkce',
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
 
   try {
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
