@@ -49,6 +49,10 @@ const categories = [
   },
 ];
 
+const content = {
+  heading: "Structure Types",
+};
+
 const OurModels = () => {
   return (
     <>
@@ -66,7 +70,7 @@ const OurModels = () => {
           <div className="container-custom text-center">
             <p className="text-secondary font-semibold tracking-wider uppercase mb-4">Hand-Built to Last</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-6">
-              Structure Types
+              {content.heading}
             </h1>
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
               Choose one of our popular models or customize your own
