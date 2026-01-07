@@ -148,7 +148,7 @@ const Carports = () => {
               </div>
             }
             ctaButtons={[
-              { text: 'Browse Our Inventory', href: 'https://summitportablebuildings.shedsuite.com', variant: 'hero', external: true },
+              { text: 'Browse Our Inventory', href: '/inventory', variant: 'hero', external: false },
               { text: 'View All Models', href: '/types', variant: 'heroOutline', external: false },
             ]}
           />
@@ -320,12 +320,12 @@ const Carports = () => {
                 Contact us today for a free quote on your carport or RV cover.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                <Link to="/inventory">
                   <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
                     Browse Our Inventory
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </a>
+                </Link>
                 <Link to="/types">
                   <Button variant="heroOutline" size="xl">
                     See More Models

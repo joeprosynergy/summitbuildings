@@ -34,6 +34,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ContactUs from "./pages/ContactUs";
 import NotFound from "./pages/NotFound";
 import Inventory from "./pages/Inventory";
+import Configurator3D from "./pages/Configurator3D";
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
 
 const App = () => (
@@ -80,6 +81,7 @@ const App = () => (
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/inventory" element={<Inventory />} />
+            <Route path="/3d-configurator" element={<Configurator3D />} />
              <Route
                path="/cloudinary-upload"
                element={

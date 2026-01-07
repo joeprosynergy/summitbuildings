@@ -458,11 +458,11 @@ const BudgetProLoftedBarn = () => {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <a href="https://summitportablebuildings.shedsuite.com" target="_blank" rel="noopener noreferrer">
+                <Link to="/inventory">
                   <Button variant="heroOutline" size="xl">
                     Browse Our Inventory
                   </Button>
-                </a>
+                </Link>
               </div>
             </div>
           </section>
