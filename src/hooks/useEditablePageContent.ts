@@ -66,9 +66,16 @@ export function useEditablePageContent(slug: string, defaultContent: PageContent
     if (!client) return;
 
     setIsSaving(true);
-    const { error } = await client
-      .from('page_content')
-      .upsert({
+
+    try {
+      // Check if row exists first (defensive: works without unique constraint)
+      const { data: existing } = await (client as any)
+        .from('page_content')
+        .select('id')
+        .eq('slug', slug)
+        .maybeSingle();
+
+      const payload = {
         slug,
         heading: editedContent.heading,
         tagline: editedContent.tagline,
@@ -78,16 +85,37 @@ export function useEditablePageContent(slug: string, defaultContent: PageContent
         cta_button: editedContent.ctaButton,
         meta_title: editedContent.metaTitle,
         meta_description: editedContent.metaDescription,
-      }, { onConflict: 'slug' });
+      };
 
-    if (error) {
-      toast.error('Failed to save changes');
-      console.error(error);
-    } else {
-      toast.success('Changes saved');
-      setContent(editedContent);
-      setIsEditMode(false);
+      let error;
+      if (existing?.id) {
+        // Update existing row
+        const result = await (client as any)
+          .from('page_content')
+          .update(payload)
+          .eq('id', existing.id);
+        error = result.error;
+      } else {
+        // Insert new row
+        const result = await (client as any)
+          .from('page_content')
+          .insert(payload);
+        error = result.error;
+      }
+
+      if (error) {
+        toast.error(`Save failed: ${error.message || 'Unknown error'}`);
+        console.error('[useEditablePageContent] Save error:', error);
+      } else {
+        toast.success('Changes saved');
+        setContent(editedContent);
+        setIsEditMode(false);
+      }
+    } catch (err: any) {
+      toast.error(`Save failed: ${err.message || 'Unknown error'}`);
+      console.error('[useEditablePageContent] Exception:', err);
     }
+
     setIsSaving(false);
   }, [slug, editedContent]);
 

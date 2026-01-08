@@ -64,8 +64,8 @@ export function useSectionContent<T extends SectionContent>(
       }, { onConflict: 'page_slug,section_name' });
 
     if (error) {
-      toast.error('Failed to save section content');
-      console.error(error);
+      toast.error(`Save failed: ${error.message || 'Unknown error'}`);
+      console.error('[useSectionContent] Save error:', error);
       setIsSaving(false);
       return false;
     }
