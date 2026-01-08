@@ -64,6 +64,11 @@ const AdminLogin = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !isLoading && email) {
+                handleSendLink();
+              }
+            }}
           />
           <Button className="w-full" onClick={handleSendLink} disabled={isLoading}>
             {isLoading ? "Sending..." : "Send login link"}

@@ -60,9 +60,11 @@ const Admin = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center space-y-4">
-          <p className="text-muted-foreground">Loading...</p>
-          <p className="text-xs text-muted-foreground/60">Backend: {getBackendHost()}</p>
+        <div className="text-center space-y-6 w-full max-w-xs">
+          <p className="text-muted-foreground">Loading admin...</p>
+          <div className="h-2 bg-muted rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full animate-pulse w-2/3" />
+          </div>
         </div>
       </div>
     );
