@@ -38,7 +38,6 @@ import Configurator3D from "./pages/Configurator3D";
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const Admin = lazy(() => import("./pages/Admin"));
 const AdminCloudinaryUpload = lazy(() => import("./pages/AdminCloudinaryUpload"));
-const AdminContentEditor = lazy(() => import("./pages/AdminContentEditor"));
 const AssetAudit = lazy(() => import("./pages/AssetAudit"));
 
 const App = () => (
@@ -96,12 +95,7 @@ const App = () => (
                 <Admin />
               </Suspense>
             } />
-            <Route path="/admin/content" element={
-              <Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading…</div>}>
-                <AdminContentEditor />
-              </Suspense>
-            } />
-             <Route
+            <Route
                path="/cloudinary-upload"
                element={
                  <Suspense
