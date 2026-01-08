@@ -345,6 +345,7 @@ const BarnCabin = () => {
               </div>
             </div>
           </section>
+        </main>
             <Footer />
           </div>
         </>
