@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
-import { supabase } from '@/integrations/supabase/client';
+import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
 
 const categories = [
   {
@@ -68,7 +68,19 @@ const OurModels = () => {
 
   useEffect(() => {
     const fetchContent = async () => {
-      const { data, error } = await supabase
+      // Preview environment: skip backend, use defaults immediately
+      if (!isBackendAvailable()) {
+        setIsLoading(false);
+        return;
+      }
+      
+      const client = getBackendClient();
+      if (!client) {
+        setIsLoading(false);
+        return;
+      }
+
+      const { data, error } = await client
         .from('page_content')
         .select('*')
         .eq('slug', 'types')
