@@ -114,51 +114,65 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-8">
+          {/* Inline Editing Section */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Content
+                Edit Page Content
               </CardTitle>
-              <CardDescription>Manage site content and pages</CardDescription>
+              <CardDescription>
+                Navigate to any page to edit its content inline. Look for the "Edit Page" button in the bottom-right corner.
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="secondary" className="w-full" onClick={() => navigate('/admin/content')}>
-                Manage Content
-              </Button>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <Button variant="outline" className="justify-start" onClick={() => navigate('/')}>
+                  Home Page
+                </Button>
+                <Button variant="outline" className="justify-start" onClick={() => navigate('/styles')}>
+                  Building Styles
+                </Button>
+                <Button variant="outline" className="justify-start" onClick={() => navigate('/types')}>
+                  Structure Types
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5" />
-                Users
-              </CardTitle>
-              <CardDescription>View and manage user accounts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="secondary" className="w-full">
-                Manage Users
-              </Button>
-            </CardContent>
-          </Card>
+          {/* Other Admin Sections */}
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  Users
+                </CardTitle>
+                <CardDescription>View and manage user accounts</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="secondary" className="w-full" disabled>
+                  Coming Soon
+                </Button>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="w-5 h-5" />
-                Settings
-              </CardTitle>
-              <CardDescription>Configure site settings</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button variant="secondary" className="w-full">
-                Open Settings
-              </Button>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="w-5 h-5" />
+                  Settings
+                </CardTitle>
+                <CardDescription>Configure site settings</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="secondary" className="w-full" disabled>
+                  Coming Soon
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
     </div>

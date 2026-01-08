@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Truck, CreditCard, Shield } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { cloudinaryImages, getMobileHeroImage, IMAGES } from '@/lib/cloudinary';
+import { InlineEditable } from '@/components/admin/InlineEditable';
+import { PageContent } from '@/hooks/useEditablePageContent';
 
 const badges = [
   { icon: Truck, label: 'Free Delivery (50mi)' },
@@ -9,8 +11,23 @@ const badges = [
   { icon: Shield, label: '5-Year Warranty' },
 ];
 
-const Hero = () => {
+interface HeroProps {
+  content?: PageContent;
+  isEditMode?: boolean;
+  onUpdateField?: (field: keyof PageContent, value: string) => void;
+}
+
+const Hero = ({ content, isEditMode = false, onUpdateField }: HeroProps) => {
   const location = useLocation();
+  
+  // Default values if no content passed
+  const heading = content?.heading ?? "Get the Storage Space You Need Without the Hassle";
+  const tagline = content?.tagline ?? "Summit Portable Buildings";
+  const subheading = content?.subheading ?? "Custom storage buildings designed for your property, built by craftsmen, delivered to your door.";
+  const ctaHeading = content?.ctaHeading ?? "Stop living with clutter";
+  const ctaDescription = content?.ctaDescription ?? "Design your perfect shed online in minutes and we'll handle the rest.";
+  const ctaButton = content?.ctaButton ?? "Design Your Shed Now";
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image using picture element for responsive loading */}
@@ -35,22 +52,55 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container-custom py-32 lg:py-40">
         <div className="max-w-3xl">
-          <p className="text-secondary font-heading text-lg md:text-xl uppercase tracking-widest mb-4 animate-fade-in-up">
-            Summit Portable Buildings
-          </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            Get the Storage Space You Need <span className="text-secondary">Without the Hassle</span>
-          </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/80 mb-4 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Custom storage buildings designed for your property, built by craftsmen, delivered to your door.
-          </p>
-          <p className="text-primary-foreground/70 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
-            Stop living with clutter. Design your perfect shed online in minutes and we'll handle the rest.
-          </p>
+          <InlineEditable
+            value={tagline}
+            fieldName="tagline"
+            onChange={(v) => onUpdateField?.('tagline', v)}
+            isEditMode={isEditMode}
+            className="text-secondary font-heading text-lg md:text-xl uppercase tracking-widest mb-4 animate-fade-in-up"
+            as="p"
+          />
+          <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <InlineEditable
+              value={heading}
+              fieldName="heading"
+              onChange={(v) => onUpdateField?.('heading', v)}
+              isEditMode={isEditMode}
+              className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight"
+              as="h1"
+            />
+          </div>
+          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <InlineEditable
+              value={subheading}
+              fieldName="subheading"
+              type="textarea"
+              onChange={(v) => onUpdateField?.('subheading', v)}
+              isEditMode={isEditMode}
+              className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl"
+              as="p"
+            />
+          </div>
+          <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            <InlineEditable
+              value={ctaDescription}
+              fieldName="CTA description"
+              onChange={(v) => onUpdateField?.('ctaDescription', v)}
+              isEditMode={isEditMode}
+              className="text-primary-foreground/70 max-w-2xl"
+              as="p"
+            />
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <Link to="/3d-configurator" state={{ from: location.pathname }}>
               <Button variant="hero" size="xl">
-                Design Your Shed Now
+                <InlineEditable
+                  value={ctaButton}
+                  fieldName="CTA button"
+                  onChange={(v) => onUpdateField?.('ctaButton', v)}
+                  isEditMode={isEditMode}
+                  as="span"
+                />
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>

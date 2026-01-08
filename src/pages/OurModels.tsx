@@ -1,14 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
-import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useEditablePageContent, PageContent } from '@/hooks/useEditablePageContent';
 import { InlineEditable } from '@/components/admin/InlineEditable';
 import { AdminEditMode } from '@/components/admin/AdminEditMode';
-import { toast } from 'sonner';
 
 const categories = [
   {
@@ -55,7 +53,7 @@ const categories = [
   },
 ];
 
-const defaultContent = {
+const defaultContent: PageContent = {
   heading: "Structure Types",
   tagline: "Hand-Built to Last",
   subheading: "Choose one of our popular models or customize your own",
@@ -67,92 +65,19 @@ const defaultContent = {
 };
 
 const OurModels = () => {
-  const [content, setContent] = useState(defaultContent);
-  const [editedContent, setEditedContent] = useState(defaultContent);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
   const { isAdmin } = useAdminAuth();
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      if (!isBackendAvailable()) {
-        setIsLoading(false);
-        return;
-      }
-      
-      const client = getBackendClient();
-      if (!client) {
-        setIsLoading(false);
-        return;
-      }
-
-      const { data, error } = await client
-        .from('page_content')
-        .select('*')
-        .eq('slug', 'types')
-        .maybeSingle();
-
-      if (data && !error) {
-        const fetched = {
-          heading: data.heading ?? defaultContent.heading,
-          tagline: data.tagline ?? defaultContent.tagline,
-          subheading: data.subheading ?? defaultContent.subheading,
-          ctaHeading: data.cta_heading ?? defaultContent.ctaHeading,
-          ctaDescription: data.cta_description ?? defaultContent.ctaDescription,
-          ctaButton: data.cta_button ?? defaultContent.ctaButton,
-          metaTitle: data.meta_title ?? defaultContent.metaTitle,
-          metaDescription: data.meta_description ?? defaultContent.metaDescription,
-        };
-        setContent(fetched);
-        setEditedContent(fetched);
-      }
-      setIsLoading(false);
-    };
-
-    fetchContent();
-  }, []);
-
-  const hasChanges = JSON.stringify(content) !== JSON.stringify(editedContent);
-
-  const handleSave = async () => {
-    const client = getBackendClient();
-    if (!client) return;
-
-    setIsSaving(true);
-    const { error } = await client
-      .from('page_content')
-      .update({
-        heading: editedContent.heading,
-        tagline: editedContent.tagline,
-        subheading: editedContent.subheading,
-        cta_heading: editedContent.ctaHeading,
-        cta_description: editedContent.ctaDescription,
-        cta_button: editedContent.ctaButton,
-        meta_title: editedContent.metaTitle,
-        meta_description: editedContent.metaDescription,
-      })
-      .eq('slug', 'types');
-
-    if (error) {
-      toast.error('Failed to save changes');
-      console.error(error);
-    } else {
-      toast.success('Changes saved');
-      setContent(editedContent);
-      setIsEditMode(false);
-    }
-    setIsSaving(false);
-  };
-
-  const handleCancel = () => {
-    setEditedContent(content);
-    setIsEditMode(false);
-  };
-
-  const updateField = (field: keyof typeof defaultContent, value: string) => {
-    setEditedContent(prev => ({ ...prev, [field]: value }));
-  };
+  const {
+    content,
+    editedContent,
+    isLoading,
+    isSaving,
+    isEditMode,
+    hasChanges,
+    updateField,
+    save,
+    reset,
+    startEditing,
+  } = useEditablePageContent('types', defaultContent);
 
   if (isLoading) {
     return null;
@@ -173,9 +98,9 @@ const OurModels = () => {
         isEditMode={isEditMode}
         hasChanges={hasChanges}
         isSaving={isSaving}
-        onToggleEdit={() => setIsEditMode(true)}
-        onSave={handleSave}
-        onCancel={handleCancel}
+        onToggleEdit={startEditing}
+        onSave={save}
+        onCancel={reset}
       />
 
       <main className="pt-20">
