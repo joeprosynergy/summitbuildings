@@ -64,6 +64,7 @@ const defaultContent = {
 
 const OurModels = () => {
   const [content, setContent] = useState(defaultContent);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -85,10 +86,15 @@ const OurModels = () => {
           metaDescription: data.meta_description ?? defaultContent.metaDescription,
         });
       }
+      setIsLoading(false);
     };
 
     fetchContent();
   }, []);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>
