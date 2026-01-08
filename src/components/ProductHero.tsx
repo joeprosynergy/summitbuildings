@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 interface CTAButton {
   text: string;
@@ -31,6 +32,9 @@ interface ProductHeroProps {
   showDeliveryBadge?: boolean;
   ctaButtons?: CTAButton[]; // Custom CTA buttons
   extraContent?: React.ReactNode; // For things like the badges in Carports
+  // Edit mode props
+  isEditMode?: boolean;
+  onUpdateField?: (field: string, value: string) => void;
 }
 
 const defaultCTAButtons: CTAButton[] = [
@@ -62,6 +66,8 @@ const ProductHero = ({
   showDeliveryBadge = true,
   ctaButtons = defaultCTAButtons,
   extraContent,
+  isEditMode = false,
+  onUpdateField,
 }: ProductHeroProps) => {
   const location = useLocation();
   const state = location.state as { from?: string } | null;
@@ -92,20 +98,78 @@ const ProductHero = ({
   };
   
   const resolvedBackPath = resolveBackPath();
-  const renderTitle = () => {
+  
+  const renderEditableTitle = () => {
+    if (!isEditMode || !onUpdateField) {
+      // Non-edit mode - render normally
+      if (titlePosition === 'only') {
+        return <span className="text-secondary">{titleHighlight}</span>;
+      }
+      if (titlePosition === 'before') {
+        return (
+          <>
+            <span className="text-secondary">{titleHighlight}</span> {title}
+          </>
+        );
+      }
+      return (
+        <>
+          {title} <span className="text-secondary">{titleHighlight}</span>
+        </>
+      );
+    }
+    
+    // Edit mode - make title parts editable
     if (titlePosition === 'only') {
-      return <span className="text-secondary">{titleHighlight}</span>;
+      return (
+        <InlineEditable
+          value={titleHighlight}
+          fieldName="titleHighlight"
+          onChange={(val) => onUpdateField('titleHighlight', val)}
+          isEditMode={isEditMode}
+          className="text-secondary"
+          as="span"
+        />
+      );
     }
     if (titlePosition === 'before') {
       return (
         <>
-          <span className="text-secondary">{titleHighlight}</span> {title}
+          <InlineEditable
+            value={titleHighlight}
+            fieldName="titleHighlight"
+            onChange={(val) => onUpdateField('titleHighlight', val)}
+            isEditMode={isEditMode}
+            className="text-secondary"
+            as="span"
+          />{' '}
+          <InlineEditable
+            value={title}
+            fieldName="title"
+            onChange={(val) => onUpdateField('title', val)}
+            isEditMode={isEditMode}
+            as="span"
+          />
         </>
       );
     }
     return (
       <>
-        {title} <span className="text-secondary">{titleHighlight}</span>
+        <InlineEditable
+          value={title}
+          fieldName="title"
+          onChange={(val) => onUpdateField('title', val)}
+          isEditMode={isEditMode}
+          as="span"
+        />{' '}
+        <InlineEditable
+          value={titleHighlight}
+          fieldName="titleHighlight"
+          onChange={(val) => onUpdateField('titleHighlight', val)}
+          isEditMode={isEditMode}
+          className="text-secondary"
+          as="span"
+        />
       </>
     );
   };
@@ -122,20 +186,54 @@ const ProductHero = ({
               {resolvedBackPath.label}
             </Link>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary-foreground leading-tight mb-6">
-              {renderTitle()}
+              {renderEditableTitle()}
             </h1>
             <div className="text-lg text-primary-foreground/80 mb-6">
-              {description}
+              {isEditMode && onUpdateField && typeof description === 'string' ? (
+                <InlineEditable
+                  value={description}
+                  fieldName="description"
+                  type="textarea"
+                  onChange={(val) => onUpdateField('description', val)}
+                  isEditMode={isEditMode}
+                  as="p"
+                />
+              ) : (
+                description
+              )}
             </div>
             
             {secondaryDescription && (
               <div className="text-primary-foreground/80 mb-6">
-                {secondaryDescription}
+                {isEditMode && onUpdateField && typeof secondaryDescription === 'string' ? (
+                  <InlineEditable
+                    value={secondaryDescription}
+                    fieldName="secondaryDescription"
+                    type="textarea"
+                    onChange={(val) => onUpdateField('secondaryDescription', val)}
+                    isEditMode={isEditMode}
+                    as="p"
+                  />
+                ) : (
+                  secondaryDescription
+                )}
               </div>
             )}
             
             {subtitle && (
-              <p className="text-secondary font-heading text-xl mb-6">{subtitle}</p>
+              <p className="text-secondary font-heading text-xl mb-6">
+                {isEditMode && onUpdateField ? (
+                  <InlineEditable
+                    value={subtitle}
+                    fieldName="subtitle"
+                    onChange={(val) => onUpdateField('subtitle', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
+                ) : (
+                  subtitle
+                )}
+              </p>
             )}
 
             {extraContent}

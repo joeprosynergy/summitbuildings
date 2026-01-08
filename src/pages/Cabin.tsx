@@ -17,6 +17,7 @@ import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -185,12 +186,30 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 interface CabinContent {
   metaTitle: string;
   metaDescription: string;
+  title: string;
+  titleHighlight: string;
+  description: string;
+  secondaryDescription: string;
+  subtitle: string;
+  featuresHeading: string;
+  featuresDescription: string;
+  ctaHeading: string;
+  ctaDescription: string;
   [key: string]: string;
 }
 
 const defaultContent: CabinContent = {
   metaTitle: 'Summit Cabin | Summit Portable Buildings',
   metaDescription: 'The Summit Cabin is perfect for your lake lot, hunting cabin, or tiny home. Features 7/12 pitch roof, 6\' treated wood porch, LED lighting, electrical package, and double pane windows. Starting at $29,717.89. Free delivery within 50 miles.',
+  title: 'SUMMIT',
+  titleHighlight: 'CABIN',
+  description: 'The Summit Cabin is a great building for your lake lot, hunting cabin, or kid\'s play house! The windows let in extra light so that you don\'t need electricity during the daytime. The porch is the perfect place to sit and enjoy the sunset after a long day.',
+  secondaryDescription: 'Rather than taking the time to build something permanent, consider this building because it can be moved if necessary. There are so many sizing and siding options that you can find something to fit your hunting property or back yard!',
+  subtitle: 'Starting at $29,717.89',
+  featuresHeading: 'Built for Living & Relaxation',
+  featuresDescription: 'The possibilities are endless with a Summit Cabin. Whether it\'s a tiny home, hunting cabin, or lake retreat — every inch of space can be utilized to perfection. Fully customizable to your needs.',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect cabin online or contact us for a free quote.',
 };
 
 const Cabin = () => {
@@ -203,7 +222,7 @@ const Cabin = () => {
 
   return (
     <EditablePageWrapper slug="cabin" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -219,13 +238,15 @@ const Cabin = () => {
         <main>
           <ProductHero
             backPath={backPath}
-            title="SUMMIT"
-            titleHighlight="CABIN"
-            description="The Summit Cabin is a great building for your lake lot, hunting cabin, or kid's play house! The windows let in extra light so that you don't need electricity during the daytime. The porch is the perfect place to sit and enjoy the sunset after a long day."
-            secondaryDescription="Rather than taking the time to build something permanent, consider this building because it can be moved if necessary. There are so many sizing and siding options that you can find something to fit your hunting property or back yard!"
-            subtitle="Starting at $29,717.89"
+            title={content.title}
+            titleHighlight={content.titleHighlight}
+            description={content.description}
+            secondaryDescription={content.secondaryDescription}
+            subtitle={content.subtitle}
             image={cloudinaryImages.cabin1}
             imageAlt="Summit Cabin"
+            isEditMode={isEditMode}
+            onUpdateField={(field, value) => updateField(field as keyof CabinContent, value)}
           />
 
           {/* Image Gallery */}
@@ -240,10 +261,23 @@ const Cabin = () => {
             <div className="container-custom">
               <div className="max-w-4xl mx-auto">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Living & Relaxation</span>
+                  <InlineEditable
+                    value={content.featuresHeading}
+                    fieldName="featuresHeading"
+                    onChange={(val) => updateField('featuresHeading', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                  The possibilities are endless with a Summit Cabin. Whether it's a tiny home, hunting cabin, or lake retreat — every inch of space can be utilized to perfection. Fully customizable to your needs.
+                  <InlineEditable
+                    value={content.featuresDescription}
+                    fieldName="featuresDescription"
+                    type="textarea"
+                    onChange={(val) => updateField('featuresDescription', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-8 items-center">

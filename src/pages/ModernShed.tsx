@@ -13,6 +13,7 @@ import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 import modernShed1 from '@/assets/modern-shed-1.jpg';
 import modernShed2 from '@/assets/modern-shed-2.jpg';
@@ -124,12 +125,26 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 interface ModernShedContent {
   metaTitle: string;
   metaDescription: string;
+  title: string;
+  titleHighlight: string;
+  description: string;
+  featuresHeading: string;
+  featuresDescription: string;
+  ctaHeading: string;
+  ctaDescription: string;
   [key: string]: string;
 }
 
 const defaultContent: ModernShedContent = {
   metaTitle: 'Modern Shed | Summit Portable Buildings',
   metaDescription: 'Discover our Modern Shed with single slope roof design. Features LP SmartSide siding, 6-inch overhangs, and contemporary aesthetics. Perfect for offices, studios, or storage.',
+  title: 'MODERN',
+  titleHighlight: 'SHED',
+  description: 'Contemporary design with clean lines and a distinctive single slope roof. Perfect for modern home offices, art studios, or stylish storage solutions.',
+  featuresHeading: 'Standard Features',
+  featuresDescription: 'Every Modern Shed includes premium Pro Series construction with contemporary design elements that set it apart from traditional sheds.',
+  ctaHeading: 'Ready to Design Your Modern Shed?',
+  ctaDescription: 'Use our online configurator to customize your perfect Modern Shed, or contact us for personalized assistance.',
 };
 
 const ModernShed = () => {
@@ -142,7 +157,7 @@ const ModernShed = () => {
 
   return (
     <EditablePageWrapper slug="modern-shed" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -155,11 +170,13 @@ const ModernShed = () => {
           <main className="pt-20">
         <ProductHero
           backPath={backPath}
-          title="MODERN"
-          titleHighlight="SHED"
-          description="Contemporary design with clean lines and a distinctive single slope roof. Perfect for modern home offices, art studios, or stylish storage solutions."
+          title={content.title}
+          titleHighlight={content.titleHighlight}
+          description={content.description}
           image={modernShed1}
           imageAlt="Modern Shed"
+          isEditMode={isEditMode}
+          onUpdateField={(field, value) => updateField(field as keyof ModernShedContent, value)}
         />
 
         {/* Gallery Section */}
@@ -175,10 +192,23 @@ const ModernShed = () => {
             <div className="grid lg:grid-cols-2 gap-12 items-start">
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-6">
-                  Standard Features
+                  <InlineEditable
+                    value={content.featuresHeading}
+                    fieldName="featuresHeading"
+                    onChange={(val) => updateField('featuresHeading', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  Every Modern Shed includes premium Pro Series construction with contemporary design elements that set it apart from traditional sheds.
+                  <InlineEditable
+                    value={content.featuresDescription}
+                    fieldName="featuresDescription"
+                    type="textarea"
+                    onChange={(val) => updateField('featuresDescription', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </p>
                 <ul className="space-y-3">
                   {modernShedFeatures.map((feature, index) => (
@@ -340,10 +370,23 @@ const ModernShed = () => {
         <section className="bg-primary py-16">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
-              Ready to Design Your Modern Shed?
+              <InlineEditable
+                value={content.ctaHeading}
+                fieldName="ctaHeading"
+                onChange={(val) => updateField('ctaHeading', val)}
+                isEditMode={isEditMode}
+                as="span"
+              />
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-              Use our online configurator to customize your perfect Modern Shed, or contact us for personalized assistance.
+              <InlineEditable
+                value={content.ctaDescription}
+                fieldName="ctaDescription"
+                type="textarea"
+                onChange={(val) => updateField('ctaDescription', val)}
+                isEditMode={isEditMode}
+                as="span"
+              />
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
