@@ -1,12 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState, useCallback } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
-import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
+import { getBackendClient } from '@/lib/backendClient';
 import { Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { InlineEdit } from '@/components/InlineEdit';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
+
 const categories = [
   {
     id: 'basic-storage',
@@ -64,33 +68,15 @@ const defaultContent = {
 };
 
 const OurModels = () => {
+  const { isAdmin, isLoading: authLoading } = useAuth();
   const [content, setContent] = useState(defaultContent);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  useEffect(() => {
-    const fetchContent = async () => {
-      // Preview environment: skip backend, use defaults immediately
-      if (!isBackendAvailable()) {
-        setIsLoading(false);
-        return;
-      }
-      
-      const client = getBackendClient();
-      if (!client) {
-        setIsLoading(false);
-        return;
-      }
 
-      // Check if user is admin
-      const { data: { user } } = await client.auth.getUser();
-      if (user) {
-        const { data: hasAdminRole } = await client.rpc('has_role', {
-          _user_id: user.id,
-          _role: 'admin'
-        });
-        setIsAdmin(hasAdminRole === true);
-      }
+  // Fetch content on mount (separate from auth)
+  useState(() => {
+    const fetchContent = async () => {
+      const client = getBackendClient();
+      if (!client) return;
 
       const { data, error } = await client
         .from('page_content')
@@ -110,15 +96,32 @@ const OurModels = () => {
           metaDescription: data.meta_description ?? defaultContent.metaDescription,
         });
       }
-      setIsLoading(false);
     };
-
     fetchContent();
-  }, []);
+  });
 
-  if (isLoading) {
-    return null;
-  }
+  const saveField = useCallback(async (field: string, dbField: string, value: string) => {
+    const client = getBackendClient();
+    if (!client) {
+      throw new Error('Backend not available');
+    }
+
+    // Upsert: insert if not exists, update if exists
+    const { error } = await client
+      .from('page_content')
+      .upsert(
+        { slug: 'types', [dbField]: value, updated_at: new Date().toISOString() },
+        { onConflict: 'slug' }
+      );
+
+    if (error) {
+      toast.error('Failed to save changes');
+      throw error;
+    }
+
+    setContent(prev => ({ ...prev, [field]: value }));
+    toast.success('Changes saved');
+  }, []);
 
   return (
     <>
@@ -131,7 +134,7 @@ const OurModels = () => {
       <Header />
 
       {/* Admin Edit Toggle - only visible to admins */}
-      {isAdmin && (
+      {!authLoading && isAdmin && (
         <div className="fixed bottom-4 right-4 z-50">
           <Button
             variant={isEditMode ? "default" : "outline"}
@@ -149,14 +152,27 @@ const OurModels = () => {
         {/* Hero Section */}
         <section className="bg-primary py-16 md:py-24">
           <div className="container-custom text-center">
-            <p className="text-secondary font-semibold tracking-wider uppercase mb-4">{content.tagline}</p>
+            <InlineEdit
+              value={content.tagline}
+              onSave={(val) => saveField('tagline', 'tagline', val)}
+              isEditMode={isEditMode}
+              className="text-secondary font-semibold tracking-wider uppercase mb-4"
+            />
             <div className="mb-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground">
-                {content.heading}
+                <InlineEdit
+                  value={content.heading}
+                  onSave={(val) => saveField('heading', 'heading', val)}
+                  isEditMode={isEditMode}
+                />
               </h1>
             </div>
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              {content.subheading}
+              <InlineEdit
+                value={content.subheading}
+                onSave={(val) => saveField('subheading', 'subheading', val)}
+                isEditMode={isEditMode}
+              />
             </p>
           </div>
         </section>
@@ -217,10 +233,18 @@ const OurModels = () => {
         <section className="bg-primary py-16">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
-              {content.ctaHeading}
+              <InlineEdit
+                value={content.ctaHeading}
+                onSave={(val) => saveField('ctaHeading', 'cta_heading', val)}
+                isEditMode={isEditMode}
+              />
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-              {content.ctaDescription}
+              <InlineEdit
+                value={content.ctaDescription}
+                onSave={(val) => saveField('ctaDescription', 'cta_description', val)}
+                isEditMode={isEditMode}
+              />
             </p>
             <a
               href="https://summitbuildings.shedpro.co/"
@@ -228,7 +252,11 @@ const OurModels = () => {
               rel="noopener noreferrer"
               className="inline-block bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-md hover:brightness-110 transition-all"
             >
-              {content.ctaButton}
+              <InlineEdit
+                value={content.ctaButton}
+                onSave={(val) => saveField('ctaButton', 'cta_button', val)}
+                isEditMode={isEditMode}
+              />
             </a>
           </div>
         </section>
