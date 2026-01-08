@@ -12,6 +12,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 import modernShed1 from '@/assets/modern-shed-1.jpg';
 import modernShed2 from '@/assets/modern-shed-2.jpg';
@@ -120,6 +121,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface ModernShedContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: ModernShedContent = {
+  metaTitle: 'Modern Shed | Summit Portable Buildings',
+  metaDescription: 'Discover our Modern Shed with single slope roof design. Features LP SmartSide siding, 6-inch overhangs, and contemporary aesthetics. Perfect for offices, studios, or storage.',
+};
+
 const ModernShed = () => {
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins',
@@ -129,16 +141,18 @@ const ModernShed = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Modern Shed | Summit Portable Buildings</title>
-        <meta name="description" content="Discover our Modern Shed with single slope roof design. Features LP SmartSide siding, 6-inch overhangs, and contemporary aesthetics. Perfect for offices, studios, or storage." />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/modern-shed" />
-      </Helmet>
+    <EditablePageWrapper slug="modern-shed" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/modern-shed" />
+          </Helmet>
 
-      <Header />
+          <Header />
 
-      <main className="pt-20">
+          <main className="pt-20">
         <ProductHero
           backPath={backPath}
           title="MODERN"
@@ -352,8 +366,10 @@ const ModernShed = () => {
         </section>
       </main>
 
-      <Footer />
-    </>
+          <Footer />
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

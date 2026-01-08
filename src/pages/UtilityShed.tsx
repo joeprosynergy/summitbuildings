@@ -16,6 +16,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -211,6 +212,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface UtilityShedContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: UtilityShedContent = {
+  metaTitle: 'Pro - Utility Shed | Summit Portable Buildings',
+  metaDescription: 'The Pro Utility Shed is a classy, yet simple addition to your property. Perfect for outdoor power equipment, tack rooms, hay sheds, workshops, or even a lake cabin. Available with standard or side door entry. Sizes 8×8 to 14×40. Free delivery within 50 miles.',
+};
+
 const UtilityShed = () => {
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins#pro-utility',
@@ -220,23 +232,19 @@ const UtilityShed = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Pro - Utility Shed | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Pro Utility Shed is a classy, yet simple addition to your property. Perfect for outdoor power equipment, tack rooms, hay sheds, workshops, or even a lake cabin. Available with standard or side door entry. Sizes 8×8 to 14×40. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Pro - Utility Shed | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="A classy, yet simple addition to your property. Superior workmanship makes it the obvious choice for your storage needs. Available as standard utility or side utility with windows."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-utility-shed" />
-      </Helmet>
+    <EditablePageWrapper slug="utility-shed" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-utility-shed" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -477,9 +485,11 @@ const UtilityShed = () => {
           </section>
         </main>
 
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

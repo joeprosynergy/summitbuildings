@@ -17,6 +17,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import images
 import barnCabin1 from '@/assets/barn-cabin-1.jpg';
@@ -145,32 +146,25 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface BarnCabinContent { metaTitle: string; metaDescription: string; [key: string]: string; }
+const defaultContent: BarnCabinContent = { metaTitle: 'Lofted Cabin | Barn Style | Summit Portable Buildings', metaDescription: 'The Lofted Cabin features a classic gambrel roof design with two lofts for maximum storage. Perfect for lake lots, hunting cabins, or tiny homes. Free delivery within 50 miles.' };
+
 const BarnCabin = () => {
-  const backPath = useBackPath({
-    defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
-    defaultLabel: '← Back to Deluxe Storage & Cabins',
-    stylesPath: '/styles/barn',
-    stylesLabel: '← Back to Barn Styles',
-  });
+  const backPath = useBackPath({ defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home', defaultLabel: '← Back to Deluxe Storage & Cabins', stylesPath: '/styles/barn', stylesLabel: '← Back to Barn Styles' });
 
   return (
-    <>
-      <Helmet>
-        <title>Lofted Cabin | Barn Style | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Lofted Cabin features a classic gambrel roof design with two lofts for maximum storage. Perfect for lake lots, hunting cabins, or tiny homes. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Lofted Cabin | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Classic barn-style cabin with gambrel roof, dual lofts, and covered porch. Ideal for lake retreats, hunting cabins, or guest houses."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/barn-cabin" />
-      </Helmet>
-
-      <div className="min-h-screen">
-        <Header />
+    <EditablePageWrapper slug="barn-cabin" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/barn-cabin" />
+          </Helmet>
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -351,12 +345,11 @@ const BarnCabin = () => {
               </div>
             </div>
           </section>
-        </main>
-
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
-
 export default BarnCabin;

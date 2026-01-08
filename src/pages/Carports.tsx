@@ -21,6 +21,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -93,6 +94,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface CarportsContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: CarportsContent = {
+  metaTitle: 'Carports & RV Covers | Summit Portable Buildings',
+  metaDescription: 'Steel carports and RV covers provide the best protection against cold, rain, sun, and wind – even tornadoes and hurricanes. Available for commercial, industrial, or residential use.',
+};
+
 const Carports = () => {
   const backPath = useBackPath({
     defaultPath: '/types/garages-carports#carports',
@@ -102,23 +114,19 @@ const Carports = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Carports & RV Covers | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="Steel carports and RV covers provide the best protection against cold, rain, sun, and wind – even tornadoes and hurricanes. Available for commercial, industrial, or residential use."
-        />
-        <meta property="og:title" content="Carports & RV Covers | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Heavy-duty steel carports protect your vehicles from the elements. Perfect for cars, trucks, RVs, boats, and equipment storage."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/carports" />
-      </Helmet>
+    <EditablePageWrapper slug="carports" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/carports" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -337,9 +345,11 @@ const Carports = () => {
           </section>
         </main>
 
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

@@ -17,6 +17,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -204,32 +205,25 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface BudgetProLoftedBarnContent { metaTitle: string; metaDescription: string; [key: string]: string; }
+const defaultContent: BudgetProLoftedBarnContent = { metaTitle: 'Budget Pro - Lofted Barn | Summit Portable Buildings', metaDescription: 'The Budget Pro Lofted Barn offers classic barn styling at an affordable price. Features 1 loft for extra storage, double doors with T-handle lock. Sizes 8×8 to 14×40. Free delivery within 50 miles.' };
+
 const BudgetProLoftedBarn = () => {
-  const backPath = useBackPath({
-    defaultPath: '/types/basic-storage#budget-pro-lofted-barn',
-    defaultLabel: '← Back to Basic Storage',
-    stylesPath: '/styles/barn',
-    stylesLabel: '← Back to Styles',
-  });
+  const backPath = useBackPath({ defaultPath: '/types/basic-storage#budget-pro-lofted-barn', defaultLabel: '← Back to Basic Storage', stylesPath: '/styles/barn', stylesLabel: '← Back to Styles' });
 
   return (
-    <>
-      <Helmet>
-        <title>Budget Pro - Lofted Barn | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Budget Pro Lofted Barn offers classic barn styling at an affordable price. Features 1 loft for extra storage, double doors with T-handle lock, and customizable options. Sizes 8×8 to 14×40. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Budget Pro - Lofted Barn | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Classic barn styling at an affordable price with 1 loft for extra storage and customizable layout options."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-lofted-barn" />
-      </Helmet>
-
-      <div className="min-h-screen">
-        <Header />
+    <EditablePageWrapper slug="budget-pro-lofted-barn" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-lofted-barn" />
+          </Helmet>
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -469,10 +463,11 @@ const BudgetProLoftedBarn = () => {
           </section>
         </main>
         
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
-
 export default BudgetProLoftedBarn;

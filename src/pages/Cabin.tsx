@@ -16,6 +16,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -181,6 +182,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface CabinContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: CabinContent = {
+  metaTitle: 'Summit Cabin | Summit Portable Buildings',
+  metaDescription: 'The Summit Cabin is perfect for your lake lot, hunting cabin, or tiny home. Features 7/12 pitch roof, 6\' treated wood porch, LED lighting, electrical package, and double pane windows. Starting at $29,717.89. Free delivery within 50 miles.',
+};
+
 const Cabin = () => {
   const backPath = useBackPath({
     defaultPath: '/types/deluxe-storage-cabins#cabins-tiny-home',
@@ -190,23 +202,19 @@ const Cabin = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Summit Cabin | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Summit Cabin is perfect for your lake lot, hunting cabin, or tiny home. Features 7/12 pitch roof, 6' treated wood porch, LED lighting, electrical package, and double pane windows. Starting at $29,717.89. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Summit Cabin | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="A great building for your lake lot, hunting cabin or kid's play house! Windows let in extra light, porch is perfect for sunset views. Moveable and customizable."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/cabin" />
-      </Helmet>
+    <EditablePageWrapper slug="cabin" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/cabin" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -431,8 +439,11 @@ const Cabin = () => {
         </main>
 
         <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

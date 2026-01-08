@@ -16,6 +16,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -86,6 +87,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface EconomyShedContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: EconomyShedContent = {
+  metaTitle: 'Economy Shed | Summit Portable Buildings',
+  metaDescription: 'The Economy Shed is our most economical storage building available. Lowest cost per square foot of floor space. Available in standard or lofted configurations with metal siding. Free delivery within 50 miles.',
+};
+
 const EconomyShed = () => {
   const backPath = useBackPath({
     defaultPath: '/types/basic-storage#economy',
@@ -95,23 +107,19 @@ const EconomyShed = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Economy Shed | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Economy Shed is our most economical storage building available. Lowest cost per square foot of floor space. Available in standard or lofted configurations with metal siding. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Economy Shed | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Our most economical storage building. Lowest cost per square foot. Built simply for storage purposes with metal siding. Available in standard or lofted styles."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/economy-shed" />
-      </Helmet>
+    <EditablePageWrapper slug="economy-shed" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/economy-shed" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -311,8 +319,10 @@ const EconomyShed = () => {
         </main>
 
         <Footer />
-      </div>
-    </>
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

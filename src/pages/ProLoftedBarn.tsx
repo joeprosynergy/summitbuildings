@@ -16,6 +16,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -212,32 +213,25 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface ProLoftedBarnContent { metaTitle: string; metaDescription: string; [key: string]: string; }
+const defaultContent: ProLoftedBarnContent = { metaTitle: 'Pro - Lofted Barn | Summit Portable Buildings', metaDescription: 'The Pro Lofted Barn is our best seller - the most versatile building for all purposes. Features 2 lofts for extra storage, windows for natural light, and classic barn styling. Sizes 8×8 to 14×40. Free delivery within 50 miles.' };
+
 const ProLoftedBarn = () => {
-  const backPath = useBackPath({
-    defaultPath: '/types/deluxe-storage-cabins#pro-lofted-barn',
-    defaultLabel: '← Back to Deluxe Storage & Cabins',
-    stylesPath: '/styles/barn',
-    stylesLabel: '← Back to Styles',
-  });
+  const backPath = useBackPath({ defaultPath: '/types/deluxe-storage-cabins#pro-lofted-barn', defaultLabel: '← Back to Deluxe Storage & Cabins', stylesPath: '/styles/barn', stylesLabel: '← Back to Styles' });
 
   return (
-    <>
-      <Helmet>
-        <title>Pro - Lofted Barn | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Pro Lofted Barn is our best seller - the most versatile building for all purposes. Features 2 lofts for extra storage, windows for natural light, and classic barn styling. Available with standard or side door entry. Sizes 8×8 to 14×40. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Pro - Lofted Barn | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Our best seller! The most versatile building for all purposes with 2 lofts, windows, and classic barn styling. Available as standard or side lofted barn."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-lofted-barn" />
-      </Helmet>
-
-      <div className="min-h-screen">
-        <Header />
+    <EditablePageWrapper slug="pro-lofted-barn" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/deluxe-storage-cabins/pro-lofted-barn" />
+          </Helmet>
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -467,10 +461,11 @@ const ProLoftedBarn = () => {
           </section>
         </main>
         
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
-
 export default ProLoftedBarn;

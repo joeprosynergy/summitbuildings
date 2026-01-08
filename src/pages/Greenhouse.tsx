@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import images
 import greenhouse1 from '@/assets/greenhouse-1.jpg';
@@ -98,25 +99,32 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface GreenhouseContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: GreenhouseContent = {
+  metaTitle: 'Greenhouse | Summit Portable Buildings',
+  metaDescription: 'Summit Buildings Greenhouses feature treated decking floors, exhaust fans, thermostat controllers, shelving, potting benches, and electrical packages. Perfect for year-round growing.',
+};
+
 const Greenhouse = () => {
   return (
-    <>
-      <Helmet>
-        <title>Greenhouse | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="Summit Buildings Greenhouses feature treated decking floors, exhaust fans, thermostat controllers, shelving, potting benches, and electrical packages. Perfect for year-round growing."
-        />
-        <meta property="og:title" content="Greenhouse | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Purpose-built greenhouses with ventilation, electrical packages, and durable construction for serious gardeners. Free delivery within 50 miles."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/greenhouse" />
-      </Helmet>
+    <EditablePageWrapper slug="greenhouse" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/greenhouse" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -287,9 +295,11 @@ const Greenhouse = () => {
           </section>
         </main>
         
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 

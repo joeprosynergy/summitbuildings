@@ -16,6 +16,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -202,6 +203,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface GarageContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: GarageContent = {
+  metaTitle: 'Garage | Summit Portable Buildings',
+  metaDescription: 'Summit Garages are built to handle the weight of any average size vehicle or small tractor. Features 9\'x7\' insulated overhead door, steel walk-in door, and floor joists spaced 12 inches on center. Protect your vehicle from hail damage. Free delivery within 50 miles.',
+};
+
 const Garage = () => {
   const backPath = useBackPath({
     defaultPath: '/types/garages-carports#garages',
@@ -211,23 +223,19 @@ const Garage = () => {
   });
 
   return (
-    <>
-      <Helmet>
-        <title>Garage | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="Summit Garages are built to handle the weight of any average size vehicle or small tractor. Features 9'x7' insulated overhead door, steel walk-in door, and floor joists spaced 12 inches on center. Protect your vehicle from hail damage. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Garage | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Built to handle vehicle weight with insulated overhead door, steel walk-in door, and floor joists 12 inches on center. The woodworker's delight with large door access."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/garage" />
-      </Helmet>
+    <EditablePageWrapper slug="garage" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/garages-carports/garage" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -466,9 +474,11 @@ const Garage = () => {
           </section>
         </main>
 
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 
