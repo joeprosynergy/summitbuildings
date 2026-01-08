@@ -17,6 +17,7 @@ import {
 import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -199,32 +200,25 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface BudgetProUtilityContent { metaTitle: string; metaDescription: string; [key: string]: string; }
+const defaultContent: BudgetProUtilityContent = { metaTitle: 'Budget Pro - Utility Shed | Summit Portable Buildings', metaDescription: 'The Budget Pro Utility Shed offers maximum headroom with 7 foot 9 inch walls at an affordable price. Features double doors with T-handle lock. Sizes 8x8 to 14x40. Free delivery within 50 miles.' };
+
 const BudgetProUtility = () => {
-  const backPath = useBackPath({
-    defaultPath: '/types/basic-storage#budget-pro-utility',
-    defaultLabel: '← Back to Basic Storage',
-    stylesPath: '/styles/utility',
-    stylesLabel: '← Back to Styles',
-  });
+  const backPath = useBackPath({ defaultPath: '/types/basic-storage#budget-pro-utility', defaultLabel: '← Back to Basic Storage', stylesPath: '/styles/utility', stylesLabel: '← Back to Styles' });
 
   return (
-    <>
-      <Helmet>
-        <title>Budget Pro - Utility Shed | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="The Budget Pro Utility Shed offers maximum headroom with 7 foot 9 inch walls at an affordable price. Features double doors with T-handle lock, customizable layout, and side or front door entry options. Sizes 8x8 to 14x40. Free delivery within 50 miles."
-        />
-        <meta property="og:title" content="Budget Pro - Utility Shed | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Maximum headroom at an affordable price with 7 foot 9 inch walls and customizable layout options."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-utility" />
-      </Helmet>
-
-      <div className="min-h-screen">
-        <Header />
+    <EditablePageWrapper slug="budget-pro-utility" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/basic-storage/budget-pro-utility" />
+          </Helmet>
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -464,10 +458,11 @@ const BudgetProUtility = () => {
           </section>
         </main>
         
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
-
 export default BudgetProUtility;

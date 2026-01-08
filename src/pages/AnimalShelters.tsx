@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
 // Import images
 import animalShelter1 from '@/assets/animal-shelter-1.jpg';
@@ -135,6 +136,17 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
+interface AnimalSheltersContent {
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: AnimalSheltersContent = {
+  metaTitle: 'Animal Shelters, Dog Kennels & Chicken Coops | Summit Portable Buildings',
+  metaDescription: 'Quality animal housing solutions from Summit Buildings. Dog kennels, chicken coops, and animal shelters built with durable materials for comfort, safety, and security.',
+};
+
 const AnimalShelters = () => {
   const location = useLocation();
 
@@ -150,23 +162,19 @@ const AnimalShelters = () => {
   }, [location]);
 
   return (
-    <>
-      <Helmet>
-        <title>Animal Shelters, Dog Kennels & Chicken Coops | Summit Portable Buildings</title>
-        <meta
-          name="description"
-          content="Quality animal housing solutions from Summit Buildings. Dog kennels, chicken coops, and animal shelters built with durable materials for comfort, safety, and security."
-        />
-        <meta property="og:title" content="Animal Shelters | Summit Portable Buildings" />
-        <meta
-          property="og:description"
-          content="Purpose-built animal housing including dog kennels, chicken coops, and animal shelters. Durable construction, customizable options. Free delivery within 50 miles."
-        />
-        <link rel="canonical" href="https://summitbuildings.com/types/animal-shelters" />
-      </Helmet>
+    <EditablePageWrapper slug="animal-shelters" defaultContent={defaultContent}>
+      {({ content }) => (
+        <>
+          <Helmet>
+            <title>{content.metaTitle}</title>
+            <meta name="description" content={content.metaDescription} />
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <link rel="canonical" href="https://summitbuildings.com/types/animal-shelters" />
+          </Helmet>
 
-      <div className="min-h-screen">
-        <Header />
+          <div className="min-h-screen">
+            <Header />
         
         <main>
           <ProductHero
@@ -328,9 +336,11 @@ const AnimalShelters = () => {
           </section>
         </main>
         
-        <Footer />
-      </div>
-    </>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 
