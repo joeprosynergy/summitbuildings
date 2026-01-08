@@ -13,6 +13,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { useEditablePageContent, PageContent } from '@/hooks/useEditablePageContent';
+import { useEditableTestimonials } from '@/hooks/useEditableTestimonials';
 import { AdminEditMode } from '@/components/admin/AdminEditMode';
 
 const defaultContent: PageContent = {
@@ -41,6 +42,26 @@ const Index = () => {
     startEditing,
   } = useEditablePageContent('home', defaultContent);
 
+  const {
+    testimonials,
+    hasChanges: hasTestimonialChanges,
+    updateTestimonial,
+    save: saveTestimonials,
+    reset: resetTestimonials,
+  } = useEditableTestimonials();
+
+  const handleSave = async () => {
+    await save();
+    if (hasTestimonialChanges) {
+      await saveTestimonials();
+    }
+  };
+
+  const handleReset = () => {
+    reset();
+    resetTestimonials();
+  };
+
   return (
     <>
       <Helmet>
@@ -55,11 +76,11 @@ const Index = () => {
         <AdminEditMode
           isAdmin={isAdmin}
           isEditMode={isEditMode}
-          hasChanges={hasChanges}
+          hasChanges={hasChanges || hasTestimonialChanges}
           isSaving={isSaving}
           onToggleEdit={startEditing}
-          onSave={save}
-          onCancel={reset}
+          onSave={handleSave}
+          onCancel={handleReset}
         />
         <main>
           <Hero 
@@ -67,13 +88,17 @@ const Index = () => {
             isEditMode={isEditMode} 
             onUpdateField={updateField}
           />
-          <Stakes />
+          <Stakes isEditMode={isEditMode} />
           <Guide />
           <HowItWorks />
           <Products />
-          <Imagine />
-          <CTABanner />
-          <Testimonials />
+          <Imagine isEditMode={isEditMode} />
+          <CTABanner isEditMode={isEditMode} />
+          <Testimonials 
+            testimonials={testimonials}
+            isEditMode={isEditMode}
+            onUpdateTestimonial={updateTestimonial}
+          />
           <Locations />
           <Contact />
         </main>
