@@ -5,6 +5,10 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
 import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { InlineEditable } from '@/components/admin/InlineEditable';
+import { AdminEditMode } from '@/components/admin/AdminEditMode';
+import { toast } from 'sonner';
 
 const categories = [
   {
@@ -64,11 +68,14 @@ const defaultContent = {
 
 const OurModels = () => {
   const [content, setContent] = useState(defaultContent);
+  const [editedContent, setEditedContent] = useState(defaultContent);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const { isAdmin } = useAdminAuth();
 
   useEffect(() => {
     const fetchContent = async () => {
-      // Preview environment: skip backend, use defaults immediately
       if (!isBackendAvailable()) {
         setIsLoading(false);
         return;
@@ -87,7 +94,7 @@ const OurModels = () => {
         .maybeSingle();
 
       if (data && !error) {
-        setContent({
+        const fetched = {
           heading: data.heading ?? defaultContent.heading,
           tagline: data.tagline ?? defaultContent.tagline,
           subheading: data.subheading ?? defaultContent.subheading,
@@ -96,13 +103,56 @@ const OurModels = () => {
           ctaButton: data.cta_button ?? defaultContent.ctaButton,
           metaTitle: data.meta_title ?? defaultContent.metaTitle,
           metaDescription: data.meta_description ?? defaultContent.metaDescription,
-        });
+        };
+        setContent(fetched);
+        setEditedContent(fetched);
       }
       setIsLoading(false);
     };
 
     fetchContent();
   }, []);
+
+  const hasChanges = JSON.stringify(content) !== JSON.stringify(editedContent);
+
+  const handleSave = async () => {
+    const client = getBackendClient();
+    if (!client) return;
+
+    setIsSaving(true);
+    const { error } = await client
+      .from('page_content')
+      .update({
+        heading: editedContent.heading,
+        tagline: editedContent.tagline,
+        subheading: editedContent.subheading,
+        cta_heading: editedContent.ctaHeading,
+        cta_description: editedContent.ctaDescription,
+        cta_button: editedContent.ctaButton,
+        meta_title: editedContent.metaTitle,
+        meta_description: editedContent.metaDescription,
+      })
+      .eq('slug', 'types');
+
+    if (error) {
+      toast.error('Failed to save changes');
+      console.error(error);
+    } else {
+      toast.success('Changes saved');
+      setContent(editedContent);
+      setIsEditMode(false);
+    }
+    setIsSaving(false);
+  };
+
+  const handleCancel = () => {
+    setEditedContent(content);
+    setIsEditMode(false);
+  };
+
+  const updateField = (field: keyof typeof defaultContent, value: string) => {
+    setEditedContent(prev => ({ ...prev, [field]: value }));
+  };
 
   if (isLoading) {
     return null;
@@ -118,19 +168,46 @@ const OurModels = () => {
 
       <Header />
 
+      <AdminEditMode
+        isAdmin={isAdmin}
+        isEditMode={isEditMode}
+        hasChanges={hasChanges}
+        isSaving={isSaving}
+        onToggleEdit={() => setIsEditMode(true)}
+        onSave={handleSave}
+        onCancel={handleCancel}
+      />
+
       <main className="pt-20">
         {/* Hero Section */}
         <section className="bg-primary py-16 md:py-24">
           <div className="container-custom text-center">
-            <p className="text-secondary font-semibold tracking-wider uppercase mb-4">{content.tagline}</p>
+            <InlineEditable
+              value={editedContent.tagline}
+              fieldName="tagline"
+              onChange={(v) => updateField('tagline', v)}
+              isEditMode={isEditMode}
+              className="text-secondary font-semibold tracking-wider uppercase mb-4"
+              as="p"
+            />
             <div className="mb-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground">
-                {content.heading}
-              </h1>
+              <InlineEditable
+                value={editedContent.heading}
+                fieldName="heading"
+                onChange={(v) => updateField('heading', v)}
+                isEditMode={isEditMode}
+                className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground"
+                as="h1"
+              />
             </div>
-            <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              {content.subheading}
-            </p>
+            <InlineEditable
+              value={editedContent.subheading}
+              fieldName="subheading"
+              onChange={(v) => updateField('subheading', v)}
+              isEditMode={isEditMode}
+              className="text-xl text-primary-foreground/80 max-w-2xl mx-auto"
+              as="p"
+            />
           </div>
         </section>
 
@@ -189,19 +266,36 @@ const OurModels = () => {
         {/* CTA Section */}
         <section className="bg-primary py-16">
           <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
-              {content.ctaHeading}
-            </h2>
-            <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-              {content.ctaDescription}
-            </p>
+            <InlineEditable
+              value={editedContent.ctaHeading}
+              fieldName="CTA heading"
+              onChange={(v) => updateField('ctaHeading', v)}
+              isEditMode={isEditMode}
+              className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6"
+              as="h2"
+            />
+            <InlineEditable
+              value={editedContent.ctaDescription}
+              fieldName="CTA description"
+              type="textarea"
+              onChange={(v) => updateField('ctaDescription', v)}
+              isEditMode={isEditMode}
+              className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto"
+              as="p"
+            />
             <a
               href="https://summitbuildings.shedpro.co/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-md hover:brightness-110 transition-all"
             >
-              {content.ctaButton}
+              <InlineEditable
+                value={editedContent.ctaButton}
+                fieldName="CTA button"
+                onChange={(v) => updateField('ctaButton', v)}
+                isEditMode={isEditMode}
+                as="span"
+              />
             </a>
           </div>
         </section>

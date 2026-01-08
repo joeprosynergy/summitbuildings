@@ -1,69 +1,29 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, Settings, Users, FileText } from "lucide-react";
+import { LogOut, Settings, Users, FileText, ShieldX } from "lucide-react";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { getBackendClient } from "@/lib/backendClient";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [envError, setEnvError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const initAuth = async () => {
-      try {
-        const { getBackendClient } = await import("@/lib/backendClient");
-        const supabase = getBackendClient();
-        
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-          navigate("/admin/login");
-          return;
-        }
-        setIsAuthenticated(true);
-        setIsLoading(false);
-
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(
-          (event, session) => {
-            if (!session) {
-              navigate("/admin/login");
-            }
-          }
-        );
-
-        return () => subscription.unsubscribe();
-      } catch (err) {
-        if (err instanceof Error && err.message.includes('not configured')) {
-          setEnvError(err.message);
-          setIsLoading(false);
-        } else {
-          navigate("/admin/login");
-        }
-      }
-    };
-
-    initAuth();
-  }, [navigate]);
+  const { user, isAdmin, isLoading } = useAdminAuth();
+  const client = getBackendClient();
 
   const handleLogout = async () => {
-    try {
-      const { getBackendClient } = await import("@/lib/backendClient");
-      const supabase = getBackendClient();
-      await supabase.auth.signOut();
-      navigate("/admin/login");
-    } catch {
-      navigate("/admin/login");
+    if (client) {
+      await client.auth.signOut();
     }
+    navigate("/admin/login");
   };
 
-  if (envError) {
+  if (!client) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
         <div className="w-full max-w-sm space-y-4 text-center">
           <h1 className="text-xl font-semibold text-foreground">Admin Unavailable</h1>
           <p className="text-sm text-muted-foreground">
-            Admin authentication isn't available in this environment.
+            Backend is not configured in this environment.
           </p>
         </div>
       </div>
@@ -78,8 +38,27 @@ const Admin = () => {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
+    navigate("/admin/login");
     return null;
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="w-full max-w-sm space-y-6 text-center">
+          <ShieldX className="w-16 h-16 mx-auto text-destructive" />
+          <h1 className="text-xl font-semibold text-foreground">Access Denied</h1>
+          <p className="text-sm text-muted-foreground">
+            You don't have admin privileges. Contact an administrator if you believe this is an error.
+          </p>
+          <Button variant="outline" onClick={handleLogout}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -105,7 +84,7 @@ const Admin = () => {
               <CardDescription>Manage site content and pages</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button variant="secondary" className="w-full">
+              <Button variant="secondary" className="w-full" onClick={() => navigate('/admin/content')}>
                 Manage Content
               </Button>
             </CardContent>
