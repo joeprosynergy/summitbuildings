@@ -5,7 +5,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { LogOut, Settings, Users, FileText, ShieldX, ChevronDown, RefreshCw } from "lucide-react";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import { getBackendClient } from "@/lib/backendClient";
+import { getBackendClient, isBackendAvailable } from "@/lib/backendClient";
+
+// Helper to extract hostname for debug display
+function getBackendHost(): string {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  if (!url) return 'Not configured';
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
+function getKeySource(): string {
+  if (import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY) return 'DEFAULT_KEY';
+  if (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY) return 'PUBLISHABLE_KEY';
+  return 'None';
+}
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -43,7 +60,10 @@ const Admin = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <p className="text-muted-foreground">Loading...</p>
+        <div className="text-center space-y-4">
+          <p className="text-muted-foreground">Loading...</p>
+          <p className="text-xs text-muted-foreground/60">Backend: {getBackendHost()}</p>
+        </div>
       </div>
     );
   }
@@ -86,6 +106,9 @@ const Admin = () => {
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-4">
               <div className="text-left bg-muted/50 rounded-lg p-4 text-xs space-y-2 font-mono">
+                <p><span className="text-muted-foreground">Backend Host:</span> {getBackendHost()}</p>
+                <p><span className="text-muted-foreground">Key Source:</span> {getKeySource()}</p>
+                <p><span className="text-muted-foreground">Backend Available:</span> {isBackendAvailable() ? 'Yes' : 'No'}</p>
                 <p><span className="text-muted-foreground">User ID:</span> {user.id}</p>
                 <p><span className="text-muted-foreground">Email:</span> {user.email}</p>
                 <p><span className="text-muted-foreground">Checked at:</span> {new Date().toISOString()}</p>

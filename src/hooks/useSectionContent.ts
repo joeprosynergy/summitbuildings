@@ -29,13 +29,20 @@ export function useSectionContent<T extends SectionContent>(
         return;
       }
 
-      // Use any to bypass strict typing for tables not in generated types
+      // Fetch latest row deterministically (handles duplicates gracefully)
       const { data, error } = await (client as any)
         .from('section_content')
-        .select('content')
+        .select('id, content')
         .eq('page_slug', pageSlug)
         .eq('section_name', sectionName)
+        .order('updated_at', { ascending: false, nullsFirst: false })
+        .order('created_at', { ascending: false, nullsFirst: false })
+        .limit(1)
         .maybeSingle();
+
+      if (error) {
+        console.error('[useSectionContent] Fetch error:', error);
+      }
 
       if (data && !error && data.content) {
         const merged = { ...defaultContent, ...(data.content as T) };
@@ -55,25 +62,78 @@ export function useSectionContent<T extends SectionContent>(
     if (!client) return false;
 
     setIsSaving(true);
-    const { error } = await (client as any)
-      .from('section_content')
-      .upsert({
+
+    try {
+      // Check if row exists - get latest row deterministically
+      const { data: existing, error: existingError } = await (client as any)
+        .from('section_content')
+        .select('id')
+        .eq('page_slug', pageSlug)
+        .eq('section_name', sectionName)
+        .order('updated_at', { ascending: false, nullsFirst: false })
+        .order('created_at', { ascending: false, nullsFirst: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (existingError) {
+        toast.error(`Save failed: ${existingError.message || 'Query error'}`);
+        console.error('[useSectionContent] Existing check error:', existingError);
+        setIsSaving(false);
+        return false;
+      }
+
+      const payload = {
         page_slug: pageSlug,
         section_name: sectionName,
         content: editedContent as unknown as Record<string, unknown>,
-      }, { onConflict: 'page_slug,section_name' });
+      };
 
-    if (error) {
-      toast.error(`Save failed: ${error.message || 'Unknown error'}`);
-      console.error('[useSectionContent] Save error:', error);
+      let error;
+      let writeResult;
+      if (existing?.id) {
+        // Update existing row
+        writeResult = await (client as any)
+          .from('section_content')
+          .update({ content: payload.content })
+          .eq('id', existing.id)
+          .select('id');
+        error = writeResult.error;
+      } else {
+        // Insert new row
+        writeResult = await (client as any)
+          .from('section_content')
+          .insert(payload)
+          .select('id');
+        error = writeResult.error;
+      }
+
+      const writtenRow = writeResult?.data?.[0];
+
+      if (error) {
+        toast.error(`Save failed: ${error.message || 'Unknown error'}`);
+        console.error('[useSectionContent] Save error:', error);
+        setIsSaving(false);
+        return false;
+      }
+
+      if (!writtenRow) {
+        toast.error('Save failed: No row was written (check RLS policies)');
+        console.error('[useSectionContent] No row returned after write');
+        setIsSaving(false);
+        return false;
+      }
+
+      console.log('[useSectionContent] Successfully wrote row:', writtenRow);
+      toast.success('Section saved');
+      setContent(editedContent);
+      setIsSaving(false);
+      return true;
+    } catch (err: any) {
+      toast.error(`Save failed: ${err.message || 'Unknown error'}`);
+      console.error('[useSectionContent] Exception:', err);
       setIsSaving(false);
       return false;
     }
-    
-    toast.success('Section saved');
-    setContent(editedContent);
-    setIsSaving(false);
-    return true;
   }, [pageSlug, sectionName, editedContent]);
 
   const reset = useCallback(() => {
