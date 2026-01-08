@@ -75,10 +75,11 @@ export function InlineEditable({
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         className={cn(
-          'bg-background border-primary',
-          type === 'textarea' ? 'min-h-[100px]' : '',
-          className
+          'bg-slate-900 text-white border-2 border-primary placeholder:text-slate-400',
+          'focus:ring-2 focus:ring-primary focus:ring-offset-2',
+          type === 'textarea' ? 'min-h-[100px]' : ''
         )}
+        style={{ fontSize: 'inherit', fontWeight: 'inherit' }}
         aria-label={`Edit ${fieldName}`}
       />
     );
