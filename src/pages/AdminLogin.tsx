@@ -19,7 +19,8 @@ const AdminLogin = () => {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/admin`,
+          // Redirect to homepage after login - admins can navigate to /admin or stay on public pages
+          emailRedirectTo: window.location.origin,
         },
       });
 
