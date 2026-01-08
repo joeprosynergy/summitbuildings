@@ -17,6 +17,7 @@ import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -215,12 +216,28 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 interface UtilityShedContent {
   metaTitle: string;
   metaDescription: string;
+  title: string;
+  titleHighlight: string;
+  description: string;
+  subtitle: string;
+  featuresHeading: string;
+  featuresDescription: string;
+  ctaHeading: string;
+  ctaDescription: string;
   [key: string]: string;
 }
 
 const defaultContent: UtilityShedContent = {
   metaTitle: 'Pro - Utility Shed | Summit Portable Buildings',
   metaDescription: 'The Pro Utility Shed is a classy, yet simple addition to your property. Perfect for outdoor power equipment, tack rooms, hay sheds, workshops, or even a lake cabin. Available with standard or side door entry. Sizes 8×8 to 14×40. Free delivery within 50 miles.',
+  title: 'PRO -',
+  titleHighlight: 'UTILITY SHED',
+  description: 'A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations.',
+  subtitle: 'Sizes: 8×8 to 14×40',
+  featuresHeading: 'Built for Any Configuration',
+  featuresDescription: 'The Pro - Utility Shed adapts to your needs. Whether you need front entry, side entry, windows for natural light, or a completely custom layout — design it exactly how you want with our 3D configurator.',
+  ctaHeading: 'Ready to Build Your Utility Shed?',
+  ctaDescription: 'Design your perfect pro utility shed online in minutes, or browse our in-stock inventory for immediate availability.',
 };
 
 const UtilityShed = () => {
@@ -233,7 +250,7 @@ const UtilityShed = () => {
 
   return (
     <EditablePageWrapper slug="utility-shed" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -249,12 +266,14 @@ const UtilityShed = () => {
         <main>
           <ProductHero
             backPath={backPath}
-            title="PRO -"
-            titleHighlight="UTILITY SHED"
-            description="A classy, yet simple addition to your property. The superior workmanship makes it an aesthetically pleasing and obvious choice for your storage needs. Available in standard utility or side utility configurations."
-            subtitle="Sizes: 8×8 to 14×40"
+            title={content.title}
+            titleHighlight={content.titleHighlight}
+            description={content.description}
+            subtitle={content.subtitle}
             image={cloudinaryImages.utilityShed1}
             imageAlt="Summit Pro Utility Shed"
+            isEditMode={isEditMode}
+            onUpdateField={(field, value) => updateField(field as keyof UtilityShedContent, value)}
           />
 
           {/* Image Gallery */}
@@ -269,10 +288,23 @@ const UtilityShed = () => {
             <div className="container-custom">
               <div className="max-w-4xl mx-auto">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Any Configuration</span>
+                  <InlineEditable
+                    value={content.featuresHeading}
+                    fieldName="featuresHeading"
+                    onChange={(val) => updateField('featuresHeading', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                  The Pro - Utility Shed adapts to your needs. Whether you need front entry, side entry, windows for natural light, or a completely custom layout — design it exactly how you want with our 3D configurator.
+                  <InlineEditable
+                    value={content.featuresDescription}
+                    fieldName="featuresDescription"
+                    type="textarea"
+                    onChange={(val) => updateField('featuresDescription', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -463,10 +495,23 @@ const UtilityShed = () => {
           <section className="section-padding bg-gradient-to-r from-secondary to-primary">
             <div className="container-custom text-center">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
+                <InlineEditable
+                  value={content.ctaHeading}
+                  fieldName="ctaHeading"
+                  onChange={(val) => updateField('ctaHeading', val)}
+                  isEditMode={isEditMode}
+                  as="span"
+                />
               </h2>
               <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-                Design your perfect utility shed online or contact us for a free quote.
+                <InlineEditable
+                  value={content.ctaDescription}
+                  fieldName="ctaDescription"
+                  type="textarea"
+                  onChange={(val) => updateField('ctaDescription', val)}
+                  isEditMode={isEditMode}
+                  as="span"
+                />
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">

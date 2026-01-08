@@ -17,6 +17,7 @@ import GallerySection from '@/components/GallerySection';
 import ProductHero from '@/components/ProductHero';
 import { useBackPath } from '@/hooks/useBackPath';
 import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 // Import from Cloudinary
 import { cloudinaryImages } from '@/lib/cloudinary';
@@ -90,12 +91,28 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 interface EconomyShedContent {
   metaTitle: string;
   metaDescription: string;
+  title: string;
+  titleHighlight: string;
+  description: string;
+  subtitle: string;
+  sectionHeading: string;
+  sectionSubheading: string;
+  ctaHeading: string;
+  ctaDescription: string;
   [key: string]: string;
 }
 
 const defaultContent: EconomyShedContent = {
   metaTitle: 'Economy Shed | Summit Portable Buildings',
   metaDescription: 'The Economy Shed is our most economical storage building available. Lowest cost per square foot of floor space. Available in standard or lofted configurations with metal siding. Free delivery within 50 miles.',
+  title: 'SHED',
+  titleHighlight: 'ECONOMY',
+  description: 'Our most economical storage building available. It is the lowest cost per square foot of floor space. Built simply for storage purposes. This series is only available with the metal siding option.',
+  subtitle: 'Available in Utility or Lofted Barn Styles',
+  sectionHeading: 'Two Style Options',
+  sectionSubheading: 'The Economy Shed is available in both utility and lofted barn styles, giving you flexibility to choose the configuration that best fits your storage needs.',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect economy shed online or contact us for a free quote.',
 };
 
 const EconomyShed = () => {
@@ -108,7 +125,7 @@ const EconomyShed = () => {
 
   return (
     <EditablePageWrapper slug="economy-shed" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -124,13 +141,15 @@ const EconomyShed = () => {
         <main>
           <ProductHero
             backPath={backPath}
-            title="SHED"
-            titleHighlight="ECONOMY"
+            title={content.title}
+            titleHighlight={content.titleHighlight}
             titlePosition="before"
-            description="Our most economical storage building available. It is the lowest cost per square foot of floor space. Built simply for storage purposes. This series is only available with the metal siding option."
-            subtitle="Available in Utility or Lofted Barn Styles"
+            description={content.description}
+            subtitle={content.subtitle}
             image={cloudinaryImages.economyShed1}
             imageAlt="Summit Economy Shed"
+            isEditMode={isEditMode}
+            onUpdateField={(field, value) => updateField(field as keyof EconomyShedContent, value)}
           />
 
           {/* Image Gallery */}
@@ -145,10 +164,23 @@ const EconomyShed = () => {
             <div className="container-custom">
               <div className="max-w-5xl mx-auto">
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Two <span className="text-secondary">Style Options</span>
+                  <InlineEditable
+                    value={content.sectionHeading}
+                    fieldName="sectionHeading"
+                    onChange={(val) => updateField('sectionHeading', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                  The Economy Shed is available in both utility and lofted barn styles, giving you flexibility to choose the configuration that best fits your storage needs.
+                  <InlineEditable
+                    value={content.sectionSubheading}
+                    fieldName="sectionSubheading"
+                    type="textarea"
+                    onChange={(val) => updateField('sectionSubheading', val)}
+                    isEditMode={isEditMode}
+                    as="span"
+                  />
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-8">
@@ -296,10 +328,23 @@ const EconomyShed = () => {
           <section className="section-padding bg-gradient-to-r from-secondary to-primary">
             <div className="container-custom text-center">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
+                <InlineEditable
+                  value={content.ctaHeading}
+                  fieldName="ctaHeading"
+                  onChange={(val) => updateField('ctaHeading', val)}
+                  isEditMode={isEditMode}
+                  as="span"
+                />
               </h2>
               <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-                Design your perfect economy shed online or contact us for a free quote.
+                <InlineEditable
+                  value={content.ctaDescription}
+                  fieldName="ctaDescription"
+                  type="textarea"
+                  onChange={(val) => updateField('ctaDescription', val)}
+                  isEditMode={isEditMode}
+                  as="span"
+                />
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
