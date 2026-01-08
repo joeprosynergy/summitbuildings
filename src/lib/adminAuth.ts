@@ -1,15 +1,29 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/integrations/supabase/types';
 
+export interface AdminCheckResult {
+  isAdmin: boolean;
+  error: string | null;
+  userId: string | null;
+  userEmail: string | null;
+}
+
 /**
  * Check if the current user has admin role via RPC call to has_role function
+ * Returns detailed result for debugging
  */
 export async function checkIsAdmin(
   client: SupabaseClient<Database>
-): Promise<boolean> {
-  const { data: { user } } = await client.auth.getUser();
+): Promise<AdminCheckResult> {
+  const { data: { user }, error: userError } = await client.auth.getUser();
   
-  if (!user) return false;
+  if (userError) {
+    return { isAdmin: false, error: `Auth error: ${userError.message}`, userId: null, userEmail: null };
+  }
+  
+  if (!user) {
+    return { isAdmin: false, error: 'No authenticated user', userId: null, userEmail: null };
+  }
   
   const { data, error } = await client.rpc('has_role', {
     _user_id: user.id,
@@ -18,10 +32,10 @@ export async function checkIsAdmin(
   
   if (error) {
     console.error('Error checking admin role:', error);
-    return false;
+    return { isAdmin: false, error: `RPC error: ${error.message}`, userId: user.id, userEmail: user.email ?? null };
   }
   
-  return data === true;
+  return { isAdmin: data === true, error: null, userId: user.id, userEmail: user.email ?? null };
 }
 
 /**
