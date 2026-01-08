@@ -13,6 +13,11 @@ interface ActivityLogEntry {
  * Currently logs to console. Can be connected to admin_activity_log table later.
  */
 export const logAdminActivity = async (entry: ActivityLogEntry): Promise<void> => {
+  if (!supabase) {
+    console.log('[Admin Activity] Backend not available, skipping log');
+    return;
+  }
+  
   try {
     const { data: { user } } = await supabase.auth.getUser();
     
