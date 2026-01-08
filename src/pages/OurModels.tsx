@@ -5,8 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
 import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
-import { Pencil } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 const categories = [
   {
     id: 'basic-storage',
@@ -66,8 +65,7 @@ const defaultContent = {
 const OurModels = () => {
   const [content, setContent] = useState(defaultContent);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
+
   useEffect(() => {
     const fetchContent = async () => {
       // Preview environment: skip backend, use defaults immediately
@@ -80,16 +78,6 @@ const OurModels = () => {
       if (!client) {
         setIsLoading(false);
         return;
-      }
-
-      // Check if user is admin
-      const { data: { user } } = await client.auth.getUser();
-      if (user) {
-        const { data: hasAdminRole } = await client.rpc('has_role', {
-          _user_id: user.id,
-          _role: 'admin'
-        });
-        setIsAdmin(hasAdminRole === true);
       }
 
       const { data, error } = await client
@@ -129,21 +117,6 @@ const OurModels = () => {
       </Helmet>
 
       <Header />
-
-      {/* Admin Edit Toggle - only visible to admins */}
-      {isAdmin && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <Button
-            variant={isEditMode ? "default" : "outline"}
-            size="sm"
-            onClick={() => setIsEditMode(!isEditMode)}
-            className="shadow-lg"
-          >
-            <Pencil className="w-4 h-4 mr-2" />
-            {isEditMode ? 'Exit Edit Mode' : 'Edit Page'}
-          </Button>
-        </div>
-      )}
 
       <main className="pt-20">
         {/* Hero Section */}
