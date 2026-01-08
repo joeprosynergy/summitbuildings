@@ -1,8 +1,6 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/integrations/supabase/types';
-
-let clientInstance: SupabaseClient<Database> | null = null;
-let initAttempted = false;
 
 /**
  * Check if Supabase environment variables are available.
@@ -16,28 +14,12 @@ export function isBackendAvailable(): boolean {
 }
 
 /**
- * Returns Supabase client or null if env vars are missing.
- * - Preview: returns null, page falls back to static content
- * - Production: Supabase must be present
+ * Returns the shared Supabase client or null if env vars are missing.
+ * Uses the official auto-generated client to ensure consistent auth state.
  */
 export function getBackendClient(): SupabaseClient<Database> | null {
-  if (clientInstance) return clientInstance;
-  if (initAttempted) return null;
-  
-  initAttempted = true;
-  
-  const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY || 
-              import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  
-  if (!url || !key) {
-    if (import.meta.env.DEV) {
-      console.warn('[backendClient] Supabase env vars not available - using fallback content');
-    }
+  if (!isBackendAvailable()) {
     return null;
   }
-  
-  clientInstance = createClient<Database>(url, key);
-  
-  return clientInstance;
+  return supabase;
 }
