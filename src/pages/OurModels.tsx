@@ -1,8 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
+import { supabase } from '@/integrations/supabase/client';
 
 const categories = [
   {
@@ -49,7 +51,7 @@ const categories = [
   },
 ];
 
-const content = {
+const defaultContent = {
   heading: "Structure Types",
   tagline: "Hand-Built to Last",
   subheading: "Choose one of our popular models or customize your own",
@@ -61,6 +63,33 @@ const content = {
 };
 
 const OurModels = () => {
+  const [content, setContent] = useState(defaultContent);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const { data, error } = await supabase
+        .from('page_content')
+        .select('*')
+        .eq('slug', 'types')
+        .maybeSingle();
+
+      if (data && !error) {
+        setContent({
+          heading: data.heading ?? defaultContent.heading,
+          tagline: data.tagline ?? defaultContent.tagline,
+          subheading: data.subheading ?? defaultContent.subheading,
+          ctaHeading: data.cta_heading ?? defaultContent.ctaHeading,
+          ctaDescription: data.cta_description ?? defaultContent.ctaDescription,
+          ctaButton: data.cta_button ?? defaultContent.ctaButton,
+          metaTitle: data.meta_title ?? defaultContent.metaTitle,
+          metaDescription: data.meta_description ?? defaultContent.metaDescription,
+        });
+      }
+    };
+
+    fetchContent();
+  }, []);
+
   return (
     <>
       <Helmet>
