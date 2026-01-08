@@ -1,13 +1,12 @@
-import { createContext, useContext, useEffect, useState, useMemo, ReactNode } from "react";
-import { User, Session, SupabaseClient, createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { User, Session } from "@supabase/supabase-js";
+import { getBackendClient, isBackendAvailable } from "@/lib/backendClient";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
   isAdmin: boolean;
-  client: SupabaseClient<Database> | null;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -15,7 +14,6 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   isLoading: true,
   isAdmin: false,
-  client: null,
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -26,29 +24,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Create client ONCE at mount, stable across navigation
-  const client = useMemo(() => {
-    const url = import.meta.env.VITE_SUPABASE_URL;
-    const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY || 
-                import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-    
-    if (!url || !key) {
-      if (import.meta.env.DEV) {
-        console.warn('[AuthProvider] Supabase env vars not available');
-      }
-      return null;
-    }
-    
-    return createClient<Database>(url, key, {
-      auth: {
-        storage: localStorage,
-        persistSession: true,
-        autoRefreshToken: true,
-      },
-    });
-  }, []);
-
   useEffect(() => {
+    if (!isBackendAvailable()) {
+      setIsLoading(false);
+      return;
+    }
+
+    const client = getBackendClient();
     if (!client) {
       setIsLoading(false);
       return;
@@ -94,10 +76,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [client]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, session, isLoading, isAdmin, client }}>
+    <AuthContext.Provider value={{ user, session, isLoading, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );

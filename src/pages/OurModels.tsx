@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
-import { useAuth } from '@/contexts/AuthContext';
+import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
 import { Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
 const categories = [
   {
     id: 'basic-storage',
@@ -65,16 +64,32 @@ const defaultContent = {
 };
 
 const OurModels = () => {
-  const { client, isAdmin } = useAuth();
   const [content, setContent] = useState(defaultContent);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-
   useEffect(() => {
     const fetchContent = async () => {
+      // Preview environment: skip backend, use defaults immediately
+      if (!isBackendAvailable()) {
+        setIsLoading(false);
+        return;
+      }
+      
+      const client = getBackendClient();
       if (!client) {
         setIsLoading(false);
         return;
+      }
+
+      // Check if user is admin
+      const { data: { user } } = await client.auth.getUser();
+      if (user) {
+        const { data: hasAdminRole } = await client.rpc('has_role', {
+          _user_id: user.id,
+          _role: 'admin'
+        });
+        setIsAdmin(hasAdminRole === true);
       }
 
       const { data, error } = await client
@@ -99,7 +114,8 @@ const OurModels = () => {
     };
 
     fetchContent();
-  }, [client]);
+  }, []);
+
   if (isLoading) {
     return null;
   }
