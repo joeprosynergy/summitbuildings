@@ -1,8 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cloudinaryImages } from '@/lib/cloudinary';
+import { isBackendAvailable, getBackendClient } from '@/lib/backendClient';
 
 const categories = [
   {
@@ -49,12 +51,68 @@ const categories = [
   },
 ];
 
+const defaultContent = {
+  heading: "Structure Types",
+  tagline: "Hand-Built to Last",
+  subheading: "Choose one of our popular models or customize your own",
+  ctaHeading: "Ready to Get Started?",
+  ctaDescription: "Design your perfect building online in minutes",
+  ctaButton: "Design Your Building",
+  metaTitle: "Our Models | Summit Portable Buildings",
+  metaDescription: "Browse our complete selection of storage buildings. From basic storage sheds to deluxe cabins and garages, find the perfect structure for your needs.",
+};
+
 const OurModels = () => {
+  const [content, setContent] = useState(defaultContent);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      // Preview environment: skip backend, use defaults immediately
+      if (!isBackendAvailable()) {
+        setIsLoading(false);
+        return;
+      }
+      
+      const client = getBackendClient();
+      if (!client) {
+        setIsLoading(false);
+        return;
+      }
+
+      const { data, error } = await client
+        .from('page_content')
+        .select('*')
+        .eq('slug', 'types')
+        .maybeSingle();
+
+      if (data && !error) {
+        setContent({
+          heading: data.heading ?? defaultContent.heading,
+          tagline: data.tagline ?? defaultContent.tagline,
+          subheading: data.subheading ?? defaultContent.subheading,
+          ctaHeading: data.cta_heading ?? defaultContent.ctaHeading,
+          ctaDescription: data.cta_description ?? defaultContent.ctaDescription,
+          ctaButton: data.cta_button ?? defaultContent.ctaButton,
+          metaTitle: data.meta_title ?? defaultContent.metaTitle,
+          metaDescription: data.meta_description ?? defaultContent.metaDescription,
+        });
+      }
+      setIsLoading(false);
+    };
+
+    fetchContent();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       <Helmet>
-        <title>Our Models | Summit Portable Buildings</title>
-        <meta name="description" content="Browse our complete selection of storage buildings. From basic storage sheds to deluxe cabins and garages, find the perfect structure for your needs." />
+        <title>{content.metaTitle}</title>
+        <meta name="description" content={content.metaDescription} />
         <link rel="canonical" href="https://summitbuildings.com/types" />
       </Helmet>
 
@@ -64,12 +122,14 @@ const OurModels = () => {
         {/* Hero Section */}
         <section className="bg-primary py-16 md:py-24">
           <div className="container-custom text-center">
-            <p className="text-secondary font-semibold tracking-wider uppercase mb-4">Hand-Built to Last</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-6">
-              Structure Types
-            </h1>
+            <p className="text-secondary font-semibold tracking-wider uppercase mb-4">{content.tagline}</p>
+            <div className="mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground">
+                {content.heading}
+              </h1>
+            </div>
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Choose one of our popular models or customize your own
+              {content.subheading}
             </p>
           </div>
         </section>
@@ -130,10 +190,10 @@ const OurModels = () => {
         <section className="bg-primary py-16">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
-              Ready to Get Started?
+              {content.ctaHeading}
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-              Design your perfect building online in minutes
+              {content.ctaDescription}
             </p>
             <a
               href="https://summitbuildings.shedpro.co/"
@@ -141,7 +201,7 @@ const OurModels = () => {
               rel="noopener noreferrer"
               className="inline-block bg-secondary text-secondary-foreground font-bold px-8 py-4 rounded-md hover:brightness-110 transition-all"
             >
-              Design Your Building
+              {content.ctaButton}
             </a>
           </div>
         </section>

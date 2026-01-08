@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      page_content: {
+        Row: {
+          created_at: string
+          cta_button: string | null
+          cta_description: string | null
+          cta_heading: string | null
+          heading: string | null
+          id: string
+          meta_description: string | null
+          meta_title: string | null
+          slug: string
+          subheading: string | null
+          tagline: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cta_button?: string | null
+          cta_description?: string | null
+          cta_heading?: string | null
+          heading?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          slug: string
+          subheading?: string | null
+          tagline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cta_button?: string | null
+          cta_description?: string | null
+          cta_heading?: string | null
+          heading?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          slug?: string
+          subheading?: string | null
+          tagline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
