@@ -11,12 +11,22 @@ import Testimonials from '@/components/Testimonials';
 import Locations from '@/components/Locations';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { useEditablePageContent, PageContent } from '@/hooks/useEditablePageContent';
 import { useEditableTestimonials } from '@/hooks/useEditableTestimonials';
-import { AdminEditMode } from '@/components/admin/AdminEditMode';
+import { EditablePageWrapper } from '@/components/admin/EditablePageWrapper';
 
-const defaultContent: PageContent = {
+interface HomeContent {
+  heading: string;
+  tagline: string;
+  subheading: string;
+  ctaHeading: string;
+  ctaDescription: string;
+  ctaButton: string;
+  metaTitle: string;
+  metaDescription: string;
+  [key: string]: string; // Index signature for SectionContent compatibility
+}
+
+const defaultContent: HomeContent = {
   heading: "Get the Storage Space You Need Without the Hassle",
   tagline: "Summit Portable Buildings",
   subheading: "Custom storage buildings designed for your property, built by craftsmen, delivered to your door.",
@@ -28,20 +38,6 @@ const defaultContent: PageContent = {
 };
 
 const Index = () => {
-  const { isAdmin } = useAdminAuth();
-  const {
-    content,
-    editedContent,
-    isLoading,
-    isSaving,
-    isEditMode,
-    hasChanges,
-    updateField,
-    save,
-    reset,
-    startEditing,
-  } = useEditablePageContent('home', defaultContent);
-
   const {
     testimonials,
     hasChanges: hasTestimonialChanges,
@@ -50,61 +46,44 @@ const Index = () => {
     reset: resetTestimonials,
   } = useEditableTestimonials();
 
-  const handleSave = async () => {
-    await save();
-    if (hasTestimonialChanges) {
-      await saveTestimonials();
-    }
-  };
-
-  const handleReset = () => {
-    reset();
-    resetTestimonials();
-  };
-
   return (
-    <>
-      <Helmet>
-        <meta property="og:title" content={content.metaTitle} />
-        <meta property="og:description" content={content.metaDescription} />
-        <meta name="twitter:title" content={content.metaTitle} />
-        <meta name="twitter:description" content={content.metaDescription} />
-      </Helmet>
-      
-      <div className="min-h-screen">
-        <Header />
-        <AdminEditMode
-          isAdmin={isAdmin}
-          isEditMode={isEditMode}
-          hasChanges={hasChanges || hasTestimonialChanges}
-          isSaving={isSaving}
-          onToggleEdit={startEditing}
-          onSave={handleSave}
-          onCancel={handleReset}
-        />
-        <main>
-          <Hero 
-            content={editedContent} 
-            isEditMode={isEditMode} 
-            onUpdateField={updateField}
-          />
-          <Stakes isEditMode={isEditMode} />
-          <Guide />
-          <HowItWorks />
-          <Products />
-          <Imagine isEditMode={isEditMode} />
-          <CTABanner isEditMode={isEditMode} />
-          <Testimonials 
-            testimonials={testimonials}
-            isEditMode={isEditMode}
-            onUpdateTestimonial={updateTestimonial}
-          />
-          <Locations />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </>
+    <EditablePageWrapper<HomeContent> slug="home" defaultContent={defaultContent}>
+      {({ content, isEditMode, updateField }) => (
+        <>
+          <Helmet>
+            <meta property="og:title" content={content.metaTitle} />
+            <meta property="og:description" content={content.metaDescription} />
+            <meta name="twitter:title" content={content.metaTitle} />
+            <meta name="twitter:description" content={content.metaDescription} />
+          </Helmet>
+          
+          <div className="min-h-screen">
+            <Header />
+            <main>
+              <Hero 
+                content={content} 
+                isEditMode={isEditMode} 
+                onUpdateField={(field, value) => updateField(field as keyof HomeContent, value)}
+              />
+              <Stakes isEditMode={isEditMode} />
+              <Guide />
+              <HowItWorks />
+              <Products />
+              <Imagine isEditMode={isEditMode} />
+              <CTABanner isEditMode={isEditMode} />
+              <Testimonials 
+                testimonials={testimonials}
+                isEditMode={isEditMode}
+                onUpdateTestimonial={updateTestimonial}
+              />
+              <Locations />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        </>
+      )}
+    </EditablePageWrapper>
   );
 };
 
