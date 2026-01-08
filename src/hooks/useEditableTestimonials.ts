@@ -117,8 +117,8 @@ export function useEditableTestimonials() {
       );
 
     if (error) {
-      toast.error('Failed to save testimonials');
-      console.error(error);
+      toast.error(`Save failed: ${error.message || 'Unknown error'}`);
+      console.error('[useEditableTestimonials] Save error:', error);
       setIsSaving(false);
       return false;
     }
