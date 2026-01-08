@@ -200,15 +200,41 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-interface BudgetProUtilityContent { metaTitle: string; metaDescription: string; [key: string]: string; }
-const defaultContent: BudgetProUtilityContent = { metaTitle: 'Budget Pro - Utility Shed | Summit Portable Buildings', metaDescription: 'The Budget Pro Utility Shed offers maximum headroom with 7 foot 9 inch walls at an affordable price. Features double doors with T-handle lock. Sizes 8x8 to 14x40. Free delivery within 50 miles.' };
+interface BudgetProUtilityContent {
+  metaTitle: string;
+  metaDescription: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroDescription: string;
+  heroSubtitle: string;
+  featuresHeading: string;
+  featuresHighlight: string;
+  ctaHeading: string;
+  ctaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: BudgetProUtilityContent = {
+  metaTitle: 'Budget Pro - Utility Shed | Summit Portable Buildings',
+  metaDescription: 'The Budget Pro Utility Shed offers maximum headroom with 7 foot 9 inch walls at an affordable price. Features double doors with T-handle lock. Sizes 8x8 to 14x40. Free delivery within 50 miles.',
+  heroTitle: 'BUDGET PRO -',
+  heroTitleHighlight: 'UTILITY',
+  heroDescription: 'Get MAXIMUM HEADROOM at an affordable price. The Budget Pro Utility features tall 7\'9" walls with a classic A-frame roof design. Perfect for those who need space to stand and work comfortably without breaking the bank.',
+  heroSubtitle: 'Sizes: 8×8 to 14×40',
+  featuresHeading: 'Built for',
+  featuresHighlight: 'Value & Versatility',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect Budget Pro Utility Shed using our 3D configurator or contact us for a personalized quote.',
+};
+
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 const BudgetProUtility = () => {
   const backPath = useBackPath({ defaultPath: '/types/basic-storage#budget-pro-utility', defaultLabel: '← Back to Basic Storage', stylesPath: '/styles/utility', stylesLabel: '← Back to Styles' });
 
   return (
     <EditablePageWrapper slug="budget-pro-utility" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -219,17 +245,19 @@ const BudgetProUtility = () => {
           </Helmet>
           <div className="min-h-screen">
             <Header />
-        
-        <main>
-          <ProductHero
-            backPath={backPath}
-            title="BUDGET PRO -"
-            titleHighlight="UTILITY"
-            description={<>Get <strong className="text-secondary">MAXIMUM HEADROOM</strong> at an affordable price. The Budget Pro Utility features tall 7'9" walls with a classic A-frame roof design. Perfect for those who need space to stand and work comfortably without breaking the bank.</>}
-            subtitle="Sizes: 8×8 to 14×40"
-            image={cloudinaryImages.budgetProUtility}
-            imageAlt="Summit Budget Pro Utility"
-          />
+            
+            <main>
+              <ProductHero
+                backPath={backPath}
+                title={content.heroTitle}
+                titleHighlight={content.heroTitleHighlight}
+                description={content.heroDescription}
+                subtitle={content.heroSubtitle}
+                image={cloudinaryImages.budgetProUtility}
+                imageAlt="Summit Budget Pro Utility"
+                isEditMode={isEditMode}
+                onUpdateField={(field, value) => updateField(field as keyof BudgetProUtilityContent, value)}
+              />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
@@ -238,13 +266,27 @@ const BudgetProUtility = () => {
             </div>
           </section>
 
-          {/* Budget Pro - Utility Features */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Value & Versatility</span>
-                </h2>
+              {/* Budget Pro - Utility Features */}
+              <section className="section-padding bg-muted/30">
+                <div className="container-custom">
+                  <div className="max-w-4xl mx-auto">
+                    <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                      <InlineEditable
+                        value={content.featuresHeading}
+                        fieldName="featuresHeading"
+                        onChange={(val) => updateField('featuresHeading', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                      />{' '}
+                      <InlineEditable
+                        value={content.featuresHighlight}
+                        fieldName="featuresHighlight"
+                        onChange={(val) => updateField('featuresHighlight', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                        className="text-secondary"
+                      />
+                    </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                   The Budget Pro - Utility is designed with tall walls for maximum headroom and versatility. Whether you need front entry, side entry, or a completely custom layout — design it exactly how you want.
                 </p>
@@ -432,32 +474,44 @@ const BudgetProUtility = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="section-padding bg-gradient-to-br from-navy via-navy-dark to-navy">
-            <div className="container-custom text-center">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Design your perfect Budget Pro Utility Shed using our 3D configurator or contact us for a personalized quote.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="hero" size="xl">
-                    Design Your Building
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <InventoryLink>
-                  <Button variant="heroOutline" size="xl">
-                    Browse Our Inventory
-                  </Button>
-                </InventoryLink>
-              </div>
-            </div>
-          </section>
-        </main>
-        
+              {/* CTA Section */}
+              <section className="section-padding bg-gradient-to-br from-navy via-navy-dark to-navy">
+                <div className="container-custom text-center">
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+                    <InlineEditable
+                      value={content.ctaHeading}
+                      fieldName="ctaHeading"
+                      onChange={(val) => updateField('ctaHeading', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </h2>
+                  <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+                    <InlineEditable
+                      value={content.ctaDescription}
+                      fieldName="ctaDescription"
+                      onChange={(val) => updateField('ctaDescription', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                      <Button variant="hero" size="xl">
+                        Design Your Building
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </a>
+                    <InventoryLink>
+                      <Button variant="heroOutline" size="xl">
+                        Browse Our Inventory
+                      </Button>
+                    </InventoryLink>
+                  </div>
+                </div>
+              </section>
+            </main>
+            
             <Footer />
           </div>
         </>
@@ -465,4 +519,5 @@ const BudgetProUtility = () => {
     </EditablePageWrapper>
   );
 };
+
 export default BudgetProUtility;

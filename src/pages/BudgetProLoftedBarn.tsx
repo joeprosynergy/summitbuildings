@@ -205,15 +205,41 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-interface BudgetProLoftedBarnContent { metaTitle: string; metaDescription: string; [key: string]: string; }
-const defaultContent: BudgetProLoftedBarnContent = { metaTitle: 'Budget Pro - Lofted Barn | Summit Portable Buildings', metaDescription: 'The Budget Pro Lofted Barn offers classic barn styling at an affordable price. Features 1 loft for extra storage, double doors with T-handle lock. Sizes 8×8 to 14×40. Free delivery within 50 miles.' };
+interface BudgetProLoftedBarnContent {
+  metaTitle: string;
+  metaDescription: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroDescription: string;
+  heroSubtitle: string;
+  featuresHeading: string;
+  featuresHighlight: string;
+  ctaHeading: string;
+  ctaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: BudgetProLoftedBarnContent = {
+  metaTitle: 'Budget Pro - Lofted Barn | Summit Portable Buildings',
+  metaDescription: 'The Budget Pro Lofted Barn offers classic barn styling at an affordable price. Features 1 loft for extra storage, double doors with T-handle lock. Sizes 8×8 to 14×40. Free delivery within 50 miles.',
+  heroTitle: 'BUDGET PRO -',
+  heroTitleHighlight: 'LOFTED BARN',
+  heroDescription: 'Get CLASSIC BARN STYLING at an affordable price. The Budget Pro Lofted Barn features the timeless gambrel roof design with 1 loft for extra storage space. Perfect for those who want quality and style without breaking the bank.',
+  heroSubtitle: 'Sizes: 8×8 to 14×40',
+  featuresHeading: 'Built for',
+  featuresHighlight: 'Value & Storage',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect Budget Pro Lofted Barn using our 3D configurator or contact us for a personalized quote.',
+};
+
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 const BudgetProLoftedBarn = () => {
   const backPath = useBackPath({ defaultPath: '/types/basic-storage#budget-pro-lofted-barn', defaultLabel: '← Back to Basic Storage', stylesPath: '/styles/barn', stylesLabel: '← Back to Styles' });
 
   return (
     <EditablePageWrapper slug="budget-pro-lofted-barn" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -224,17 +250,19 @@ const BudgetProLoftedBarn = () => {
           </Helmet>
           <div className="min-h-screen">
             <Header />
-        
-        <main>
-          <ProductHero
-            backPath={backPath}
-            title="BUDGET PRO -"
-            titleHighlight="LOFTED BARN"
-            description={<>Get <strong className="text-secondary">CLASSIC BARN STYLING</strong> at an affordable price. The Budget Pro Lofted Barn features the timeless gambrel roof design with 1 loft for extra storage space. Perfect for those who want quality and style without breaking the bank.</>}
-            subtitle="Sizes: 8×8 to 14×40"
-            image={cloudinaryImages.budgetProLoftedBarn}
-            imageAlt="Summit Budget Pro Lofted Barn"
-          />
+            
+            <main>
+              <ProductHero
+                backPath={backPath}
+                title={content.heroTitle}
+                titleHighlight={content.heroTitleHighlight}
+                description={content.heroDescription}
+                subtitle={content.heroSubtitle}
+                image={cloudinaryImages.budgetProLoftedBarn}
+                imageAlt="Summit Budget Pro Lofted Barn"
+                isEditMode={isEditMode}
+                onUpdateField={(field, value) => updateField(field as keyof BudgetProLoftedBarnContent, value)}
+              />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
@@ -243,13 +271,27 @@ const BudgetProLoftedBarn = () => {
             </div>
           </section>
 
-          {/* Budget Pro - Lofted Barn Features */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Value & Storage</span>
-                </h2>
+              {/* Budget Pro - Lofted Barn Features */}
+              <section className="section-padding bg-muted/30">
+                <div className="container-custom">
+                  <div className="max-w-4xl mx-auto">
+                    <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                      <InlineEditable
+                        value={content.featuresHeading}
+                        fieldName="featuresHeading"
+                        onChange={(val) => updateField('featuresHeading', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                      />{' '}
+                      <InlineEditable
+                        value={content.featuresHighlight}
+                        fieldName="featuresHighlight"
+                        onChange={(val) => updateField('featuresHighlight', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                        className="text-secondary"
+                      />
+                    </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                   The Budget Pro - Lofted Barn is designed with 1 loft to help keep items organized and up off the floor. Whether you need front entry, side entry, or a completely custom layout — design it exactly how you want.
                 </p>
@@ -437,32 +479,44 @@ const BudgetProLoftedBarn = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="section-padding bg-gradient-to-br from-navy via-navy-dark to-navy">
-            <div className="container-custom text-center">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Design your perfect Budget Pro Lofted Barn using our 3D configurator or contact us for a personalized quote.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="hero" size="xl">
-                    Design Your Building
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <InventoryLink>
-                  <Button variant="heroOutline" size="xl">
-                    Browse Our Inventory
-                  </Button>
-                </InventoryLink>
-              </div>
-            </div>
-          </section>
-        </main>
-        
+              {/* CTA Section */}
+              <section className="section-padding bg-gradient-to-br from-navy via-navy-dark to-navy">
+                <div className="container-custom text-center">
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+                    <InlineEditable
+                      value={content.ctaHeading}
+                      fieldName="ctaHeading"
+                      onChange={(val) => updateField('ctaHeading', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </h2>
+                  <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+                    <InlineEditable
+                      value={content.ctaDescription}
+                      fieldName="ctaDescription"
+                      onChange={(val) => updateField('ctaDescription', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                      <Button variant="hero" size="xl">
+                        Design Your Building
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </a>
+                    <InventoryLink>
+                      <Button variant="heroOutline" size="xl">
+                        Browse Our Inventory
+                      </Button>
+                    </InventoryLink>
+                  </div>
+                </div>
+              </section>
+            </main>
+            
             <Footer />
           </div>
         </>
@@ -470,4 +524,5 @@ const BudgetProLoftedBarn = () => {
     </EditablePageWrapper>
   );
 };
+
 export default BudgetProLoftedBarn;
