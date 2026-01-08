@@ -206,13 +206,31 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
 interface GarageContent {
   metaTitle: string;
   metaDescription: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroDescription: string;
+  heroSecondaryDescription: string;
+  featuresHeading: string;
+  featuresHighlight: string;
+  ctaHeading: string;
+  ctaDescription: string;
   [key: string]: string;
 }
 
 const defaultContent: GarageContent = {
   metaTitle: 'Garage | Summit Portable Buildings',
   metaDescription: 'Summit Garages are built to handle the weight of any average size vehicle or small tractor. Features 9\'x7\' insulated overhead door, steel walk-in door, and floor joists spaced 12 inches on center. Protect your vehicle from hail damage. Free delivery within 50 miles.',
+  heroTitle: '',
+  heroTitleHighlight: 'GARAGE',
+  heroDescription: 'Built to handle the weight of any average size vehicle or small tractor. If you are tired of worrying about hail damage, but you just don\'t have the time to build a whole new addition to your home, the Garage is the obvious solution.',
+  heroSecondaryDescription: 'Not only can this building save you time, but it is a classy way to store and protect your mower, power tools, and extra projects. The floor joists spaced at 12" on center offer great strength and the large door makes this building the woodworker\'s delight!',
+  featuresHeading: 'Built for',
+  featuresHighlight: 'Vehicles & More',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect garage online or contact us for a free quote.',
 };
+
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 const Garage = () => {
   const backPath = useBackPath({
@@ -224,7 +242,7 @@ const Garage = () => {
 
   return (
     <EditablePageWrapper slug="garage" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -236,18 +254,20 @@ const Garage = () => {
 
           <div className="min-h-screen">
             <Header />
-        
-        <main>
-          <ProductHero
-            backPath={backPath}
-            title=""
-            titleHighlight="GARAGE"
-            titlePosition="only"
-            description="Built to handle the weight of any average size vehicle or small tractor. If you are tired of worrying about hail damage, but you just don't have the time to build a whole new addition to your home, the Garage is the obvious solution."
-            secondaryDescription={'Not only can this building save you time, but it is a classy way to store and protect your mower, power tools, and extra projects. The floor joists spaced at 12" on center offer great strength and the large door makes this building the woodworker\'s delight!'}
-            image={cloudinaryImages.garage1}
-            imageAlt="Summit Garage"
-          />
+            
+            <main>
+              <ProductHero
+                backPath={backPath}
+                title={content.heroTitle}
+                titleHighlight={content.heroTitleHighlight}
+                titlePosition="only"
+                description={content.heroDescription}
+                secondaryDescription={content.heroSecondaryDescription}
+                image={cloudinaryImages.garage1}
+                imageAlt="Summit Garage"
+                isEditMode={isEditMode}
+                onUpdateField={(field, value) => updateField(field as keyof GarageContent, value)}
+              />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
@@ -256,13 +276,27 @@ const Garage = () => {
             </div>
           </section>
 
-          {/* Garage Features */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Vehicles & More</span>
-                </h2>
+              {/* Garage Features */}
+              <section className="section-padding bg-muted/30">
+                <div className="container-custom">
+                  <div className="max-w-4xl mx-auto">
+                    <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                      <InlineEditable
+                        value={content.featuresHeading}
+                        fieldName="featuresHeading"
+                        onChange={(val) => updateField('featuresHeading', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                      />{' '}
+                      <InlineEditable
+                        value={content.featuresHighlight}
+                        fieldName="featuresHighlight"
+                        onChange={(val) => updateField('featuresHighlight', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                        className="text-secondary"
+                      />
+                    </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                   Our garages are built tough with floor joists spaced at 12" on center for maximum strength. Whether storing vehicles, mowers, power tools, or serving as your workshop — the garage is the perfect solution.
                 </p>
@@ -448,31 +482,43 @@ const Garage = () => {
             </div>
           </section>
 
-          {/* CTA */}
-          <section className="section-padding bg-gradient-to-r from-secondary to-primary">
-            <div className="container-custom text-center">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
-                Design your perfect garage online or contact us for a free quote.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
-                    Build Your Own
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <Link to="/types">
-                  <Button variant="heroOutline" size="xl">
-                    See More Models
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </section>
-        </main>
+              {/* CTA */}
+              <section className="section-padding bg-gradient-to-r from-secondary to-primary">
+                <div className="container-custom text-center">
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+                    <InlineEditable
+                      value={content.ctaHeading}
+                      fieldName="ctaHeading"
+                      onChange={(val) => updateField('ctaHeading', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </h2>
+                  <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
+                    <InlineEditable
+                      value={content.ctaDescription}
+                      fieldName="ctaDescription"
+                      onChange={(val) => updateField('ctaDescription', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                      <Button variant="heroOutline" size="xl" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90">
+                        Build Your Own
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </a>
+                    <Link to="/types">
+                      <Button variant="heroOutline" size="xl">
+                        See More Models
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </section>
+            </main>
 
             <Footer />
           </div>

@@ -213,15 +213,41 @@ const ColorSwatch = ({ name, color }: { name: string; color: string }) => (
   </div>
 );
 
-interface ProLoftedBarnContent { metaTitle: string; metaDescription: string; [key: string]: string; }
-const defaultContent: ProLoftedBarnContent = { metaTitle: 'Pro - Lofted Barn | Summit Portable Buildings', metaDescription: 'The Pro Lofted Barn is our best seller - the most versatile building for all purposes. Features 2 lofts for extra storage, windows for natural light, and classic barn styling. Sizes 8×8 to 14×40. Free delivery within 50 miles.' };
+interface ProLoftedBarnContent {
+  metaTitle: string;
+  metaDescription: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroDescription: string;
+  heroSubtitle: string;
+  featuresHeading: string;
+  featuresHighlight: string;
+  ctaHeading: string;
+  ctaDescription: string;
+  [key: string]: string;
+}
+
+const defaultContent: ProLoftedBarnContent = {
+  metaTitle: 'Pro - Lofted Barn | Summit Portable Buildings',
+  metaDescription: 'The Pro Lofted Barn is our best seller - the most versatile building for all purposes. Features 2 lofts for extra storage, windows for natural light, and classic barn styling. Sizes 8×8 to 14×40. Free delivery within 50 miles.',
+  heroTitle: 'PRO -',
+  heroTitleHighlight: 'LOFTED BARN',
+  heroDescription: 'Our BEST SELLER is the most versatile building for all purposes. The doors can be conveniently located on the front or side for great access. Features 2 lofts for extra storage, windows to add light, and classic country barn styling that fits any property.',
+  heroSubtitle: 'Sizes: 8×8 to 14×40',
+  featuresHeading: 'Built for',
+  featuresHighlight: 'Maximum Storage',
+  ctaHeading: 'Ready to Get Started?',
+  ctaDescription: 'Design your perfect Pro - Lofted Barn online in minutes or give us a call',
+};
+
+import { InlineEditable } from '@/components/admin/InlineEditable';
 
 const ProLoftedBarn = () => {
   const backPath = useBackPath({ defaultPath: '/types/deluxe-storage-cabins#pro-lofted-barn', defaultLabel: '← Back to Deluxe Storage & Cabins', stylesPath: '/styles/barn', stylesLabel: '← Back to Styles' });
 
   return (
     <EditablePageWrapper slug="pro-lofted-barn" defaultContent={defaultContent}>
-      {({ content }) => (
+      {({ content, isEditMode, updateField }) => (
         <>
           <Helmet>
             <title>{content.metaTitle}</title>
@@ -232,17 +258,19 @@ const ProLoftedBarn = () => {
           </Helmet>
           <div className="min-h-screen">
             <Header />
-        
-        <main>
-          <ProductHero
-            backPath={backPath}
-            title="PRO -"
-            titleHighlight="LOFTED BARN"
-            description={<>Our <strong className="text-secondary">BEST SELLER</strong> is the most versatile building for all purposes. The doors can be conveniently located on the front or side for great access. Features 2 lofts for extra storage, windows to add light, and classic country barn styling that fits any property.</>}
-            subtitle="Sizes: 8×8 to 14×40"
-            image={cloudinaryImages.sideLoftedBarn1}
-            imageAlt="Summit Pro Lofted Barn"
-          />
+            
+            <main>
+              <ProductHero
+                backPath={backPath}
+                title={content.heroTitle}
+                titleHighlight={content.heroTitleHighlight}
+                description={content.heroDescription}
+                subtitle={content.heroSubtitle}
+                image={cloudinaryImages.sideLoftedBarn1}
+                imageAlt="Summit Pro Lofted Barn"
+                isEditMode={isEditMode}
+                onUpdateField={(field, value) => updateField(field as keyof ProLoftedBarnContent, value)}
+              />
 
           {/* Image Gallery */}
           <section className="section-padding bg-background">
@@ -251,13 +279,27 @@ const ProLoftedBarn = () => {
             </div>
           </section>
 
-          {/* Pro - Lofted Barn Features */}
-          <section className="section-padding bg-muted/30">
-            <div className="container-custom">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Built for <span className="text-secondary">Maximum Storage</span>
-                </h2>
+              {/* Pro - Lofted Barn Features */}
+              <section className="section-padding bg-muted/30">
+                <div className="container-custom">
+                  <div className="max-w-4xl mx-auto">
+                    <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                      <InlineEditable
+                        value={content.featuresHeading}
+                        fieldName="featuresHeading"
+                        onChange={(val) => updateField('featuresHeading', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                      />{' '}
+                      <InlineEditable
+                        value={content.featuresHighlight}
+                        fieldName="featuresHighlight"
+                        onChange={(val) => updateField('featuresHighlight', val)}
+                        isEditMode={isEditMode}
+                        as="span"
+                        className="text-secondary"
+                      />
+                    </h2>
                 <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
                   The Pro - Lofted Barn is designed with 2 lofts to help keep items organized and up off the floor. Whether you need front entry, side entry, or a completely custom layout — design it exactly how you want.
                 </p>
@@ -435,32 +477,44 @@ const ProLoftedBarn = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="bg-primary py-16">
-            <div className="container-custom text-center">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
-                Ready to Get Started?
-              </h2>
-              <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-                Design your perfect Pro - Lofted Barn online in minutes or give us a call
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
-                  <Button variant="hero" size="xl">
-                    Design Your Building
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </a>
-                <a href="tel:5737474700">
-                  <Button variant="heroOutline" size="xl">
-                    Call 573-747-4700
-                  </Button>
-                </a>
-              </div>
-            </div>
-          </section>
-        </main>
-        
+              {/* CTA Section */}
+              <section className="bg-primary py-16">
+                <div className="container-custom text-center">
+                  <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-6">
+                    <InlineEditable
+                      value={content.ctaHeading}
+                      fieldName="ctaHeading"
+                      onChange={(val) => updateField('ctaHeading', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </h2>
+                  <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
+                    <InlineEditable
+                      value={content.ctaDescription}
+                      fieldName="ctaDescription"
+                      onChange={(val) => updateField('ctaDescription', val)}
+                      isEditMode={isEditMode}
+                      as="span"
+                    />
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://summitbuildings.shedpro.co/" target="_blank" rel="noopener noreferrer">
+                      <Button variant="hero" size="xl">
+                        Design Your Building
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </a>
+                    <a href="tel:5737474700">
+                      <Button variant="heroOutline" size="xl">
+                        Call 573-747-4700
+                      </Button>
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </main>
+            
             <Footer />
           </div>
         </>
@@ -468,4 +522,5 @@ const ProLoftedBarn = () => {
     </EditablePageWrapper>
   );
 };
+
 export default ProLoftedBarn;
